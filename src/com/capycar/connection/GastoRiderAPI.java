@@ -23,7 +23,7 @@ public class GastoRiderAPI {
 
         Properties props = new Properties();
         try {
-            FileInputStream in = new FileInputStream("src/main/java/DB/CFG_DB.txt");
+            FileInputStream in = new FileInputStream("src/DB/CFG_DB.txt");
             props.load(in);
             in.close();
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class GastoRiderAPI {
 
 
         //Caminho carga inicial e proxima carga
-        String cargaInicial = "./src/main/java/DB/cargaInicial.sql";
+        String cargaInicial = "./src/DB/cargaInicial.sql";
 
         try ( Connection connection = DriverManager.getConnection(url, user, password)) {
             System.out.println("Conexão bem-sucedida!");
