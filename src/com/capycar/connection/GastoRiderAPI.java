@@ -49,7 +49,7 @@ public class GastoRiderAPI {
             // Concatena cada linha em um único script SQL
             while ((line = reader.readLine()) != null) {
                 script.append(line);
-                script.append("\n");
+                script.append("\n"); 
             }
 
             // Divide o script em várias instruções SQL separadas

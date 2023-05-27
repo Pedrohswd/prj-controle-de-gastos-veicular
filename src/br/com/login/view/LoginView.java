@@ -4,13 +4,20 @@
  */
 package br.com.login.view;
 
+import br.com.login.controller.LoginController;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 /**
  *
  * @author felip
  */
 public class LoginView extends javax.swing.JFrame {
 
-    /**
+    
+   /**
      * Creates new form LoginView
      */
     public LoginView() {
@@ -29,9 +36,9 @@ public class LoginView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldLogin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordSenhaLogin = new javax.swing.JPasswordField();
         jButtonEntrar = new javax.swing.JButton();
         jButtonRealizarCadastro = new javax.swing.JButton();
 
@@ -62,22 +69,27 @@ public class LoginView extends javax.swing.JFrame {
 
         jLabel1.setText("Email:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldLoginActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Senha");
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        jPasswordSenhaLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                jPasswordSenhaLoginActionPerformed(evt);
             }
         });
 
         jButtonEntrar.setText("ENTRAR");
         jButtonEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntrarActionPerformed(evt);
+            }
+        });
 
         jButtonRealizarCadastro.setText("Realizar Cadastro");
         jButtonRealizarCadastro.setContentAreaFilled(false);
@@ -98,9 +110,9 @@ public class LoginView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(178, 178, 178)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(jPasswordSenhaLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1))
+                            .addComponent(jTextFieldLogin))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
@@ -121,11 +133,11 @@ public class LoginView extends javax.swing.JFrame {
                 .addGap(174, 174, 174)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPasswordSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jButtonEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
@@ -138,19 +150,50 @@ public class LoginView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldLoginActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void jPasswordSenhaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordSenhaLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_jPasswordSenhaLoginActionPerformed
 
     private void jButtonRealizarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarCadastroActionPerformed
         CadastroView telaDeCadastro = new CadastroView();
         telaDeCadastro.setVisible(true);
     }//GEN-LAST:event_jButtonRealizarCadastroActionPerformed
 
+    private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
+if (jTextFieldLogin.getText().matches("") || jPasswordSenhaLogin.getText().matches("")){
+    JOptionPane.showMessageDialog(rootPane,"Preencha todos os campos" );
+
+}else {
+        try{
+        LoginController login = new LoginController();
+        login.loginUsuario(this);
+       } catch(  SQLException sql) {
+       }
+}
+    }//GEN-LAST:event_jButtonEntrarActionPerformed
+
+    public JPasswordField getjPasswordSenhaLogin() {
+        return jPasswordSenhaLogin;
+    }
+
+    public void setjPasswordSenhaLogin(JPasswordField jPasswordSenhaLogin) {
+        this.jPasswordSenhaLogin = jPasswordSenhaLogin;
+    }
+
+    public JTextField getjTextFieldLogin() {
+        return jTextFieldLogin;
+    }
+
+    public void setjTextFieldLogin(JTextField jTextFieldLogin) {
+        this.jTextFieldLogin = jTextFieldLogin;
+    }
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -193,7 +236,7 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jPasswordSenhaLogin;
+    private javax.swing.JTextField jTextFieldLogin;
     // End of variables declaration//GEN-END:variables
 }
