@@ -43,6 +43,7 @@ public class LoginView extends javax.swing.JFrame {
         jButtonRealizarCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1, 1));
 
         jPanel1.setBackground(new java.awt.Color(121, 113, 234));
@@ -63,7 +64,7 @@ public class LoginView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jLabel2)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Email:");
@@ -113,7 +114,7 @@ public class LoginView extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldLogin))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -121,10 +122,10 @@ public class LoginView extends javax.swing.JFrame {
                                 .addGap(182, 182, 182))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButtonEntrar)
-                                .addGap(213, 213, 213))
+                                .addGap(200, 200, 200))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButtonRealizarCadastro)
-                                .addGap(188, 188, 188))))))
+                                .addGap(179, 179, 179))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,17 +137,12 @@ public class LoginView extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-<<<<<<< HEAD
                 .addComponent(jPasswordSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-=======
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
->>>>>>> 7ed1f6bad31de3659a74799bf1fbfa55e4cb0abe
                 .addComponent(jButtonEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(64, 64, 64)
                 .addComponent(jButtonRealizarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 99, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -164,7 +160,6 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButtonRealizarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarCadastroActionPerformed
         CadastroView telaDeCadastro = new CadastroView();
-        setVisible(false);
         telaDeCadastro.setVisible(true);
     }//GEN-LAST:event_jButtonRealizarCadastroActionPerformed
 
