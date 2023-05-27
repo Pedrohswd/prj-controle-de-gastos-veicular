@@ -4,6 +4,7 @@
  */
 package com.capycar.connection;
 
+import br.com.login.view.CadastroView;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -49,7 +50,7 @@ public class GastoRiderAPI {
             // Concatena cada linha em um único script SQL
             while ((line = reader.readLine()) != null) {
                 script.append(line);
-                script.append("\n");
+                script.append("\n"); 
             }
 
             // Divide o script em várias instruções SQL separadas
@@ -74,6 +75,10 @@ public class GastoRiderAPI {
             System.out.println("Falha ao ler o arquivo de carga inicial: " + e.getMessage());
             e.printStackTrace();
         }
+        
+        CadastroView telaCadastro = new CadastroView();
+        telaCadastro.setVisible(true);
+        
     }
 }
 
