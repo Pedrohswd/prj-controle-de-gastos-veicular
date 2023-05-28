@@ -17,23 +17,17 @@ import java.util.Properties;
  * @author felip
  */
 public class LoginController {
-    
-   public void cadastroUsuario(CadastroView view) throws SQLException {
-       LoginDAO cadastro = new LoginDAO();
-       cadastro.cadastrarUsuario(view.getjTextFieldEmail().getText(), view.getjTextFieldNome().getText(), view.getjPasswordSenha().getText());
-   }
-   
-   public void loginUsuario(LoginView view) throws SQLException {
-       LoginDAO login = new LoginDAO();
-  login.login(view.getjTextFieldLogin().getText(), view.getjPasswordSenhaLogin().getText());
-       
-   }
-    
 
+    public void cadastroUsuario(CadastroView view) throws SQLException {
+        LoginDAO cadastro = new LoginDAO();
+        cadastro.cadastrarUsuario(view.getjTextFieldEmail().getText(), view.getjTextFieldNome().getText(), view.getjPasswordSenha().getText());
+    }
 
-    
-    
-   
+    public void loginUsuario(LoginView view) throws SQLException {
+        LoginDAO login = new LoginDAO();
+        login.login(view.getjTextFieldLogin().getText(), view.getjPasswordSenhaLogin().getText());
+
+    }
 
     public void conectarBancoDeDados() {
         // Obter as informações de conexão do arquivo de propriedades
@@ -59,12 +53,3 @@ public class LoginController {
         gastoRiderAPI.main(args);
     }
 }
-
-
-
-
-    
-   
-    
-    
-
