@@ -16,8 +16,7 @@ import javax.swing.JTextField;
  */
 public class LoginView extends javax.swing.JFrame {
 
-    
-   /**
+    /**
      * Creates new form LoginView
      */
     public LoginView() {
@@ -160,20 +159,20 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButtonRealizarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarCadastroActionPerformed
         CadastroView telaDeCadastro = new CadastroView();
+        setVisible(false);
         telaDeCadastro.setVisible(true);
     }//GEN-LAST:event_jButtonRealizarCadastroActionPerformed
 
     private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
-if (jTextFieldLogin.getText().matches("") || jPasswordSenhaLogin.getText().matches("")){
-    JOptionPane.showMessageDialog(rootPane,"Preencha todos os campos" );
-
-}else {
-        try{
-        LoginController login = new LoginController();
-        login.loginUsuario(this);
-       } catch(  SQLException sql) {
-       }
-}
+        if (jTextFieldLogin.getText().matches("") || jPasswordSenhaLogin.getText().matches("")) {
+            JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos");
+        } else {
+            try {
+                LoginController login = new LoginController();
+                login.loginUsuario(this);
+            } catch (SQLException sql) {
+            }
+        }
     }//GEN-LAST:event_jButtonEntrarActionPerformed
 
     public JPasswordField getjPasswordSenhaLogin() {
@@ -192,8 +191,6 @@ if (jTextFieldLogin.getText().matches("") || jPasswordSenhaLogin.getText().match
         this.jTextFieldLogin = jTextFieldLogin;
     }
 
-    
-    
     /**
      * @param args the command line arguments
      */

@@ -9,17 +9,17 @@ package br.com.login.model;
  * @author felip
  */
 public class Login {
-    
-    String Email,NomeCompleto,Senha;
+
+    String Email, NomeCompleto, Senha;
 
     public Login(String Email, String Senha) {
         this.Email = Email;
         this.Senha = Senha;
     }
-    
-    public void cadastrar(String Email, String NomeCompleto, String Senha  ){ 
-          this.Email = Email;
-          this.NomeCompleto = NomeCompleto;
+
+    public void cadastrar(String Email, String NomeCompleto, String Senha) {
+        this.Email = Email;
+        this.NomeCompleto = NomeCompleto;
         this.Senha = Senha;
     }
 
@@ -46,6 +46,5 @@ public class Login {
     public void setSenha(String Senha) {
         this.Senha = Senha;
     }
-    
-    
+
 }

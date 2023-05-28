@@ -4,6 +4,7 @@
  */
 package com.capycar.connection;
 
+import br.com.login.view.LoginView;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,8 +21,15 @@ import java.util.Properties;
 public class GastoRiderAPI {
 
     public static void main(String[] args) {
+        String comando = "./src/DB/cargaInicial.sql";
+        comandoBD(comando);
+        LoginView login = new LoginView();
+        login.setVisible(true);
 
-        Properties props = new Properties();
+    }
+    
+    public static void comandoBD(String comando){
+                Properties props = new Properties();
         try {
             FileInputStream in = new FileInputStream("src/DB/CFG_DB.txt");
             props.load(in);
@@ -35,21 +43,20 @@ public class GastoRiderAPI {
         String user = props.getProperty("usuario"); // obtém o nome de usuário do banco de dados a partir do arquivo de propriedades
         String password = props.getProperty("senha"); // obtém a senha do banco de dados a partir do arquivo de propriedades
 
-
         //Caminho carga inicial e proxima carga
-        String cargaInicial = "./src/DB/cargaInicial.sql";
+        //String cargaInicial = "./src/DB/cargaInicial.sql";
 
         try ( Connection connection = DriverManager.getConnection(url, user, password)) {
             System.out.println("Conexão bem-sucedida!");
 
-            BufferedReader reader = new BufferedReader(new FileReader(cargaInicial));
+            BufferedReader reader = new BufferedReader(new FileReader(comando));
             String line;
             StringBuilder script = new StringBuilder();
 
             // Concatena cada linha em um único script SQL
             while ((line = reader.readLine()) != null) {
                 script.append(line);
-                script.append("\n"); 
+                script.append("\n");
             }
 
             // Divide o script em várias instruções SQL separadas

@@ -115,15 +115,6 @@ public class CadastroView extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(182, 182, 182))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButtonCadastrar)
-                                .addGap(200, 200, 200))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(178, 178, 178)
@@ -136,10 +127,18 @@ public class CadastroView extends javax.swing.JFrame {
                                 .addGap(165, 165, 165)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(213, 213, 213)
-                        .addComponent(jButtonLogin)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(182, 182, 182))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonCadastrar)
+                                .addGap(200, 200, 200))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonLogin)
+                                .addGap(219, 219, 219))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +157,7 @@ public class CadastroView extends javax.swing.JFrame {
                 .addComponent(jPasswordSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonLogin)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -178,20 +177,17 @@ public class CadastroView extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
 
-        if(jTextFieldNome.getText().matches("")  || jTextFieldEmail.getText().matches("")  || jPasswordSenha.getText().matches("")){
+        if (jTextFieldNome.getText().matches("") || jTextFieldEmail.getText().matches("") || jPasswordSenha.getText().matches("")) {
             JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos");
-        }else{
-        
-        
-        try{
-        LoginController cadastro = new LoginController();
-        cadastro.cadastroUsuario(this);
-     } catch (SQLException sql ){
-         
-     }
-        
-        JOptionPane.showMessageDialog(rootPane, "Cadastro realizado com succeso");
-        this.setVisible(false);
+        } else {
+            try {
+                LoginController cadastro = new LoginController();
+                cadastro.cadastroUsuario(this);
+            } catch (SQLException sql) {
+
+            }
+            JOptionPane.showMessageDialog(rootPane, "Cadastro realizado com succeso");
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
@@ -201,6 +197,7 @@ public class CadastroView extends javax.swing.JFrame {
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         LoginView telaDeLogin = new LoginView();
+        setVisible(false);
         telaDeLogin.setVisible(true);
 
     }//GEN-LAST:event_jButtonLoginActionPerformed
@@ -229,7 +226,6 @@ public class CadastroView extends javax.swing.JFrame {
         this.jTextFieldNome = jTextFieldNome;
     }
 
-    
     /**
      * @param args the command line arguments
      */
