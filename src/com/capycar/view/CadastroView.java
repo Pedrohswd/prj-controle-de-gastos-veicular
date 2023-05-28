@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.login.view;
+package com.capycar.view;
 
-import br.com.login.controller.LoginController;
+import com.capycar.controller.LoginController;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -199,7 +199,6 @@ public class CadastroView extends javax.swing.JFrame {
         LoginView telaDeLogin = new LoginView();
         setVisible(false);
         telaDeLogin.setVisible(true);
-
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     public JPasswordField getjPasswordSenha() {

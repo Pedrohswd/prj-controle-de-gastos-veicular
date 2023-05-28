@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.login.view;
+package com.capycar.view;
 
-import br.com.login.controller.LoginController;
+import com.capycar.controller.LoginController;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -42,7 +42,6 @@ public class LoginView extends javax.swing.JFrame {
         jButtonRealizarCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1, 1));
 
         jPanel1.setBackground(new java.awt.Color(121, 113, 234));

@@ -4,7 +4,7 @@
  */
 package com.capycar.connection;
 
-import br.com.login.view.LoginView;
+import com.capycar.view.LoginView;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
