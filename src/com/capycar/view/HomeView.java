@@ -4,6 +4,8 @@
  */
 package com.capycar.view;
 
+import java.awt.Color;
+
 /**
  *
  * @author pedro
