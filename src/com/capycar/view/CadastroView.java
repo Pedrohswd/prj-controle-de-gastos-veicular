@@ -184,7 +184,7 @@ public class CadastroView extends javax.swing.JFrame {
                 LoginController cadastro = new LoginController();
                 cadastro.cadastroUsuario(this);
                 setVisible(false);
-                LoginView telaDeLogin = new LoginView();
+                LoginView telaDeLogin = new LoginView();    
                 telaDeLogin.setVisible(true);
             } catch (SQLException sql) {
 
