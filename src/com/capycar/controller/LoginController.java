@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.login.controller;
+package com.capycar.controller;
 
-import br.com.login.dao.LoginDAO;
-import br.com.login.view.CadastroView;
-import br.com.login.view.LoginView;
+import com.capycar.persistence.LoginDAO;
+import com.capycar.view.CadastroView;
+import com.capycar.view.LoginView;
 import com.capycar.connection.GastoRiderAPI;
 import java.io.FileInputStream;
 import java.sql.SQLException;
@@ -23,10 +23,12 @@ public class LoginController {
         cadastro.cadastrarUsuario(view.getjTextFieldEmail().getText(), view.getjTextFieldNome().getText(), view.getjPasswordSenha().getText());
     }
 
-    public void loginUsuario(LoginView view) throws SQLException {
+    public boolean loginUsuario(LoginView view) throws SQLException {
         LoginDAO login = new LoginDAO();
-        login.login(view.getjTextFieldLogin().getText(), view.getjPasswordSenhaLogin().getText());
-
+        if (login.login(view.getjTextFieldLogin().getText(), view.getjPasswordSenhaLogin().getText()) == true) {
+            return true;
+        }
+        return false;
     }
 
     public void conectarBancoDeDados() {
