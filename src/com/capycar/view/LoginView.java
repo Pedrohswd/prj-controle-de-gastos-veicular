@@ -90,6 +90,7 @@ public class LoginView extends javax.swing.JFrame {
         });
 
         jButtonRealizarCadastro.setText("Realizar Cadastro");
+        jButtonRealizarCadastro.setBorder(null);
         jButtonRealizarCadastro.setContentAreaFilled(false);
         jButtonRealizarCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonRealizarCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +169,14 @@ public class LoginView extends javax.swing.JFrame {
         } else {
             try {
                 LoginController login = new LoginController();
-                login.loginUsuario(this);
+                if(login.loginUsuario(this) == true){
+                    JOptionPane.showMessageDialog(rootPane, "Bem vindo!");
+                    setVisible(false);
+                    HomeView home = new HomeView();
+                    home.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Usuário não encontrado!");
+                }
             } catch (SQLException sql) {
             }
         }
