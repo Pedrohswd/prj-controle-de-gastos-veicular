@@ -1,4 +1,4 @@
-package br.com.login.dao;
+package com.capycar.persistence;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
