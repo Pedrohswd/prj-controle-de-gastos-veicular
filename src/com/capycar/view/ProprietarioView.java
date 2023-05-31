@@ -4,6 +4,8 @@
  */
 package com.capycar.view;
 
+import javax.swing.border.EmptyBorder;
+
 /**
  *
  * @author pedro
@@ -38,10 +40,19 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabelNomeRazao = new javax.swing.JLabel();
+        jTextNomeRazao = new javax.swing.JTextField();
+        jLabelCPFCNPJ = new javax.swing.JLabel();
+        jTextCPFCNPJ = new javax.swing.JTextField();
+        jLabelEmail = new javax.swing.JLabel();
+        jTextEmail = new javax.swing.JTextField();
+        fTextField1 = new com.capycar.desingView.FTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(34, 34, 34));
+        jPanel1.setBackground(new java.awt.Color(57, 62, 70));
 
         jPanel2.setBackground(new java.awt.Color(121, 113, 234));
 
@@ -49,7 +60,7 @@ public class ProprietarioView extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(121, 113, 234));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(34, 40, 49));
         jButton1.setText("Cadastro de Proprietário");
         jButton1.setBorder(null);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -61,49 +72,49 @@ public class ProprietarioView extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(121, 113, 234));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
+        jButton2.setForeground(new java.awt.Color(34, 40, 49));
         jButton2.setText("Lançamento de gastos");
         jButton2.setBorder(null);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton3.setBackground(new java.awt.Color(121, 113, 234));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
+        jButton3.setForeground(new java.awt.Color(34, 40, 49));
         jButton3.setText("Cadastro de Marca");
         jButton3.setBorder(null);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton4.setBackground(new java.awt.Color(121, 113, 234));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 0, 0));
+        jButton4.setForeground(new java.awt.Color(34, 40, 49));
         jButton4.setText("Cadastro de Modelo");
         jButton4.setBorder(null);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton5.setBackground(new java.awt.Color(121, 113, 234));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 0, 0));
+        jButton5.setForeground(new java.awt.Color(34, 40, 49));
         jButton5.setText("Cadastro de Manutenção");
         jButton5.setBorder(null);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton6.setBackground(new java.awt.Color(121, 113, 234));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 0, 0));
+        jButton6.setForeground(new java.awt.Color(34, 40, 49));
         jButton6.setText("Cadastro de Veiculo");
         jButton6.setBorder(null);
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton7.setBackground(new java.awt.Color(121, 113, 234));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 0, 0));
+        jButton7.setForeground(new java.awt.Color(34, 40, 49));
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton8.setBackground(new java.awt.Color(121, 113, 234));
         jButton8.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(0, 0, 0));
+        jButton8.setForeground(new java.awt.Color(34, 40, 49));
         jButton8.setText("Sair");
         jButton8.setBorder(null);
         jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -118,25 +129,27 @@ public class ProprietarioView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton2)
-                    .addComponent(jButton7)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton8)
+                        .addComponent(jButton5)
+                        .addComponent(jButton6)
+                        .addComponent(jButton2)
+                        .addComponent(jButton7)
+                        .addComponent(jButton1)
+                        .addComponent(jButton3)
+                        .addComponent(jButton4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
+                .addGap(67, 67, 67)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
@@ -152,12 +165,29 @@ public class ProprietarioView extends javax.swing.JFrame {
                 .addComponent(jButton7)
                 .addGap(18, 18, 18)
                 .addComponent(jButton8)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(238, 238, 238));
         jLabel2.setText("Cadastro de Proprietário");
+
+        jRadioButton1.setText("CPF");
+
+        jRadioButton2.setText("CNPJ");
+
+        jLabelNomeRazao.setText("Nome:");
+
+        jTextNomeRazao.setBorder(new EmptyBorder(5, 10, 5, 10));
+
+        jLabelCPFCNPJ.setText("CPF");
+
+        jLabelEmail.setText("Email");
+
+        fTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        fTextField1.setForeground(null);
+        fTextField1.setText("fTextField1");
+        fTextField1.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,9 +195,37 @@ public class ProprietarioView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(271, 271, 271))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelNomeRazao)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTextNomeRazao))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelCPFCNPJ)
+                            .addComponent(jTextCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelEmail)
+                            .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(96, 96, 96))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(271, 271, 271))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(fTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +233,22 @@ public class ProprietarioView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel2)
+                .addGap(78, 78, 78)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNomeRazao)
+                    .addComponent(jLabelCPFCNPJ)
+                    .addComponent(jLabelEmail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextNomeRazao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(147, 147, 147)
+                .addComponent(fTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -242,6 +316,7 @@ public class ProprietarioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.capycar.desingView.FTextField fTextField1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -252,7 +327,15 @@ public class ProprietarioView extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelCPFCNPJ;
+    private javax.swing.JLabel jLabelEmail;
+    private javax.swing.JLabel jLabelNomeRazao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JTextField jTextCPFCNPJ;
+    private javax.swing.JTextField jTextEmail;
+    private javax.swing.JTextField jTextNomeRazao;
     // End of variables declaration//GEN-END:variables
 }

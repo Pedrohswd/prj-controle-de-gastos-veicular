@@ -86,7 +86,7 @@ public class LoginView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(121, 113, 234));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar v1 1 (1).png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar_escrito branco.png"))); // NOI18N
         jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

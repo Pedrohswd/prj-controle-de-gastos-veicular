@@ -51,10 +51,10 @@ public class HomeView extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(121, 113, 234));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(34, 40, 49));
         jButton1.setText("Cadastro de Proprietário");
         jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -63,52 +63,52 @@ public class HomeView extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(121, 113, 234));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
+        jButton2.setForeground(new java.awt.Color(34, 40, 49));
         jButton2.setText("Lançamento de gastos");
         jButton2.setBorder(null);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton3.setBackground(new java.awt.Color(121, 113, 234));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
+        jButton3.setForeground(new java.awt.Color(34, 40, 49));
         jButton3.setText("Cadastro de Marca");
         jButton3.setBorder(null);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton4.setBackground(new java.awt.Color(121, 113, 234));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 0, 0));
+        jButton4.setForeground(new java.awt.Color(34, 40, 49));
         jButton4.setText("Cadastro de Modelo");
         jButton4.setBorder(null);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton5.setBackground(new java.awt.Color(121, 113, 234));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 0, 0));
+        jButton5.setForeground(new java.awt.Color(34, 40, 49));
         jButton5.setText("Cadastro de Manutenção");
         jButton5.setBorder(null);
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton6.setBackground(new java.awt.Color(121, 113, 234));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 0, 0));
+        jButton6.setForeground(new java.awt.Color(34, 40, 49));
         jButton6.setText("Cadastro de Veiculo");
         jButton6.setBorder(null);
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton7.setBackground(new java.awt.Color(121, 113, 234));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 0, 0));
+        jButton7.setForeground(new java.awt.Color(34, 40, 49));
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton8.setBackground(new java.awt.Color(121, 113, 234));
         jButton8.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jButton8.setForeground(new java.awt.Color(0, 0, 0));
         jButton8.setText("Sair");
         jButton8.setBorder(null);
-        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -120,25 +120,27 @@ public class HomeView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton2)
-                    .addComponent(jButton7)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton8)
+                        .addComponent(jButton5)
+                        .addComponent(jButton6)
+                        .addComponent(jButton2)
+                        .addComponent(jButton7)
+                        .addComponent(jButton1)
+                        .addComponent(jButton3)
+                        .addComponent(jButton4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
+                .addGap(71, 71, 71)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
@@ -154,10 +156,10 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(jButton7)
                 .addGap(18, 18, 18)
                 .addComponent(jButton8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
-        jLabelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar v1 1 (1).png"))); // NOI18N
+        jLabelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar_escrito branco.png"))); // NOI18N
         jLabelImagem.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -168,7 +170,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(205, 205, 205)
                 .addComponent(jLabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
