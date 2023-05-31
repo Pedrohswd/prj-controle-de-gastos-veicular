@@ -17,6 +17,7 @@ public class HomeView extends javax.swing.JFrame {
      */
     public HomeView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -105,7 +106,7 @@ public class HomeView extends javax.swing.JFrame {
 
         jButton8.setBackground(new java.awt.Color(121, 113, 234));
         jButton8.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(0, 0, 0));
+        jButton8.setForeground(new java.awt.Color(34, 40, 49));
         jButton8.setText("Sair");
         jButton8.setBorder(null);
         jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
