@@ -12,8 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -22,31 +20,14 @@ public class GastoRiderAPI {
 
     public static void main(String[] args) {
         String comando = "./src/DB/cargaInicial.sql";
-        comandoBD(comando);
+        initBD(comando);
         LoginView login = new LoginView();
         login.setVisible(true);
 
     }
-    
-    public static void comandoBD(String comando){
-                Properties props = new Properties();
-        try {
-            FileInputStream in = new FileInputStream("src/DB/CFG_DB.txt");
-            props.load(in);
-            in.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao ler arquivo de propriedades: " + e.getMessage());
-            return;
-        }
 
-        String url = props.getProperty("url"); // obtém a URL de conexão a partir do arquivo de propriedades
-        String user = props.getProperty("usuario"); // obtém o nome de usuário do banco de dados a partir do arquivo de propriedades
-        String password = props.getProperty("senha"); // obtém a senha do banco de dados a partir do arquivo de propriedades
-
-        //Caminho carga inicial e proxima carga
-        //String cargaInicial = "./src/DB/cargaInicial.sql";
-
-        try ( Connection connection = DriverManager.getConnection(url, user, password)) {
+    public static void initBD(String comando) {
+        try ( Connection connection = conectBD()) {
             System.out.println("Conexão bem-sucedida!");
 
             BufferedReader reader = new BufferedReader(new FileReader(comando));
@@ -81,6 +62,30 @@ public class GastoRiderAPI {
             System.out.println("Falha ao ler o arquivo de carga inicial: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public static Connection conectBD() {
+        Properties props = new Properties();
+        Connection connection = null;
+        try {
+            FileInputStream in = new FileInputStream("src/DB/CFG_DB.txt");
+            props.load(in);
+            in.close();
+        } catch (Exception e) {
+            System.out.println("Erro ao ler arquivo de propriedades: " + e.getMessage());
+            return null;
+        }
+
+        String url = props.getProperty("url"); // obtém a URL de conexão a partir do arquivo de propriedades
+        String user = props.getProperty("usuario"); // obtém o nome de usuário do banco de dados a partir do arquivo de propriedades
+        String password = props.getProperty("senha"); // obtém a senha do banco de dados a partir do arquivo de propriedades
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            System.out.println("Falha na conexão com o banco de dados: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return connection;
     }
 }
 

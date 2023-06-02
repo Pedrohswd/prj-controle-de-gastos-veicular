@@ -30,28 +30,4 @@ public class LoginController {
         }
         return false;
     }
-
-    public void conectarBancoDeDados() {
-        // Obter as informações de conexão do arquivo de propriedades
-        Properties props = new Properties();
-        try {
-            FileInputStream in = new FileInputStream("src/DB/CFG_DB.txt");
-            props.load(in);
-            in.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao ler arquivo de propriedades: " + e.getMessage());
-            return;
-        }
-
-        String url = props.getProperty("url"); // obtém a URL de conexão a partir do arquivo de propriedades
-        String user = props.getProperty("usuario"); // obtém o nome de usuário do banco de dados a partir do arquivo de propriedades
-        String password = props.getProperty("senha"); // obtém a senha do banco de dados a partir do arquivo de propriedades
-
-        // Criar uma instância da classe GastoRiderAPI
-        GastoRiderAPI gastoRiderAPI = new GastoRiderAPI();
-
-        // Chamar o método main da classe GastoRiderAPI para estabelecer a conexão
-        String[] args = {url, user, password};
-        gastoRiderAPI.main(args);
-    }
 }
