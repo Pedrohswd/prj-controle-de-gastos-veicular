@@ -183,7 +183,6 @@ public class LoginView extends javax.swing.JFrame {
             try {
                 LoginController login = new LoginController();
                 if(login.loginUsuario(this) == true){
-                    JOptionPane.showMessageDialog(rootPane, "Bem vindo!");
                     setVisible(false);
                     HomeView home = new HomeView();
                     home.setVisible(true);
