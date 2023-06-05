@@ -4,7 +4,7 @@
  */
 package com.capycar.connection;
 
-import com.capycar.view.LoginView;
+import com.capycar.view.HomeView;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,9 +21,7 @@ public class GastoRiderAPI {
     public static void main(String[] args) {
         String comando = "./src/DB/cargaInicial.sql";
         initBD(comando);
-        LoginView login = new LoginView();
-        login.setVisible(true);
-
+        HomeView home = new HomeView();
     }
 
     public static void initBD(String comando) {
