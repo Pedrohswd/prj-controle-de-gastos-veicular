@@ -134,7 +134,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(121, 113, 234));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jButton5.setForeground(new java.awt.Color(34, 40, 49));
-        jButton5.setText("Cadastro de Manutenção");
+        jButton5.setText("Cadastro de Categorias");
         jButton5.setBorder(null);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
