@@ -22,6 +22,7 @@ public class GastoRiderAPI {
         String comando = "./src/DB/cargaInicial.sql";
         initBD(comando);
         HomeView home = new HomeView();
+        home.setVisible(true);
     }
 
     public static void initBD(String comando) {
