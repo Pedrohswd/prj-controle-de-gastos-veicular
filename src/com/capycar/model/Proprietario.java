@@ -23,11 +23,12 @@ public class Proprietario {
     private String bairro;
     private String cidade;
     private String estado;
+    private String complemento;
     
     public Proprietario(){
     }
 
-    public Proprietario(String CPF_CNPJ, String nome, String email, String telefone, String categoriaCNH, Date dataNasCria, String CEP, String logradouro, String numero, String bairro, String cidade, String estado) {
+    public Proprietario(String CPF_CNPJ, String nome, String email, String telefone, String categoriaCNH, Date dataNasCria, String CEP, String logradouro, String numero, String bairro, String cidade, String estado, String complemento) {
         this.CPF_CNPJ = CPF_CNPJ;
         this.nome = nome;
         this.email = email;
@@ -40,6 +41,15 @@ public class Proprietario {
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
+        this.complemento = complemento;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getCPF_CNPJ() {
@@ -140,7 +150,7 @@ public class Proprietario {
 
     @Override
     public String toString() {
-        return "Proprietario{" + "CPF_CNPJ=" + CPF_CNPJ + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", categoriaCNH=" + categoriaCNH + ", dataNasCria=" + dataNasCria + ", CEP=" + CEP + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + '}';
+        return "Proprietario{" + "CPF_CNPJ=" + CPF_CNPJ + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", categoriaCNH=" + categoriaCNH + ", dataNasCria=" + dataNasCria + ", CEP=" + CEP + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", complemento=" + complemento + '}';
     }
     
 }
