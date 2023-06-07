@@ -8,6 +8,7 @@ import com.capycar.connection.GastoRiderAPI;
 import com.capycar.model.Proprietario;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 
 public class ProprietarioDao implements IProprietarioDao {
@@ -21,6 +22,7 @@ public class ProprietarioDao implements IProprietarioDao {
     @Override
     public void incluirProprietario(Proprietario proprietario) {
         try {
+            Date date = new Date(proprietario.getDataNasCria().getTime());
             String sql = "INSERT INTO Proprietario (CPF_CNPJ, Nome, Email, Telefone, CategoriaCNH, DataNasc_Criacao, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, Estado)"
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
@@ -29,7 +31,7 @@ public class ProprietarioDao implements IProprietarioDao {
             preparedStatement.setString(3, proprietario.getEmail());
             preparedStatement.setString(4, proprietario.getTelefone());
             preparedStatement.setString(5, proprietario.getCategoriaCNH());
-            preparedStatement.setString(6, proprietario.getDataNasCria().toString());
+            preparedStatement.setDate(6, date);
             preparedStatement.setString(7, proprietario.getCEP());
             preparedStatement.setString(8, proprietario.getLogradouro());
             preparedStatement.setString(9, proprietario.getNumero());
@@ -46,6 +48,7 @@ public class ProprietarioDao implements IProprietarioDao {
     @Override
     public void alterarProprietario(Proprietario proprietario) {
         try {
+            Date date = new Date(proprietario.getDataNasCria().getTime());
             String sql = "UPDATE Proprietário SET Nome = ?, Email = ?, Telefone = ?, CategoriaCNH = ?, DataNascimento = ?, CEP = ?, Logradouro = ?, Numero = ?, Complemento = ?, Bairro = ?"
                     + ", Cidade = ?, Estado = ? WHERE CPF_CNPJ = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
@@ -53,7 +56,7 @@ public class ProprietarioDao implements IProprietarioDao {
             preparedStatement.setString(2, proprietario.getEmail());
             preparedStatement.setString(3, proprietario.getTelefone());
             preparedStatement.setString(4, proprietario.getCategoriaCNH());
-            preparedStatement.setString(5, proprietario.getDataNasCria().toString());
+            preparedStatement.setDate(5, date);
             preparedStatement.setString(6, proprietario.getCEP());
             preparedStatement.setString(7, proprietario.getLogradouro());
             preparedStatement.setString(8, proprietario.getNumero());

@@ -4,6 +4,8 @@
  */
 package com.capycar.view;
 
+import com.capycar.controller.ProprietarioController;
+import com.capycar.model.Proprietario;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -61,9 +63,9 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jTextDDI = new javax.swing.JTextField();
+        jTextDDD = new javax.swing.JTextField();
+        jTextNumero = new javax.swing.JTextField();
         jLabelData = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -73,18 +75,18 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        jTextCEP = new javax.swing.JTextField();
+        jTextNumeroCasa = new javax.swing.JTextField();
+        jTextBairro = new javax.swing.JTextField();
+        jTextLogradouro = new javax.swing.JTextField();
+        jTextComplemento = new javax.swing.JTextField();
+        jTextCidade = new javax.swing.JTextField();
         jComboBoxEstado = new javax.swing.JComboBox<>();
         jButtonSalvar = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jLabelCNH = new javax.swing.JLabel();
         jComboBoxCNH = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateDataNasCri = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -252,17 +254,17 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(238, 238, 238));
         jLabel6.setText("Número:");
 
-        jTextField1.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setBorder(null);
+        jTextDDI.setBackground(new java.awt.Color(217, 217, 217));
+        jTextDDI.setForeground(new java.awt.Color(0, 0, 0));
+        jTextDDI.setBorder(null);
 
-        jTextField2.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setBorder(null);
+        jTextDDD.setBackground(new java.awt.Color(217, 217, 217));
+        jTextDDD.setForeground(new java.awt.Color(0, 0, 0));
+        jTextDDD.setBorder(null);
 
-        jTextField3.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField3.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField3.setBorder(null);
+        jTextNumero.setBackground(new java.awt.Color(217, 217, 217));
+        jTextNumero.setForeground(new java.awt.Color(0, 0, 0));
+        jTextNumero.setBorder(null);
 
         jLabelData.setForeground(new java.awt.Color(238, 238, 238));
         jLabelData.setText("Data de Nascimento:");
@@ -291,29 +293,31 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(238, 238, 238));
         jLabel17.setText("Estado:");
 
-        jTextField4.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField4.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField4.setBorder(null);
+        jTextCEP.setBackground(new java.awt.Color(217, 217, 217));
+        jTextCEP.setForeground(new java.awt.Color(0, 0, 0));
+        jTextCEP.setBorder(null);
 
-        jTextField5.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField5.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField5.setBorder(null);
+        jTextNumeroCasa.setBackground(new java.awt.Color(217, 217, 217));
+        jTextNumeroCasa.setForeground(new java.awt.Color(0, 0, 0));
+        jTextNumeroCasa.setBorder(null);
 
-        jTextField7.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField7.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField7.setBorder(null);
+        jTextBairro.setBackground(new java.awt.Color(217, 217, 217));
+        jTextBairro.setForeground(new java.awt.Color(0, 0, 0));
+        jTextBairro.setBorder(null);
 
-        jTextField6.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField6.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField6.setBorder(null);
+        jTextLogradouro.setBackground(new java.awt.Color(217, 217, 217));
+        jTextLogradouro.setForeground(new java.awt.Color(0, 0, 0));
+        jTextLogradouro.setBorder(null);
 
-        jTextField8.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField8.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField8.setBorder(null);
+        jTextComplemento.setBackground(new java.awt.Color(217, 217, 217));
+        jTextComplemento.setForeground(new java.awt.Color(0, 0, 0));
+        jTextComplemento.setBorder(null);
 
-        jTextField9.setBackground(new java.awt.Color(217, 217, 217));
-        jTextField9.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField9.setBorder(null);
+        jTextCidade.setBackground(new java.awt.Color(217, 217, 217));
+        jTextCidade.setForeground(new java.awt.Color(0, 0, 0));
+        jTextCidade.setBorder(null);
+
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GO" }));
 
         jButtonSalvar.setBackground(new java.awt.Color(121, 113, 234));
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -364,7 +368,7 @@ public class ProprietarioView extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jLabel4)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextDDI, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel8))
                                             .addGap(18, 18, 18)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,9 +383,9 @@ public class ProprietarioView extends javax.swing.JFrame {
                                                             .addComponent(jLabel6)))
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jTextDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGap(18, 18, 18)
-                                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jTextNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGap(18, 18, 18)
                                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -395,17 +399,17 @@ public class ProprietarioView extends javax.swing.JFrame {
                                             .addGap(37, 37, 37)))
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabelData)
-                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jDateDataNasCri, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(13, 13, 13))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(281, 281, 281))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel12))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -415,7 +419,7 @@ public class ProprietarioView extends javax.swing.JFrame {
                                                 .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jTextCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(jLabel16))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,14 +428,14 @@ public class ProprietarioView extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextNumeroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel11)
                                                 .addGap(92, 92, 92)))
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel14)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                            .addComponent(jTextComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jRadioCPF)
@@ -477,13 +481,13 @@ public class ProprietarioView extends javax.swing.JFrame {
                     .addComponent(jLabelCNH))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateDataNasCri, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxCNH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextDDI, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)))
                 .addGap(25, 25, 25)
                 .addComponent(jLabel8)
@@ -493,16 +497,16 @@ public class ProprietarioView extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNumeroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -511,8 +515,8 @@ public class ProprietarioView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
@@ -576,7 +580,11 @@ public class ProprietarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        
+        String telefone = jTextDDI.getText() + jTextDDD.getText() + jTextNumero.getText();
+        Proprietario proprietario = new Proprietario(jTextCPFCNPJ.getText(), jTextNomeRazao.getText(), jTextEmail.getText(), telefone, jComboBoxCNH.getSelectedItem().toString(), jDateDataNasCri.getDate(), jTextCEP.getText(), jTextLogradouro.getText(),
+                 jTextNumeroCasa.getText(), jTextBairro.getText(), jTextCidade.getText(), jComboBoxEstado.getSelectedItem().toString(), jTextComplemento.getText());
+        ProprietarioController proprietarioControle = new ProprietarioController();
+        proprietarioControle.incluirProprietario(proprietario);
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
@@ -627,7 +635,7 @@ public class ProprietarioView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxCNH;
     private javax.swing.JComboBox<String> jComboBoxEstado;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateDataNasCri;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -651,17 +659,17 @@ public class ProprietarioView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioCNPJ;
     private javax.swing.JRadioButton jRadioCPF;
+    private javax.swing.JTextField jTextBairro;
+    private javax.swing.JTextField jTextCEP;
     private javax.swing.JTextField jTextCPFCNPJ;
+    private javax.swing.JTextField jTextCidade;
+    private javax.swing.JTextField jTextComplemento;
+    private javax.swing.JTextField jTextDDD;
+    private javax.swing.JTextField jTextDDI;
     private javax.swing.JTextField jTextEmail;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextLogradouro;
     private javax.swing.JTextField jTextNomeRazao;
+    private javax.swing.JTextField jTextNumero;
+    private javax.swing.JTextField jTextNumeroCasa;
     // End of variables declaration//GEN-END:variables
 }
