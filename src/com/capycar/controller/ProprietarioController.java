@@ -4,20 +4,25 @@
  */
 package com.capycar.controller;
 
+import com.capycar.model.Proprietario;
+import com.capycar.persistence.ProprietarioDao;
+
 /**
  *
  * @author pedro
  */
 public class ProprietarioController implements IPropretarioController{
+    
+    ProprietarioDao proprietarioDao = new ProprietarioDao();
 
     @Override
-    public void incluirProprietario() {
-        
+    public void incluirProprietario(Proprietario proprietario) {
+        proprietarioDao.incluirProprietario(proprietario);
     }
 
     @Override
-    public void alterarProprietario() {
-        
+    public void alterarProprietario(Proprietario proprietario) {
+        proprietarioDao.alterarProprietario(proprietario);
     }
     
 }

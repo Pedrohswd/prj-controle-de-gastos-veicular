@@ -80,8 +80,8 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
         jComboBoxEstado = new javax.swing.JComboBox<>();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
+        jButtonAlterar = new javax.swing.JButton();
         jLabelCNH = new javax.swing.JLabel();
         jComboBoxCNH = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -315,15 +315,20 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextField9.setForeground(new java.awt.Color(0, 0, 0));
         jTextField9.setBorder(null);
 
-        jButton10.setBackground(new java.awt.Color(121, 113, 234));
-        jButton10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(34, 40, 49));
-        jButton10.setText("SALVAR");
+        jButtonSalvar.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonSalvar.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonSalvar.setText("SALVAR");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
-        jButton11.setBackground(new java.awt.Color(121, 113, 234));
-        jButton11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(34, 40, 49));
-        jButton11.setText("ALTERAR");
+        jButtonAlterar.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonAlterar.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonAlterar.setText("ALTERAR");
 
         jLabelCNH.setForeground(new java.awt.Color(238, 238, 238));
         jLabelCNH.setText("Categoria CNH:");
@@ -405,9 +410,9 @@ public class ProprietarioView extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -510,8 +515,8 @@ public class ProprietarioView extends javax.swing.JFrame {
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton10)
-                    .addComponent(jButton11))
+                    .addComponent(jButtonSalvar)
+                    .addComponent(jButtonAlterar))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -570,6 +575,10 @@ public class ProprietarioView extends javax.swing.JFrame {
         home.setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -608,14 +617,14 @@ public class ProprietarioView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonAlterar;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxCNH;
     private javax.swing.JComboBox<String> jComboBoxEstado;
     private com.toedter.calendar.JDateChooser jDateChooser1;

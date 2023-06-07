@@ -4,14 +4,16 @@
  */
 package com.capycar.controller;
 
+import com.capycar.model.Proprietario;
+
 /**
  *
  * @author pedro
  */
 public interface IPropretarioController {
     
-    public void incluirProprietario();
+    public void incluirProprietario(Proprietario proprietario);
     
-    public void alterarProprietario();
+    public void alterarProprietario(Proprietario proprietario);
     
 }

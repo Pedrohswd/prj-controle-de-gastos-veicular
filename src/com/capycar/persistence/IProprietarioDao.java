@@ -4,13 +4,15 @@
  */
 package com.capycar.persistence;
 
+import com.capycar.model.Proprietario;
+
 /**
  *
  * @author pedro
  */
 public interface IProprietarioDao {
 
-    public void incluirProprietario();
+    public void incluirProprietario(Proprietario propietario);
 
-    public void alterarProprietario();
+    public void alterarProprietario(Proprietario proprietario);
 }
