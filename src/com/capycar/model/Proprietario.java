@@ -164,4 +164,8 @@ public class Proprietario {
         return "Proprietario{" + "CPF_CNPJ=" + CPF_CNPJ + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", categoriaCNH=" + categoriaCNH + ", dataNasCria=" + dataNasCria + ", CEP=" + CEP + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", complemento=" + complemento + ", complemento=" + tipoPessoa +'}';
     }
 
+    public Object CPF_CNPJ() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
