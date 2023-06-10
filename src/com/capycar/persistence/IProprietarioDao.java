@@ -15,4 +15,6 @@ public interface IProprietarioDao {
     public void incluirProprietario(Proprietario propietario);
 
     public void alterarProprietario(Proprietario proprietario);
+    
+    public Proprietario consultarProprietario(String tabela);
 }

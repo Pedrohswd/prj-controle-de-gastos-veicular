@@ -24,5 +24,10 @@ public class ProprietarioController implements IPropretarioController{
     public void alterarProprietario(Proprietario proprietario) {
         proprietarioDao.alterarProprietario(proprietario);
     }
+
+    @Override
+    public Proprietario consultarProprietario(String tabela) {
+        return proprietarioDao.consultarProprietario(tabela);
+    }
     
 }
