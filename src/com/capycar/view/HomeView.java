@@ -5,6 +5,10 @@
 package com.capycar.view;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -194,7 +198,14 @@ public class HomeView extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         setVisible(false);
-        MarcaView marca = new MarcaView();
+        MarcaView marca = null;
+        try {
+            marca = new MarcaView();
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         marca.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 

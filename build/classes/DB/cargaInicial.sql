@@ -14,3 +14,8 @@ CREATE TABLE IF NOT EXISTS Proprietario (
     Estado CHAR(2)not null,
     Tipo_pessoa CHAR(2)not null
 );
+CREATE TABLE IF NOT EXISTS Marca (
+    ID_MARCA SERIAL PRIMARY KEY,
+    Nome VARCHAR(100) not null,
+    Imagem BYTEA
+);
