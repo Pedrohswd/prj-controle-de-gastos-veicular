@@ -11,6 +11,7 @@ import java.util.Date;
  * @author pedro
  */
 public class Proprietario {
+
     private String CPF_CNPJ;
     private String nome;
     private String email;
@@ -24,11 +25,12 @@ public class Proprietario {
     private String cidade;
     private String estado;
     private String complemento;
-    
-    public Proprietario(){
+    private String tipoPessoa;
+
+    public Proprietario() {
     }
 
-    public Proprietario(String CPF_CNPJ, String nome, String email, String telefone, String categoriaCNH, Date dataNasCria, String CEP, String logradouro, String numero, String bairro, String cidade, String estado, String complemento) {
+    public Proprietario(String CPF_CNPJ, String nome, String email, String telefone, String categoriaCNH, Date dataNasCria, String CEP, String logradouro, String numero, String bairro, String cidade, String estado, String complemento, String tipoPessoa) {
         this.CPF_CNPJ = CPF_CNPJ;
         this.nome = nome;
         this.email = email;
@@ -42,6 +44,7 @@ public class Proprietario {
         this.cidade = cidade;
         this.estado = estado;
         this.complemento = complemento;
+        this.tipoPessoa = tipoPessoa;
     }
 
     public String getComplemento() {
@@ -148,9 +151,21 @@ public class Proprietario {
         this.estado = estado;
     }
 
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipo_pessoa) {
+        this.tipoPessoa = tipo_pessoa;
+    }
+
     @Override
     public String toString() {
-        return "Proprietario{" + "CPF_CNPJ=" + CPF_CNPJ + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", categoriaCNH=" + categoriaCNH + ", dataNasCria=" + dataNasCria + ", CEP=" + CEP + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", complemento=" + complemento + '}';
+        return "Proprietario{" + "CPF_CNPJ=" + CPF_CNPJ + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", categoriaCNH=" + categoriaCNH + ", dataNasCria=" + dataNasCria + ", CEP=" + CEP + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", complemento=" + complemento + ", complemento=" + tipoPessoa +'}';
     }
-    
+
+    public Object CPF_CNPJ() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

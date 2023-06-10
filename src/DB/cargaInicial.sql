@@ -11,5 +11,11 @@ CREATE TABLE IF NOT EXISTS Proprietario (
     Complemento VARCHAR(100),
     Bairro VARCHAR(100)not null,
     Cidade VARCHAR(100)not null,
-    Estado CHAR(2)not null
+    Estado CHAR(2)not null,
+    Tipo_pessoa CHAR(2)not null
+);
+CREATE TABLE IF NOT EXISTS Marca (
+    ID_MARCA SERIAL PRIMARY KEY,
+    Nome VARCHAR(100) not null,
+    Imagem BYTEA
 );

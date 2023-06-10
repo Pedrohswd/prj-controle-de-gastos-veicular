@@ -11,9 +11,10 @@ import com.capycar.model.Proprietario;
  * @author pedro
  */
 public interface IPropretarioController {
-    
+
     public void incluirProprietario(Proprietario proprietario);
-    
+
     public void alterarProprietario(Proprietario proprietario);
-    
+
+    public Proprietario consultarProprietario(String tabela);    
 }
