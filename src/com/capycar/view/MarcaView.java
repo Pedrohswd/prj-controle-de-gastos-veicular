@@ -6,10 +6,8 @@ package com.capycar.view;
 
 import com.capycar.controller.MarcaController;
 import com.capycar.model.Marca;
-import java.awt.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.ImageIcon;
@@ -19,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;

@@ -19,3 +19,10 @@ CREATE TABLE IF NOT EXISTS Marca (
     Nome VARCHAR(100) not null,
     Imagem BYTEA
 );
+CREATE TABLE IF NOT EXISTS Modelo (
+    ID_MODELO SERIAL PRIMARY KEY,
+    Nome VARCHAR(100) not null,
+    Imagem BYTEA,
+    ID_MARCA INT not null,
+    FOREIGN KEY (ID_MARCA) REFERENCES Marca (ID_MARCA)
+);
