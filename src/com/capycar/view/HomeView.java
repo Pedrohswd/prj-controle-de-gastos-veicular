@@ -5,6 +5,10 @@
 package com.capycar.view;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,7 +40,7 @@ public class HomeView extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButtonCategoria = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabelImagem = new javax.swing.JLabel();
@@ -82,12 +86,17 @@ public class HomeView extends javax.swing.JFrame {
         jButton4.setBorder(null);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jButton5.setBackground(new java.awt.Color(121, 113, 234));
-        jButton5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(34, 40, 49));
-        jButton5.setText("Cadastro de Categorias");
-        jButton5.setBorder(null);
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonCategoria.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonCategoria.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButtonCategoria.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonCategoria.setText("Cadastro de Categorias");
+        jButtonCategoria.setBorder(null);
+        jButtonCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCategoriaActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(121, 113, 234));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -110,7 +119,7 @@ public class HomeView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton5)
+                        .addComponent(jButtonCategoria)
                         .addComponent(jButton6)
                         .addComponent(jButton2)
                         .addComponent(jButton7)
@@ -136,7 +145,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton6)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(jButtonCategoria)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(18, 18, 18)
@@ -174,7 +183,7 @@ public class HomeView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -186,6 +195,19 @@ public class HomeView extends javax.swing.JFrame {
         ProprietarioView proprietario = new ProprietarioView();
         proprietario.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
+        try {
+            // TODO add your handling code here:
+            setVisible(false);
+            CategoriaView categoria = new CategoriaView();
+            categoria.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,9 +249,9 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelImagem;
     private javax.swing.JPanel jPanel1;

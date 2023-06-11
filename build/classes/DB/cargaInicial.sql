@@ -13,3 +13,10 @@ CREATE TABLE IF NOT EXISTS Proprietario (
     Cidade VARCHAR(100)not null,
     Estado CHAR(2)not null
 );
+CREATE TABLE IF NOT EXISTS Categoria (
+    id_categoria SERIAL PRIMARY KEY,
+    Descricao VARCHAR(100) not null,
+    Tipo VARCHAR(12) not null,
+    categoria_pai int,
+    FOREIGN KEY (categoria_pai) REFERENCES Categoria (id_categoria)
+);
