@@ -4,17 +4,21 @@
  */
 package com.capycar.persistence;
 
-import com.capycar.model.Proprietario;
+import com.capycar.model.Marca;
+import java.sql.ResultSet;
+
 
 /**
  *
  * @author pedro
  */
-public interface IProprietarioDao {
+public interface IMarcaDao {
 
-    public void incluirProprietario(Proprietario propietario);
+    public void criarMarca(Marca marca);
 
-    public void alterarProprietario(Proprietario proprietario);
+    public void deletarMarca(Marca marca);
+
+    public void alterarMarca(Marca marca);
     
-    public Proprietario consultarProprietario(String tabela);
+    public ResultSet carregTabela();
 }

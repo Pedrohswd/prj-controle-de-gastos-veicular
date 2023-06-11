@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -85,6 +87,34 @@ public class GastoRiderAPI {
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public static boolean tabelaPossuiDados(String tabela) {
+        boolean possuiDados = false;
+
+        try {
+            Connection connection = conectBD();
+            // Preparar a consulta SQL
+            String sql = "SELECT COUNT(*) FROM " + tabela;
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Executar a consulta
+            ResultSet resultSet = statement.executeQuery();
+
+            // Verificar se a tabela possui dados
+            if (resultSet.next()) {
+                int rowCount = resultSet.getInt(1);
+                possuiDados = rowCount > 0;
+            }
+
+            // Fechar os recursos
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return possuiDados;
     }
 }
 

@@ -4,9 +4,11 @@
  */
 package com.capycar.view;
 
+import com.capycar.connection.GastoRiderAPI;
 import com.capycar.controller.ProprietarioController;
 import com.capycar.model.Proprietario;
 import javax.swing.border.EmptyBorder;
+import java.lang.String;
 
 /**
  *
@@ -17,17 +19,42 @@ public class ProprietarioView extends javax.swing.JFrame {
     /**
      * Creates new form ProprietarioView
      */
+    private ProprietarioController proprietarioControle = new ProprietarioController();
+    String tipoPessoa = "";
+    String tabela = "Proprietario";
+
     public ProprietarioView() {
         initComponents();
         setLocationRelativeTo(null);
-        jTextNomeRazao.setVisible(false);
-        jTextEmail.setVisible(false);
-        jTextCPFCNPJ.setVisible(false);
-        jLabelNomeRazao.setVisible(false);
-        jLabelEmail.setVisible(false);
-        jLabelCPFCNPJ.setVisible(false);
-        jComboBoxCNH.setVisible(false);
-        jLabelCNH.setVisible(false);
+
+        if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+            setLocationRelativeTo(null);
+            jTextNomeRazao.setVisible(false);
+            jTextEmail.setVisible(false);
+            jTextCPFCNPJ.setVisible(false);
+            jLabelNomeRazao.setVisible(false);
+            jLabelEmail.setVisible(false);
+            jLabelCPFCNPJ.setVisible(false);
+            jComboBoxCNH.setVisible(false);
+            jLabelCNH.setVisible(false);
+        } else {
+            jRadioCPF.setEnabled(false);
+            jRadioCNPJ.setEnabled(false);
+            jTextCPFCNPJ.setEditable(false);
+            jTextBairro.setEditable(false);
+            jTextCEP.setEditable(false);
+            jTextCidade.setEditable(false);
+            jTextComplemento.setEditable(false);
+            jTextDDD.setEditable(false);
+            jTextEmail.setEditable(false);
+            jTextLogradouro.setEditable(false);
+            jTextNomeRazao.setEditable(false);
+            jTextNumero.setEditable(false);
+            jTextNumeroCasa.setEditable(false);
+            jComboBoxCNH.setEditable(false);
+            jComboBoxEstado.setEditable(false);
+            preencherCampos(proprietarioControle.consultarProprietario(tabela));
+        }
     }
 
     /**
@@ -333,6 +360,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonAlterar.setForeground(new java.awt.Color(34, 40, 49));
         jButtonAlterar.setText("ALTERAR");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jLabelCNH.setForeground(new java.awt.Color(238, 238, 238));
         jLabelCNH.setText("Categoria CNH:");
@@ -482,14 +514,14 @@ public class ProprietarioView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDateDataNasCri, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCNH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextDDI, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)))
-                .addGap(25, 25, 25)
+                            .addComponent(jTextNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCNH, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                        .addGap(1, 1, 1)))
+                .addGap(26, 26, 26)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -521,7 +553,7 @@ public class ProprietarioView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonAlterar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -557,6 +589,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabelData.setText("Data de Nascimento:");
         jComboBoxCNH.setVisible(true);
         jLabelCNH.setVisible(true);
+        tipoPessoa = "PF";
     }//GEN-LAST:event_jRadioCPFActionPerformed
 
     private void jRadioCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioCNPJActionPerformed
@@ -571,6 +604,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabelData.setText("Data de emissão:");
         jComboBoxCNH.setVisible(false);
         jLabelCNH.setVisible(false);
+        tipoPessoa = "PJ";
     }//GEN-LAST:event_jRadioCNPJActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -580,12 +614,69 @@ public class ProprietarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        String telefone = jTextDDI.getText() + jTextDDD.getText() + jTextNumero.getText();
-        Proprietario proprietario = new Proprietario(jTextCPFCNPJ.getText(), jTextNomeRazao.getText(), jTextEmail.getText(), telefone, jComboBoxCNH.getSelectedItem().toString(), jDateDataNasCri.getDate(), jTextCEP.getText(), jTextLogradouro.getText(),
-                 jTextNumeroCasa.getText(), jTextBairro.getText(), jTextCidade.getText(), jComboBoxEstado.getSelectedItem().toString(), jTextComplemento.getText());
-        ProprietarioController proprietarioControle = new ProprietarioController();
-        proprietarioControle.incluirProprietario(proprietario);
+        if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+            String telefone = jTextDDI.getText() + ";" + jTextDDD.getText() + ";" + jTextNumero.getText();
+            Proprietario proprietario = new Proprietario(jTextCPFCNPJ.getText(), jTextNomeRazao.getText(), jTextEmail.getText(), telefone, jComboBoxCNH.getSelectedItem().toString(), jDateDataNasCri.getDate(), jTextCEP.getText(), jTextLogradouro.getText(),
+                    jTextNumeroCasa.getText(), jTextBairro.getText(), jTextCidade.getText(), jComboBoxEstado.getSelectedItem().toString(), jTextComplemento.getText(), tipoPessoa);
+            proprietarioControle.incluirProprietario(proprietario);
+        } else {
+            String telefone = jTextDDI.getText() + ";" + jTextDDD.getText() + ";" + jTextNumero.getText();
+            Proprietario proprietario = new Proprietario(jTextCPFCNPJ.getText(), jTextNomeRazao.getText(), jTextEmail.getText(), telefone, jComboBoxCNH.getSelectedItem().toString(), jDateDataNasCri.getDate(), jTextCEP.getText(), jTextLogradouro.getText(),
+                    jTextNumeroCasa.getText(), jTextBairro.getText(), jTextCidade.getText(), jComboBoxEstado.getSelectedItem().toString(), jTextComplemento.getText(), tipoPessoa);
+            proprietarioControle.alterarProprietario(proprietario);
+        }
+
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        jTextBairro.setEnabled(true);
+        jTextCEP.setEnabled(true);
+        jTextCidade.setEnabled(true);
+        jTextComplemento.setEnabled(true);
+        jTextDDD.setEnabled(true);
+        jTextEmail.setEnabled(true);
+        jTextLogradouro.setEnabled(true);
+        jTextNomeRazao.setEnabled(true);
+        jTextNumero.setEnabled(true);
+        jTextNumeroCasa.setEnabled(true);
+        jComboBoxCNH.setEnabled(true);
+        jComboBoxEstado.setEnabled(true);
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void preencherCampos(Proprietario proprietario) {
+        if (proprietario.getTipoPessoa() == "PF") {
+            jRadioCPF.setSelected(true);
+        }
+        if (proprietario.getTipoPessoa() == "PJ") {
+            jRadioCNPJ.setSelected(true);
+        }
+
+        String[] substrings = separarString(proprietario.getTelefone());
+
+        for (String substring : substrings) {
+            System.out.println(substring);
+        }
+
+        jTextNomeRazao.setText(proprietario.getNome());
+        jTextCPFCNPJ.setText(proprietario.getCPF_CNPJ());
+        jTextEmail.setText(proprietario.getEmail());
+        jTextDDI.setText(substrings[0]);
+        jTextDDD.setText(substrings[1]);
+        jTextNumero.setText(substrings[2]);
+        jComboBoxCNH.setSelectedItem(proprietario.getCategoriaCNH());
+        jDateDataNasCri.setDate(proprietario.getDataNasCria());
+        jTextCEP.setText(proprietario.getCEP());
+        jTextLogradouro.setText(proprietario.getLogradouro());
+        jTextNumeroCasa.setText(proprietario.getNumero());
+        jTextComplemento.setText(proprietario.getComplemento());
+        jTextBairro.setText(proprietario.getBairro());
+        jTextCidade.setText(proprietario.getCidade());
+    }
+    
+        public static String[] separarString(String texto) {
+        return texto.split(";");
+    }
 
     /**
      * @param args the command line arguments

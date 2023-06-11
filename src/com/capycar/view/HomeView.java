@@ -78,6 +78,11 @@ public class HomeView extends javax.swing.JFrame {
         jButton3.setText("Cadastro de Marca");
         jButton3.setBorder(null);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(121, 113, 234));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -85,6 +90,11 @@ public class HomeView extends javax.swing.JFrame {
         jButton4.setText("Cadastro de Modelo");
         jButton4.setBorder(null);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButtonCategoria.setBackground(new java.awt.Color(121, 113, 234));
         jButtonCategoria.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -196,18 +206,44 @@ public class HomeView extends javax.swing.JFrame {
         proprietario.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
+    private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         try {
             // TODO add your handling code here:
             setVisible(false);
             CategoriaView categoria = new CategoriaView();
             categoria.setVisible(true);
+                    } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        setVisible(false);
+        MarcaView marca = null;
+        try {
+            marca = new MarcaView();
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }                                                
+        marca.setVisible(true);
+    }                                        
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        setVisible(false);
+        ModeloView modelo = null;
+        try {
+            modelo = new ModeloView();
         } catch (SQLException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonCategoriaActionPerformed
+        modelo.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     /**
      * @param args the command line arguments
