@@ -50,7 +50,7 @@ public class ModeloDao implements IModeloDao {
     @Override
     public void deletarModelo(Modelo modelo) {
         try {
-            String sql = "DELETE FROM Modelo WHERE ID_MARCA = ?";
+            String sql = "DELETE FROM Modelo WHERE ID_MODELO = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, modelo.getIdModelo());
             preparedStatement.executeUpdate();
@@ -64,7 +64,7 @@ public class ModeloDao implements IModeloDao {
     public void alterarModelo(Modelo modelo) {
         try {
             if (modelo.getUrl() != null) {
-                String sql = "UPDATE Marca SET Nome = ?, Imagem = ?, ID_MARCA = ? WHERE ID_MARCA = ?";
+                String sql = "UPDATE Modelo SET Nome = ?, Imagem = ?, ID_MARCA = ? WHERE ID_MODELO = ?";
                 String imagePath = modelo.getUrl();
                 FileInputStream inputStream = new FileInputStream(new File(imagePath));
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -74,10 +74,11 @@ public class ModeloDao implements IModeloDao {
                 preparedStatement.setInt(4, modelo.getIdModelo());
                 preparedStatement.executeUpdate();
             } else {
-                String sql = "UPDATE Marca SET Nome = ? WHERE ID_MARCA = ?";
+                String sql = "UPDATE Modelo SET Nome = ?, ID_MARCA = ? WHERE ID_MODELO = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, modelo.getNome());
-                preparedStatement.setInt(2, modelo.getIdModelo());
+                preparedStatement.setInt(2, modelo.getIdMarca().getIdMarca());
+                preparedStatement.setInt(3, modelo.getIdModelo());
                 preparedStatement.executeUpdate();
             }
 

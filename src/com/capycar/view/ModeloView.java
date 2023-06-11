@@ -33,7 +33,8 @@ public class ModeloView extends javax.swing.JFrame {
      * Creates new form ModeloView
      */
     ModeloController modeloController = new ModeloController();
-    int ID=0;
+    int idModelo = 0;
+    int idMarca = 0;
     ArrayList<Marca> listaMarca = new ArrayList<>();
     String url;
 
@@ -384,7 +385,7 @@ public class ModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldModeloActionPerformed
 
     private void jButtonSelecionarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarImgActionPerformed
-               try {
+        try {
             JFileChooser fc = new JFileChooser();
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fc.showOpenDialog(this);
@@ -402,16 +403,35 @@ public class ModeloView extends javax.swing.JFrame {
 
     private void jTableModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableModeloMouseClicked
         try {
-            ID = Integer.parseInt(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 0).toString());
+            idModelo = Integer.parseInt(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 0).toString());
             jTextFieldModelo.setText(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 1).toString());
             ResultSet resultSet = modeloController.carregTabela("Modelo");
+            idMarca = Integer.parseInt(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 2).toString());
+
             while (resultSet.next()) {
-                if (ID == resultSet.getInt(1)) {
+                if (idModelo == resultSet.getInt(1)) {
                     InputStream inputStream = resultSet.getBinaryStream(3);
                     BufferedImage image = ImageIO.read(inputStream);
                     ImageIcon iconLogo = new ImageIcon(image);
                     iconLogo.setImage(iconLogo.getImage().getScaledInstance(jLabelIMG.getWidth(), jLabelIMG.getHeight(), 1));
                     jLabelIMG.setIcon(iconLogo);
+                }
+            }
+
+//            resultSet = modeloController.carregTabela("Marca");
+//            while (resultSet.next()) {
+//                Marca marca = new Marca();
+//                marca.setIdMarca(resultSet.getInt(1));
+//                marca.setNome(resultSet.getString(2));
+//
+//                listaMarca.add(marca);
+//            }
+            jComboBoxMarca.removeAllItems();
+
+            for (Marca marca : listaMarca) {
+                jComboBoxMarca.addItem(marca);
+                if (idMarca == marca.getIdMarca()) {
+                    jComboBoxMarca.setSelectedItem(marca);
                 }
             }
 
@@ -421,22 +441,21 @@ public class ModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableModeloMouseClicked
 
     private void jComboBoxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMarcaActionPerformed
-        
+
     }//GEN-LAST:event_jComboBoxMarcaActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-//        marca = new Marca(ID, jTextFieldMarca.getText(), url);
-//        marcaController.deletarMarca(marca);
-//        jTextFieldMarca.setText("");
-//        jLabelIMG.setIcon(null);
-//        url = null;
-//        try {
-//            carregarTabela();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        Modelo modelo = new Modelo(idModelo, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
+        modeloController.deletarModelo(modelo);
+        try {
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextFieldModelo.setText("");
+        jLabelIMG.setIcon(null);
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -449,25 +468,26 @@ public class ModeloView extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jTextFieldModelo.setText("");
+        jLabelIMG.setIcon(null);
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-//        marca = new Marca(ID, jTextFieldMarca.getText(), url);
-//        marcaController.alterarMarca(marca);
-//        url = null;
-//        jTextFieldMarca.setText("");
-//        jLabelIMG.setIcon(null);
-//        try {
-//            carregarTabela();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        Modelo modelo = new Modelo(idModelo, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
+        modeloController.alterarModelo(modelo);
+        try {
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextFieldModelo.setText("");
+        jLabelIMG.setIcon(null);
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jComboBoxMarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBoxMarcaAncestorAdded
-        
+
     }//GEN-LAST:event_jComboBoxMarcaAncestorAdded
 
     private void carregaComboBox() throws SQLException {
@@ -476,16 +496,16 @@ public class ModeloView extends javax.swing.JFrame {
             Marca marca = new Marca();
             marca.setIdMarca(resultSet.getInt(1));
             marca.setNome(resultSet.getString(2));
-            
+
             listaMarca.add(marca);
         }
-        
+
         jComboBoxMarca.removeAllItems();
-        
-        for (Marca marca : listaMarca){
+
+        for (Marca marca : listaMarca) {
             jComboBoxMarca.addItem(marca);
         }
-        
+
     }
 
     private void carregarTabela() throws SQLException, IOException {
@@ -497,7 +517,7 @@ public class ModeloView extends javax.swing.JFrame {
             model.addRow(new Object[]{
                 resultSet.getString(1),
                 resultSet.getString(2),
-                resultSet.getString(3)
+                resultSet.getString(4)
             });
         }
     }
