@@ -13,11 +13,11 @@ import java.sql.ResultSet;
  */
 public interface IModeloDao {
 
-    public void criarMarca(Modelo modelo);
+    public void criarModelo(Modelo modelo);
 
-    public void deletarMarca(Modelo modelo);
+    public void deletarModelo(Modelo modelo);
 
-    public void alterarMarca(Modelo modelo);
+    public void alterarModelo(Modelo modelo);
 
     public ResultSet carregTabela(String table);
 }

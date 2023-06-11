@@ -6,9 +6,15 @@ package com.capycar.persistence;
 
 import com.capycar.connection.GastoRiderAPI;
 import com.capycar.model.Modelo;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,18 +29,63 @@ public class ModeloDao implements IModeloDao {
     }
 
     @Override
-    public void criarMarca(Modelo modelo) {
-
+    public void criarModelo(Modelo modelo) {
+        try {
+            String imagePath = modelo.getUrl();
+            String sql = "INSERT INTO Modelo (Nome, Imagem, ID_MARCA)\n"
+                    + "VALUES (?, ?, ?);";
+            FileInputStream inputStream = new FileInputStream(new File(imagePath));
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, modelo.getNome());
+            preparedStatement.setBinaryStream(2, inputStream);
+            preparedStatement.setInt(3, modelo.getIdMarca().getIdMarca());
+            preparedStatement.executeUpdate();
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MarcaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void deletarMarca(Modelo modelo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deletarModelo(Modelo modelo) {
+        try {
+            String sql = "DELETE FROM Modelo WHERE ID_MARCA = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, modelo.getIdModelo());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        }
     }
 
     @Override
-    public void alterarMarca(Modelo modelo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void alterarModelo(Modelo modelo) {
+        try {
+            if (modelo.getUrl() != null) {
+                String sql = "UPDATE Marca SET Nome = ?, Imagem = ?, ID_MARCA = ? WHERE ID_MARCA = ?";
+                String imagePath = modelo.getUrl();
+                FileInputStream inputStream = new FileInputStream(new File(imagePath));
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, modelo.getNome());
+                preparedStatement.setBinaryStream(2, inputStream);
+                preparedStatement.setInt(3, modelo.getIdMarca().getIdMarca());
+                preparedStatement.setInt(4, modelo.getIdModelo());
+                preparedStatement.executeUpdate();
+            } else {
+                String sql = "UPDATE Marca SET Nome = ? WHERE ID_MARCA = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, modelo.getNome());
+                preparedStatement.setInt(2, modelo.getIdModelo());
+                preparedStatement.executeUpdate();
+            }
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MarcaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

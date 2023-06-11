@@ -17,18 +17,18 @@ public class ModeloController implements IModeloController{
     ModeloDao modeloDao = new ModeloDao();
 
     @Override
-    public void criarMarca(Modelo modelo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void criarModelo(Modelo modelo) {
+        modeloDao.criarModelo(modelo);
     }
 
     @Override
-    public void deletarMarca(Modelo modelo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deletarModelo(Modelo modelo) {
+        modeloDao.deletarModelo(modelo);
     }
 
     @Override
-    public void alterarMarca(Modelo modelo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void alterarModelo(Modelo modelo) {
+        modeloDao.alterarModelo(modelo);
     }
 
     @Override
