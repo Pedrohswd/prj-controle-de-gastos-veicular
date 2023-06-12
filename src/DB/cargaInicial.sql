@@ -35,16 +35,17 @@ CREATE TABLE IF NOT EXISTS Categoria (
 );
 
 CREATE TABLE IF NOT EXISTS Veiculo (
-    id_veiculo SERIAL PRIMARY KEY,
+    ID_VEICULO SERIAL PRIMARY KEY,
     placa VARCHAR(10) NOT NULL,
     renavam VARCHAR(11) NOT NULL,
     ano_fabricacao VARCHAR(4) NOT NULL,
     ano_modelo VARCHAR(4) NOT NULL,
-    proprietario VARCHAR(255) NOT NULL,
-    combustivel VARCHAR(255) NOT NULL,
+    ID_PROPRIETARIO VARCHAR(14),
+    combustivel VARCHAR(30) NOT NULL,
     km_atual FLOAT NOT NULL,
-    categoria VARCHAR(255) NOT NULL,
-    id_modelo INT,
-    FOREIGN KEY (id_modelo) REFERENCES Modelo (ID_MODELO)
+    categoria VARCHAR(30) NOT NULL,
+    ID_MODELO INT,
+    FOREIGN KEY (ID_MODELO) REFERENCES Modelo (ID_MODELO),
+    FOREIGN KEY (ID_PROPRIETARIO) REFERENCES Proprietario (CPF_CNPJ)
 );
 
