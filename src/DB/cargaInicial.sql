@@ -33,3 +33,16 @@ CREATE TABLE IF NOT EXISTS Categoria (
     categoria_pai int,
     FOREIGN KEY (categoria_pai) REFERENCES Categoria (id_categoria)
 );
+
+CREATE TABLE IF NOT EXISTS Veiculo (
+    id_veiculo SERIAL PRIMARY KEY,
+    placa VARCHAR(10) NOT NULL,
+    renavam VARCHAR(11) NOT NULL,
+    ano_fabricacao VARCHAR(4) NOT NULL,
+    ano_modelo VARCHAR(4) NOT NULL,
+    proprietario VARCHAR(255) NOT NULL,
+    combustivel VARCHAR(255) NOT NULL,
+    km_atual FLOAT NOT NULL,
+    categoria VARCHAR(255) NOT NULL
+FOREIGN KEY (ID_MODELO) References Modelo (ID_MODELO)
+);
