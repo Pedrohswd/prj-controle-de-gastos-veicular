@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS Veiculo (
     proprietario VARCHAR(255) NOT NULL,
     combustivel VARCHAR(255) NOT NULL,
     km_atual FLOAT NOT NULL,
-    categoria VARCHAR(255) NOT NULL
-FOREIGN KEY (ID_MODELO) References Modelo (ID_MODELO)
+    categoria VARCHAR(255) NOT NULL,
+    id_modelo INT,
+    FOREIGN KEY (id_modelo) REFERENCES Modelo (ID_MODELO)
 );
+
