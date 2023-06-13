@@ -4,11 +4,14 @@
  */
 package com.capycar.view;
 
+import com.capycar.controller.LancamentoController;
 import com.capycar.model.Modelo;
+import com.capycar.model.Veiculo;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -16,6 +19,9 @@ import javax.swing.border.EmptyBorder;
  * @author pedro
  */
 public class LancamentoView extends javax.swing.JFrame {
+    
+    LancamentoController lancamentoController = new LancamentoController();
+    ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
 
     /**
      * Creates new form LancamentoView
@@ -53,7 +59,7 @@ public class LancamentoView extends javax.swing.JFrame {
         jButtonSalvar = new javax.swing.JButton();
         jButtonConsultar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jComboBoxVeiculo = new javax.swing.JComboBox<>();
+        jComboBoxVeiculo = new javax.swing.JComboBox();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
         jComboBoxSubCategoria = new javax.swing.JComboBox<>();
 
@@ -354,6 +360,39 @@ public class LancamentoView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
+    
+    public void carregaComboBox() throws SQLException{
+        ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
+        while (resultSet.next()) {
+            Veiculo veiculo = new Veiculo();
+            veiculo.setIdVeiculo(resultSet.getInt(1));
+            veiculo.setPlaca(resultSet.getString(2));
+            veiculo.setRenavam(resultSet.getString(3));
+            veiculo.setAnoFabricacao(resultSet.getString(4));
+            veiculo.setAnoModelo(resultSet.getString(5));
+            veiculo.setCombustivel(resultSet.getString(7));
+            veiculo.setKmAtual(resultSet.getInt(8));
+            veiculo.setCategoria(resultSet.getString(9));
+
+            listaVeiculo.add(veiculo);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        jComboBoxVeiculo.removeAllItems();
+
+        for (Veiculo veiculo : listaVeiculo) {
+            jComboBoxVeiculo.addItem(veiculo);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -401,7 +440,7 @@ public class LancamentoView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JComboBox<String> jComboBoxSubCategoria;
-    private javax.swing.JComboBox<String> jComboBoxVeiculo;
+    private javax.swing.JComboBox jComboBoxVeiculo;
     private com.toedter.calendar.JDateChooser jDateChooserRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
