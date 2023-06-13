@@ -5,7 +5,9 @@
 package com.capycar.view;
 
 import com.capycar.controller.LancamentoController;
+import com.capycar.model.Categoria;
 import com.capycar.model.Modelo;
+import com.capycar.model.Subcategoria;
 import com.capycar.model.Veiculo;
 import java.io.IOException;
 import java.lang.System.Logger;
@@ -22,6 +24,8 @@ public class LancamentoView extends javax.swing.JFrame {
     
     LancamentoController lancamentoController = new LancamentoController();
     ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
+    ArrayList<Categoria> listaCategoria = new ArrayList<>();
+    ArrayList<Subcategoria> listaSubCategoria = new ArrayList<>();
 
     /**
      * Creates new form LancamentoView
@@ -377,8 +381,12 @@ public class LancamentoView extends javax.swing.JFrame {
             listaVeiculo.add(veiculo);
         }
         
-        
-        
+        resultSet = lancamentoController.consultarLancamento("Categoria");
+        while (resultSet.next()) {
+            Categoria categoria = new Categoria();
+            categoria.setId_categoria(resultSet.getInt(1));
+            categoria.setId_categoria(resultSet.getInt(1));
+        }
         
         
         
