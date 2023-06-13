@@ -4,10 +4,20 @@
  */
 package com.capycar.controller;
 
+import com.capycar.model.Subcategoria;
+import java.sql.ResultSet;
+
 /**
  *
  * @author aluno
  */
 public interface ISubcategoriaController {
-    
+
+    public void incluirSubcategoria(Subcategoria subcategoria);
+
+    public void alterarSubcategoria(Subcategoria subcategoria);
+
+    public void excluirSubcategoria(Subcategoria subcategoria);
+
+    public ResultSet carregTabela(String tabela);
 }

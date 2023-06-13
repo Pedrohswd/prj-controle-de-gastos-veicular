@@ -28,7 +28,7 @@ public class SubcategoriaDAO implements ISubcategoriaDAO{
             String sql = "INSERT INTO Subcategoria (Descricao, ID_CATEGORIA)" + "VALUES(?,?)";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, subcategoria.getDescricao());
-            preparedStatement.setInt(2, subcategoria.getIdCategoria().getId_categoria());
+            preparedStatement.setInt(2, subcategoria.getIdCategoria().getidCategoria());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -41,7 +41,7 @@ public class SubcategoriaDAO implements ISubcategoriaDAO{
             String sql = "UPDATE Subcategoria SET Descricao = ? , ID_CATEGORIA =? WHERE ID_SUBCATEGORIA = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, subcategoria.getDescricao());
-            preparedStatement.setInt(2, subcategoria.getIdCategoria().getId_categoria());
+            preparedStatement.setInt(2, subcategoria.getIdCategoria().getidCategoria());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());

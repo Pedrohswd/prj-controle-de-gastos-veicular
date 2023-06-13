@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
  * @author pedro
  */
 public class LancamentoView extends javax.swing.JFrame {
-    
+
     LancamentoController lancamentoController = new LancamentoController();
     ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
     ArrayList<Categoria> listaCategoria = new ArrayList<>();
@@ -65,7 +65,7 @@ public class LancamentoView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jComboBoxVeiculo = new javax.swing.JComboBox();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
-        jComboBoxSubCategoria = new javax.swing.JComboBox<>();
+        jComboBoxSubCategoria = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -233,6 +233,12 @@ public class LancamentoView extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(238, 238, 238));
         jLabel7.setText("Lançamento de Gastos");
 
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -357,15 +363,35 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldValorActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
 
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
-    
-    public void carregaComboBox() throws SQLException{
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        Categoria categoriaSelecionada = (Categoria) jComboBoxCategoria.getSelectedItem();
+        ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria where id_categoria = " + categoriaSelecionada.getidCategoria());
+        try {
+            while (resultSet.next()) {
+                Subcategoria subcategoria = new Subcategoria();
+                subcategoria.setIdSubcategoria(resultSet.getInt(1));
+                subcategoria.setDescricao(resultSet.getString(2));
+
+                listaSubCategoria.add(subcategoria);
+            }
+            jComboBoxSubCategoria.removeAllItems();
+
+            for (Subcategoria subcategoria : listaSubCategoria) {
+                jComboBoxSubCategoria.addItem(subcategoria);
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+
+    public void carregaComboBox() throws SQLException {
         ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
         while (resultSet.next()) {
             Veiculo veiculo = new Veiculo();
@@ -380,27 +406,27 @@ public class LancamentoView extends javax.swing.JFrame {
 
             listaVeiculo.add(veiculo);
         }
-        
+
         resultSet = lancamentoController.consultarLancamento("Categoria");
         while (resultSet.next()) {
             Categoria categoria = new Categoria();
-            categoria.setId_categoria(resultSet.getInt(1));
-            categoria.setId_categoria(resultSet.getInt(1));
+            categoria.setidCategoria(resultSet.getInt(1));
+            categoria.setDescricao(resultSet.getString(2));
+
+            listaCategoria.add(categoria);
         }
-        
-        
-        
-        
-        
-        
 
         jComboBoxVeiculo.removeAllItems();
+        jComboBoxCategoria.removeAllItems();
 
         for (Veiculo veiculo : listaVeiculo) {
             jComboBoxVeiculo.addItem(veiculo);
         }
+        for (Categoria categoria : listaCategoria) {
+            jComboBoxVeiculo.addItem(categoria);
+        }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -447,7 +473,7 @@ public class LancamentoView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
-    private javax.swing.JComboBox<String> jComboBoxSubCategoria;
+    private javax.swing.JComboBox jComboBoxSubCategoria;
     private javax.swing.JComboBox jComboBoxVeiculo;
     private com.toedter.calendar.JDateChooser jDateChooserRegistro;
     private javax.swing.JLabel jLabel1;

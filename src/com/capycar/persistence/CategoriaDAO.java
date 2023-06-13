@@ -46,7 +46,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         try {
             String sql = "DELETE FROM Categoria WHERE id = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-            preparedStatement.setInt(1, categoria.getId_categoria());
+            preparedStatement.setInt(1, categoria.getidCategoria());
             preparedStatement.executeUpdate();   
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
