@@ -10,23 +10,23 @@ package com.capycar.model;
  */
 public class Categoria {
 
-    private int id_categoria;
+    private int idCategoria;
     private String descricao;
 
     public Categoria() {
     }
 
-    public Categoria(int id_categoria, String descricao) {
-        this.id_categoria = id_categoria;
+    public Categoria(int idCategoria, String descricao) {
+        this.idCategoria = idCategoria;
         this.descricao = descricao;
     }
 
-    public int getId_categoria() {
-        return id_categoria;
+    public int getidCategoria() {
+        return idCategoria;
     }
 
-    public void setId_categoria() {
-        this.id_categoria = id_categoria;
+    public void setidCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public String getDescricao() {
@@ -40,7 +40,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return "Categoria{" + "id_categoria=" + id_categoria + "descricao=" + descricao + '}';
+        return "Categoria{" + "idCategoria=" + idCategoria + "descricao=" + descricao + '}';
     }
 
 }
