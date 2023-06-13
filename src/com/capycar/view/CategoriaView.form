@@ -53,9 +53,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="177" max="32767" attributes="0"/>
+                  <EmptySpace pref="119" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -74,7 +75,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jRadioButtonSubcategoria" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBoxCategorias" min="-2" pref="102" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelCategoriaPai" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                               </Group>
@@ -96,6 +97,13 @@
                       </Group>
                   </Group>
               </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="513" max="32767" attributes="0"/>
+                      <Component id="jTextFieldDescricaoSubCat" min="-2" pref="162" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="525" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -112,7 +120,7 @@
                   <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCategoriaPai" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -128,6 +136,13 @@
                       <Component id="jButtonSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDescricaoSubCat" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="487" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -390,6 +405,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Subcategoria"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonSubcategoriaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldDescricaoCategoria">
         </Component>
@@ -416,7 +434,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="jLabelCategoriaPai">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -510,6 +528,8 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldDescricaoSubCat">
         </Component>
       </SubComponents>
     </Container>
