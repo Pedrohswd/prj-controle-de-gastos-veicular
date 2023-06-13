@@ -12,17 +12,13 @@ public class Categoria {
 
     private int id_categoria;
     private String descricao;
-    private String tipo;
-    private String categoria_pai;
 
     public Categoria() {
     }
 
-    public Categoria(int id_categoria, String descricao, String tipo, String categoria_pai) {
+    public Categoria(int id_categoria, String descricao) {
         this.id_categoria = id_categoria;
         this.descricao = descricao;
-        this.tipo = tipo;
-        this.categoria_pai = categoria_pai;
     }
 
     public int getId_categoria() {
@@ -41,25 +37,10 @@ public class Categoria {
         this.descricao = descricao;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getCategoria() {
-        return categoria_pai;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria_pai = categoria;
-    }
 
     @Override
     public String toString() {
-        return "Categoria{" + "id_categoria=" + id_categoria + "descricao=" + descricao + ", tipo=" + tipo + ", categoria=" + categoria_pai + '}';
+        return "Categoria{" + "id_categoria=" + id_categoria + "descricao=" + descricao + '}';
     }
 
 }

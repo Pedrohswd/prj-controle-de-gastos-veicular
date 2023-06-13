@@ -181,6 +181,11 @@ public class CategoriaView extends javax.swing.JFrame {
         jRadioButtonCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRadioButtonCategoria.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButtonCategoria.setText("Categoria");
+        jRadioButtonCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCategoriaActionPerformed(evt);
+            }
+        });
 
         jRadioButtonSubcategoria.setBackground(new java.awt.Color(57, 62, 70));
         buttonGroup1.add(jRadioButtonSubcategoria);
@@ -338,11 +343,17 @@ public class CategoriaView extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        Categoria categoria = new Categoria(0,jTextFieldDescricaoCategoria.getText(),jRadioButtonCategoria.getText(),jComboBoxCategorias.getName());
+        Categoria categoria = new Categoria(0,jTextFieldDescricaoCategoria.getText());
         CategoriaController categoriaControle = new CategoriaController();
         categoriaControle.incluirCategoria(categoria);
         
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jRadioButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCategoriaActionPerformed
+        // TODO add your handling code here:
+        jTextFieldDescricaoCategoria.setVisible(true);
+        jComboBoxCategorias.setVisible(false);
+    }//GEN-LAST:event_jRadioButtonCategoriaActionPerformed
 
     /**
      * @param args the command line arguments

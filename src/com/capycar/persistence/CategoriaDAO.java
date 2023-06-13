@@ -20,11 +20,9 @@ public class CategoriaDAO implements ICategoriaDAO {
     @Override
     public void incluirCategoria(Categoria categoria) {
         try {
-            String sql = "INSERT INTO Categoria (Descricao, Tipo, categoria_pai)" + "VALUES(?,?,?)";
+            String sql = "INSERT INTO Categoria (Descricao)" + "VALUES(?)";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, categoria.getDescricao());
-            preparedStatement.setString(2, categoria.getTipo());
-            preparedStatement.setString(3, categoria.getCategoria());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -34,10 +32,9 @@ public class CategoriaDAO implements ICategoriaDAO {
     @Override
     public void alterarCategoria(Categoria categoria) {
         try {
-            String sql = "UPDATE Categoria SET Descricao = ?, Tipo = ? , categoria_pai = ? WHERE id = ?";
+            String sql = "UPDATE Categoria SET Descricao = ? WHERE id = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, categoria.getDescricao());
-            preparedStatement.setString(2, categoria.getTipo());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -47,9 +44,9 @@ public class CategoriaDAO implements ICategoriaDAO {
     @Override
     public void excluirCategoria(Categoria categoria){
         try {
-            String sql = "DELETE FROM Categoria SET Descricao = ?, Tipo = ?, categoria_pai = ? WHERE id = ?";
+            String sql = "DELETE FROM Categoria WHERE id = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-            preparedStatement.setString(1, categoria.getDescricao());
+            preparedStatement.setInt(1, categoria.getId_categoria());
             preparedStatement.executeUpdate();   
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -61,7 +58,6 @@ public class CategoriaDAO implements ICategoriaDAO {
             PreparedStatement preparedStatement = conexao.prepareStatement("SELECT * FROM "+ tabela);
             ResultSet resultSet;
             return resultSet = preparedStatement.executeQuery();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

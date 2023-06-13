@@ -28,10 +28,7 @@ CREATE TABLE IF NOT EXISTS Modelo (
 );
 CREATE TABLE IF NOT EXISTS Categoria (
     id_categoria SERIAL PRIMARY KEY,
-    Descricao VARCHAR(100) not null,
-    Tipo VARCHAR(12) not null,
-    categoria_pai int,
-    FOREIGN KEY (categoria_pai) REFERENCES Categoria (id_categoria)
+    Descricao VARCHAR(100) not null
 );
 CREATE TABLE IF NOT EXISTS Veiculo (
     ID_VEICULO SERIAL PRIMARY KEY,
@@ -57,4 +54,10 @@ CREATE TABLE IF NOT EXISTS Lancamento (
     FOREIGN KEY (ID_VEICULO) REFERENCES Veiculo (ID_VEICULO),
     FOREIGN KEY (ID_CATEGORIA) REFERENCES Categoria (id_categoria),
     FOREIGN KEY (ID_SUBCATEGORIA) REFERENCES Categoria (id_categoria)    
+);
+CREATE TABLE IF NOT EXISTS Subcategoria (
+    ID_SUBCATEGORIA SERIAL PRIMARY KEY,
+    Descricao VARCHAR(100) not null,
+    ID_CATEGORIA INT not null,
+    FOREIGN KEY (ID_CATEGORIA) REFERENCES Categoria(id_categoria)
 );
