@@ -32,6 +32,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     ArrayList<Categoria> listaCategoria = new ArrayList<>();
     ArrayList<Subcategoria> listaSubCategoria = new ArrayList<>();
     Date date = new Date();
+    Lancamento lancamento = new Lancamento();
 
     public LancamentoConsultaView() {
         try {
@@ -472,7 +473,12 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     private void jTableLancamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLancamentoMouseClicked
-
+        lancamento.setIdLancamento(Integer.parseInt(jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 0).toString()));
+        lancamento.setVeiculo((Veiculo) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 1));
+        lancamento.setCategoria((Categoria) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 2));
+        lancamento.setSubCategoria((Subcategoria) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 3));
+        lancamento.setValor(Float.parseFloat(jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 4).toString()));
+        lancamento.setDataRegistro((Date) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 5));
     }//GEN-LAST:event_jTableLancamentoMouseClicked
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -480,7 +486,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        // TODO add your handling code here:
+         
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
