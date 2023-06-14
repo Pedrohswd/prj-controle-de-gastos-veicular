@@ -37,6 +37,10 @@ public class Veiculo {
         this.modelo = modelo;
     }
 
+    public Veiculo(int idVeiculo) {
+        this.idVeiculo = idVeiculo;
+    }
+
     public int getIdVeiculo() {
         return idVeiculo;
     }

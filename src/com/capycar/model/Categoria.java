@@ -21,6 +21,10 @@ public class Categoria {
         this.descricao = descricao;
     }
 
+    public Categoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
     public int getidCategoria() {
         return idCategoria;
     }
