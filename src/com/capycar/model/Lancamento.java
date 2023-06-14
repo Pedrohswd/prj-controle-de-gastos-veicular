@@ -11,22 +11,32 @@ import java.util.Date;
  * @author pedro
  */
 public class Lancamento {
-    
+
+    private int idLancamento;
     private Veiculo veiculo;
     private Categoria categoria;
-    private Categoria subCategoria;
+    private Subcategoria subCategoria;
     private float valor;
     private Date dataRegistro;
 
     public Lancamento() {
     }
 
-    public Lancamento(Veiculo veiculo, Categoria categoria, Categoria subCategoria, float valor, Date dataRegistro) {
+    public Lancamento(int idLancamento, Veiculo veiculo, Categoria categoria, Subcategoria subCategoria, float valor, Date dataRegistro) {
+        this.idLancamento = idLancamento;
         this.veiculo = veiculo;
         this.categoria = categoria;
         this.subCategoria = subCategoria;
         this.valor = valor;
         this.dataRegistro = dataRegistro;
+    }
+
+    public int getIdLancamento() {
+        return idLancamento;
+    }
+
+    public void setIdLancamento(int idLancamento) {
+        this.idLancamento = idLancamento;
     }
 
     public Veiculo getVeiculo() {
@@ -45,11 +55,11 @@ public class Lancamento {
         this.categoria = categoria;
     }
 
-    public Categoria getSubCategoria() {
+    public Subcategoria getSubCategoria() {
         return subCategoria;
     }
 
-    public void setSubCategoria(Categoria subCategoria) {
+    public void setSubCategoria(Subcategoria subCategoria) {
         this.subCategoria = subCategoria;
     }
 
@@ -68,5 +78,10 @@ public class Lancamento {
     public void setDataRegistro(Date dataRegistro) {
         this.dataRegistro = dataRegistro;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Lancamento{" + "idLancamento=" + idLancamento + ", veiculo=" + veiculo + ", categoria=" + categoria + ", subCategoria=" + subCategoria + ", valor=" + valor + ", dataRegistro=" + dataRegistro + '}';
+    }
+
 }

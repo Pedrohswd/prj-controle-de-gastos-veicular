@@ -6,14 +6,15 @@ package com.capycar.view;
 
 import com.capycar.controller.LancamentoController;
 import com.capycar.model.Categoria;
+import com.capycar.model.Lancamento;
 import com.capycar.model.Modelo;
+import com.capycar.model.Proprietario;
 import com.capycar.model.Subcategoria;
 import com.capycar.model.Veiculo;
 import java.io.IOException;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -26,12 +27,16 @@ public class LancamentoView extends javax.swing.JFrame {
     ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
     ArrayList<Categoria> listaCategoria = new ArrayList<>();
     ArrayList<Subcategoria> listaSubCategoria = new ArrayList<>();
+    Date date = new Date();
 
     /**
      * Creates new form LancamentoView
      */
-    public LancamentoView() {
+    public LancamentoView() throws SQLException {
         initComponents();
+        carregaComboBox();
+        setLocationRelativeTo(null);
+        jDateChooserRegistro.setDate(date);
     }
 
     /**
@@ -45,7 +50,6 @@ public class LancamentoView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -53,6 +57,7 @@ public class LancamentoView extends javax.swing.JFrame {
         jButtonCategoria = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -64,7 +69,7 @@ public class LancamentoView extends javax.swing.JFrame {
         jButtonConsultar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jComboBoxVeiculo = new javax.swing.JComboBox();
-        jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jComboBoxCategoria = new javax.swing.JComboBox();
         jComboBoxSubCategoria = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,8 +77,6 @@ public class LancamentoView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(57, 62, 70));
 
         jPanel2.setBackground(new java.awt.Color(121, 113, 234));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(121, 113, 234));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -144,31 +147,34 @@ public class LancamentoView extends javax.swing.JFrame {
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonCategoria)
-                        .addComponent(jButton6)
-                        .addComponent(jButton2)
-                        .addComponent(jButton7)
-                        .addComponent(jButton1)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCategoria)
+                    .addComponent(jButton6)
+                    .addComponent(jButton2)
+                    .addComponent(jButton7)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel8)
+                .addGap(51, 51, 51)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
@@ -233,6 +239,11 @@ public class LancamentoView extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(238, 238, 238));
         jLabel7.setText("Lançamento de Gastos");
 
+        jComboBoxCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxCategoriaMouseClicked(evt);
+            }
+        });
         jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCategoriaActionPerformed(evt);
@@ -245,41 +256,41 @@ public class LancamentoView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(268, 268, 268)
-                        .addComponent(jLabel7))
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jComboBoxVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(110, 110, 110)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(67, 67, 67)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(117, 117, 117)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(226, 226, 226)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(78, 78, 78)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jDateChooserRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButtonConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                .addContainerGap(235, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jComboBoxVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(61, 61, 61)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(57, 57, 57)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(186, 186, 186))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +304,7 @@ public class LancamentoView extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -363,7 +374,9 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldValorActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-
+        float valor = Float.parseFloat(jTextFieldValor.getText());
+        Lancamento lancamento = new Lancamento(0, (Veiculo) jComboBoxVeiculo.getSelectedItem(),(Categoria) jComboBoxCategoria.getSelectedItem(),(Subcategoria) jComboBoxSubCategoria.getSelectedItem(), valor, jDateChooserRegistro.getDate());
+        lancamentoController.criarLancamento(lancamento);
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
@@ -371,28 +384,40 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
-        Categoria categoriaSelecionada = (Categoria) jComboBoxCategoria.getSelectedItem();
-        ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria where id_categoria = " + categoriaSelecionada.getidCategoria());
-        try {
-            while (resultSet.next()) {
-                Subcategoria subcategoria = new Subcategoria();
-                subcategoria.setIdSubcategoria(resultSet.getInt(1));
-                subcategoria.setDescricao(resultSet.getString(2));
+        int selectedIndex = jComboBoxCategoria.getSelectedIndex() - 1;
+        if (selectedIndex >= 0) {
+            Categoria categoriaSelecionada = listaCategoria.get(selectedIndex);
+            ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria where id_categoria = " + categoriaSelecionada.getidCategoria());
+            try {
+                while (resultSet.next()) {
+                    Subcategoria subcategoria = new Subcategoria();
+                    subcategoria.setIdSubcategoria(resultSet.getInt(1));
+                    subcategoria.setDescricao(resultSet.getString(2));
 
-                listaSubCategoria.add(subcategoria);
+                    listaSubCategoria.add(subcategoria);
+                }
+                jComboBoxSubCategoria.removeAllItems();
+
+                for (Subcategoria subcategoria : listaSubCategoria) {
+                    jComboBoxSubCategoria.addItem(subcategoria);
+                }
+                listaSubCategoria.clear();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+        } else {
             jComboBoxSubCategoria.removeAllItems();
-
-            for (Subcategoria subcategoria : listaSubCategoria) {
-                jComboBoxSubCategoria.addItem(subcategoria);
-            }
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
+    private void jComboBoxCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaMouseClicked
+
+    }//GEN-LAST:event_jComboBoxCategoriaMouseClicked
+
     public void carregaComboBox() throws SQLException {
         ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
+        Proprietario proprietario = new Proprietario();
+        Modelo modelo = new Modelo();
         while (resultSet.next()) {
             Veiculo veiculo = new Veiculo();
             veiculo.setIdVeiculo(resultSet.getInt(1));
@@ -400,9 +425,11 @@ public class LancamentoView extends javax.swing.JFrame {
             veiculo.setRenavam(resultSet.getString(3));
             veiculo.setAnoFabricacao(resultSet.getString(4));
             veiculo.setAnoModelo(resultSet.getString(5));
+            veiculo.setProprietario(proprietario = new Proprietario(resultSet.getString(6)));
             veiculo.setCombustivel(resultSet.getString(7));
             veiculo.setKmAtual(resultSet.getInt(8));
             veiculo.setCategoria(resultSet.getString(9));
+            veiculo.setModelo(modelo = new Modelo(resultSet.getInt(10)));
 
             listaVeiculo.add(veiculo);
         }
@@ -418,12 +445,13 @@ public class LancamentoView extends javax.swing.JFrame {
 
         jComboBoxVeiculo.removeAllItems();
         jComboBoxCategoria.removeAllItems();
+        jComboBoxCategoria.addItem("Selecione uma categoria:");
 
         for (Veiculo veiculo : listaVeiculo) {
             jComboBoxVeiculo.addItem(veiculo);
         }
         for (Categoria categoria : listaCategoria) {
-            jComboBoxVeiculo.addItem(categoria);
+            jComboBoxCategoria.addItem(categoria);
         }
     }
 
@@ -457,7 +485,11 @@ public class LancamentoView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LancamentoView().setVisible(true);
+                try {
+                    new LancamentoView().setVisible(true);
+                } catch (SQLException ex) {
+                    java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -472,17 +504,17 @@ public class LancamentoView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCategoria;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JComboBox<String> jComboBoxCategoria;
+    private javax.swing.JComboBox jComboBoxCategoria;
     private javax.swing.JComboBox jComboBoxSubCategoria;
     private javax.swing.JComboBox jComboBoxVeiculo;
     private com.toedter.calendar.JDateChooser jDateChooserRegistro;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextFieldValor;

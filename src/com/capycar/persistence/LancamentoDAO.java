@@ -9,22 +9,42 @@ import com.capycar.model.Lancamento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author pedro
  */
-public class LancamentoDAO implements ILancamentoDAO{
-    
+public class LancamentoDAO implements ILancamentoDAO {
+
     private java.sql.Connection connection = null;
-    
-    public LancamentoDAO(){
+
+    public LancamentoDAO() {
         connection = GastoRiderAPI.conectBD();
     }
 
     @Override
     public void criarLancamento(Lancamento lancamento) {
-        
+
+        try {
+            Date date = new Date(lancamento.getDataRegistro().getTime());
+            String sql = "INSERT INTO Lancamento (ID_VEICULO, ID_CATEGORIA, ID_SUBCATEGORIA, valor, data_lancamento) "
+                    + "VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, lancamento.getVeiculo().getIdVeiculo());
+            preparedStatement.setInt(2, lancamento.getCategoria().getidCategoria());
+            preparedStatement.setInt(3, lancamento.getSubCategoria().getIdSubcategoria());
+            preparedStatement.setFloat(4, lancamento.getValor());
+            preparedStatement.setDate(5, date);
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Lançamento feito com sucesso");
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
@@ -39,5 +59,5 @@ public class LancamentoDAO implements ILancamentoDAO{
         }
         return null;
     }
-    
+
 }

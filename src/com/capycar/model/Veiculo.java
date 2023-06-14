@@ -9,7 +9,7 @@ package com.capycar.model;
  * @author pedro
  */
 public class Veiculo {
-    
+
     private int idVeiculo;
     private String placa;
     private String renavam;
@@ -116,8 +116,10 @@ public class Veiculo {
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return placa; 
+    }
+
 }

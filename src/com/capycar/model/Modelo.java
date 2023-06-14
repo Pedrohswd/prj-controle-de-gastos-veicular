@@ -25,6 +25,10 @@ public class Modelo {
         this.idMarca = idMarca;
     }
 
+    public Modelo(int idModelo) {
+        this.idModelo = idModelo;
+    }
+
     public int getIdModelo() {
         return idModelo;
     }

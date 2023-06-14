@@ -367,12 +367,6 @@ public class ModeloView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        setVisible(false);
-        HomeView home = new HomeView();
-        home.setVisible(true);
-    }//GEN-LAST:event_jLabel1MouseClicked
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
@@ -418,14 +412,6 @@ public class ModeloView extends javax.swing.JFrame {
                 }
             }
 
-//            resultSet = modeloController.carregTabela("Marca");
-//            while (resultSet.next()) {
-//                Marca marca = new Marca();
-//                marca.setIdMarca(resultSet.getInt(1));
-//                marca.setNome(resultSet.getString(2));
-//
-//                listaMarca.add(marca);
-//            }
             jComboBoxMarca.removeAllItems();
 
             for (Marca marca : listaMarca) {
@@ -489,6 +475,12 @@ public class ModeloView extends javax.swing.JFrame {
     private void jComboBoxMarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBoxMarcaAncestorAdded
 
     }//GEN-LAST:event_jComboBoxMarcaAncestorAdded
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        setVisible(false);
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     private void carregaComboBox() throws SQLException {
         ResultSet resultSet = modeloController.carregTabela("Marca");
