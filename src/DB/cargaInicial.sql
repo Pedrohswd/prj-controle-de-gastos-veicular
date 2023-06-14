@@ -59,5 +59,5 @@ CREATE TABLE IF NOT EXISTS Subcategoria (
     ID_SUBCATEGORIA SERIAL PRIMARY KEY,
     Descricao VARCHAR(100) not null,
     ID_CATEGORIA INT not null,
-    FOREIGN KEY (ID_CATEGORIA) REFERENCES Categoria(id_categoria)
+    FOREIGN KEY (ID_CATEGORIA) REFERENCES Categoria(id_categoria) ON DELETE CASCADE
 );

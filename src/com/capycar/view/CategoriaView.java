@@ -5,7 +5,9 @@
 package com.capycar.view;
 
 import com.capycar.controller.CategoriaController;
+import com.capycar.controller.SubcategoriaController;
 import com.capycar.model.Categoria;
+import com.capycar.model.Subcategoria;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
@@ -21,10 +23,11 @@ public class CategoriaView extends javax.swing.JFrame {
      */
     CategoriaController categoriaController = new CategoriaController();
     int ID = 0;
+    ArrayList<Categoria> listaCategoria = new ArrayList<>();
 
     public CategoriaView() throws SQLException, IOException {
         initComponents();
-        //carregaComboBox();
+        carregaComboBox();
         carregarTabela();
         setLocationRelativeTo(null);
     }
@@ -52,18 +55,17 @@ public class CategoriaView extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButtonCategoria = new javax.swing.JRadioButton();
-        jRadioButtonSubcategoria = new javax.swing.JRadioButton();
         jTextFieldDescricaoCategoria = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBoxCategorias = new javax.swing.JComboBox<>();
+        jComboBoxCategorias = new javax.swing.JComboBox();
         jLabelCategoriaPai = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCategorias = new javax.swing.JTable();
         jButtonAlterar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
-        jTextFieldDescricaoSubCat = new javax.swing.JTextField();
+        jComboBoxTipo = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,32 +179,18 @@ public class CategoriaView extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(238, 238, 238));
         jLabel2.setText("Cadastro de Categoria");
 
-        jRadioButtonCategoria.setBackground(new java.awt.Color(57, 62, 70));
-        buttonGroup1.add(jRadioButtonCategoria);
-        jRadioButtonCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jRadioButtonCategoria.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButtonCategoria.setText("Categoria");
-        jRadioButtonCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCategoriaActionPerformed(evt);
-            }
-        });
-
-        jRadioButtonSubcategoria.setBackground(new java.awt.Color(57, 62, 70));
-        buttonGroup1.add(jRadioButtonSubcategoria);
-        jRadioButtonSubcategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jRadioButtonSubcategoria.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButtonSubcategoria.setText("Subcategoria");
-        jRadioButtonSubcategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonSubcategoriaActionPerformed(evt);
-            }
-        });
-
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Descrição:");
 
-        jComboBoxCategorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategorias.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jComboBoxCategoriasAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jLabelCategoriaPai.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCategoriaPai.setText("Categoria:");
@@ -211,16 +199,21 @@ public class CategoriaView extends javax.swing.JFrame {
         jTableCategorias.setForeground(new java.awt.Color(0, 0, 0));
         jTableCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Descrição", "Tipo", "CategoriaPai"
+                "ID", "Descrição"
             }
         ));
         jTableCategorias.setGridColor(new java.awt.Color(51, 51, 51));
+        jTableCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoriasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCategorias);
 
         jButtonAlterar.setBackground(new java.awt.Color(121, 113, 234));
@@ -245,6 +238,23 @@ public class CategoriaView extends javax.swing.JFrame {
         jButtonExcluir.setForeground(new java.awt.Color(34, 40, 49));
         jButtonExcluir.setText("EXCLUIR");
         jButtonExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha o Tipo", "Categoria", "Subcategoria" }));
+        jComboBoxTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTipoItemStateChanged(evt);
+            }
+        });
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("TIPO DE CATEGORIA:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -252,43 +262,39 @@ public class CategoriaView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButtonCategoria)
-                                        .addGap(46, 46, 46))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3)
                                             .addComponent(jTextFieldDescricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(71, 71, 71)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButtonSubcategoria)
-                                    .addComponent(jComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelCategoriaPai))
-                                .addGap(84, 84, 84))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(267, 267, 267))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(155, 155, 155))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonSalvar)
-                        .addGap(69, 69, 69)
-                        .addComponent(jButtonAlterar)
-                        .addGap(61, 61, 61)
-                        .addComponent(jButtonExcluir)
-                        .addGap(283, 283, 283))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(513, Short.MAX_VALUE)
-                    .addComponent(jTextFieldDescricaoSubCat, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(525, 525, 525)))
+                                        .addGap(71, 71, 71)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabelCategoriaPai))
+                                        .addGap(128, 128, 128))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(267, 267, 267))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(155, 155, 155))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonSalvar)
+                                .addGap(69, 69, 69)
+                                .addComponent(jButtonAlterar)
+                                .addGap(61, 61, 61)
+                                .addComponent(jButtonExcluir)
+                                .addGap(283, 283, 283))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(401, 401, 401)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,19 +302,19 @@ public class CategoriaView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel2)
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonCategoria)
-                    .addComponent(jRadioButtonSubcategoria))
-                .addGap(66, 66, 66)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabelCategoriaPai))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDescricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldDescricaoCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jComboBoxCategorias))
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -316,11 +322,6 @@ public class CategoriaView extends javax.swing.JFrame {
                     .addComponent(jButtonExcluir)
                     .addComponent(jButtonSalvar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(240, 240, 240)
-                    .addComponent(jTextFieldDescricaoSubCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(487, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -360,42 +361,101 @@ public class CategoriaView extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        Categoria categoria = new Categoria(0, jTextFieldDescricaoCategoria.getText());
-        CategoriaController categoriaControle = new CategoriaController();
-        categoriaControle.incluirCategoria(categoria);
+        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+            Categoria categoria = new Categoria(ID, jTextFieldDescricaoCategoria.getText());
+            CategoriaController categoriaControle = new CategoriaController();
+            categoriaControle.incluirCategoria(categoria);
+            try {
+                carregarTabela();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+            Subcategoria subcategoria = new Subcategoria(ID, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
+            SubcategoriaController subcatControle = new SubcategoriaController();
+            subcatControle.incluirSubcategoria(subcategoria);
+            try {
+                carregarTabela();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("não cadastrou nada");
+        }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
-    private void jRadioButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCategoriaActionPerformed
-        // TODO add your handling code here:
-        jTextFieldDescricaoCategoria.setVisible(true);
-        jTextFieldDescricaoSubCat.setVisible(false);
-        jComboBoxCategorias.setVisible(false);
-        jLabelCategoriaPai.setVisible(false);
-    }//GEN-LAST:event_jRadioButtonCategoriaActionPerformed
+    private void jComboBoxCategoriasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBoxCategoriasAncestorAdded
 
-    private void jRadioButtonSubcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSubcategoriaActionPerformed
+    }//GEN-LAST:event_jComboBoxCategoriasAncestorAdded
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
-        jTextFieldDescricaoCategoria.setVisible(false);
-        jTextFieldDescricaoSubCat.setVisible(true);
-        jComboBoxCategorias.setVisible(true);
-        jLabelCategoriaPai.setVisible(true);
-    }//GEN-LAST:event_jRadioButtonSubcategoriaActionPerformed
+        
+
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jComboBoxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoItemStateChanged
+
+        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+            jComboBoxCategorias.setVisible(false);
+        } else {
+            jComboBoxCategorias.setVisible(true);
+        }
+        try {
+            // TODO add your handling code here:
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jComboBoxTipoItemStateChanged
+
+    private void jTableCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTableCategoriasMouseClicked
 
     /**
      * @param args the command line arguments
      */
     private void carregarTabela() throws SQLException, IOException {
+        String tabela;
+        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+            tabela = "Categoria";
+        } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+            tabela = "Subcategoria";
+        } else {
+            tabela = "Categoria";
+        }
         DefaultTableModel model = (DefaultTableModel) jTableCategorias.getModel();
         model.setNumRows(0);
-        ResultSet resultSet = categoriaController.carregTabela("Categoria");
+        ResultSet resultSet = categoriaController.carregTabela(tabela);
 
         while (resultSet.next()) {
             model.addRow(new Object[]{
                 resultSet.getString(1),
-                resultSet.getString(2),
-                resultSet.getString(3)
+                resultSet.getString(2)
             });
+        }
+    }
+
+    private void carregaComboBox() throws SQLException {
+        ResultSet resultSet = categoriaController.carregTabela("Categoria");
+        while (resultSet.next()) {
+            Categoria categoria = new Categoria();
+            categoria.setidCategoria(resultSet.getInt(1));
+            categoria.setDescricao(resultSet.getString(2));
+            listaCategoria.add(categoria);
+        }
+        jComboBoxCategorias.removeAllItems();
+        for (Categoria categoria : listaCategoria) {
+            jComboBoxCategorias.addItem(categoria);
         }
     }
 
@@ -451,18 +511,17 @@ public class CategoriaView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCategoria;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JComboBox<String> jComboBoxCategorias;
+    private javax.swing.JComboBox jComboBoxCategorias;
+    private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelCategoriaPai;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButtonCategoria;
-    private javax.swing.JRadioButton jRadioButtonSubcategoria;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTableCategorias;
     private javax.swing.JTextField jTextFieldDescricaoCategoria;
-    private javax.swing.JTextField jTextFieldDescricaoSubCat;
     // End of variables declaration//GEN-END:variables
 }

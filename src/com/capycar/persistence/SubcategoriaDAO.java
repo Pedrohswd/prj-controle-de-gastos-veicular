@@ -51,7 +51,7 @@ public class SubcategoriaDAO implements ISubcategoriaDAO{
     @Override
     public void excluirSubcategoria(Subcategoria subcategoria) {
         try {
-            String sql = "DELETE FROM Categoria WHERE ID_SUBCATEGORIA = ?";
+            String sql = "DELETE FROM Subcategoria WHERE ID_SUBCATEGORIA = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, subcategoria.getIdSubcategoria());
             preparedStatement.executeUpdate();   
