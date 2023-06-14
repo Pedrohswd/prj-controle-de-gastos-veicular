@@ -4,19 +4,13 @@
  */
 package com.capycar.model;
 
-import com.capycar.controller.LancamentoController;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author pedro
  */
 public class Veiculo {
-    
-    LancamentoController lancamentoController = new LancamentoController();
+
 
     private int idVeiculo;
     private String placa;
