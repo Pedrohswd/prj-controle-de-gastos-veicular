@@ -12,8 +12,8 @@ import java.sql.ResultSet;
  *
  * @author pedro
  */
-public class MarcaController implements IMarcaController{
-    
+public class MarcaController implements IMarcaController {
+
     MarcaDao marcaDao = new MarcaDao();
 
     @Override
@@ -35,5 +35,5 @@ public class MarcaController implements IMarcaController{
     public ResultSet carregTabela() {
         return marcaDao.carregTabela();
     }
-    
+
 }

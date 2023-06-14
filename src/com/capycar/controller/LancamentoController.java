@@ -16,8 +16,8 @@ import java.util.Date;
  *
  * @author pedro
  */
-public class LancamentoController implements ILancamentoController{
-    
+public class LancamentoController implements ILancamentoController {
+
     LancamentoDAO lancamentoDAO = new LancamentoDAO();
 
     @Override
@@ -31,8 +31,9 @@ public class LancamentoController implements ILancamentoController{
     }
 
     @Override
-    public ResultSet consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria, Date dataInicio, Date dataFim) {
+    public ResultSet consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria,
+            Date dataInicio, Date dataFim) {
         return lancamentoDAO.consultarLancamento(veiculo, categoria, subcategoria, dataInicio, dataFim);
     }
-    
+
 }

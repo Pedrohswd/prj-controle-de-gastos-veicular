@@ -12,8 +12,8 @@ import java.sql.ResultSet;
  *
  * @author pedro
  */
-public class ModeloController implements IModeloController{
-    
+public class ModeloController implements IModeloController {
+
     ModeloDao modeloDao = new ModeloDao();
 
     @Override
@@ -35,5 +35,5 @@ public class ModeloController implements IModeloController{
     public ResultSet carregTabela(String table) {
         return modeloDao.carregTabela(table);
     }
-    
+
 }

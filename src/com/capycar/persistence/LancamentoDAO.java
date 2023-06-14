@@ -64,7 +64,8 @@ public class LancamentoDAO implements ILancamentoDAO {
     }
 
     @Override
-    public ResultSet consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria, java.util.Date dataInicio, java.util.Date dataFim) {
+    public ResultSet consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria,
+            java.util.Date dataInicio, java.util.Date dataFim) {
         try {
             String sql = "SELECT * FROM Lancamento WHERE ID_VEICULO = ? AND ID_CATEGORIA = ? AND ID_SUBCATEGORIA = ? AND data_lancamento BETWEEN ? AND ?";
             Date dateInicio = new Date(dataInicio.getTime());
