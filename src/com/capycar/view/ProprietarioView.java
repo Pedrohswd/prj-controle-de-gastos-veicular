@@ -625,23 +625,38 @@ public class ProprietarioView extends javax.swing.JFrame {
                     jTextNumeroCasa.getText(), jTextBairro.getText(), jTextCidade.getText(), jComboBoxEstado.getSelectedItem().toString(), jTextComplemento.getText(), tipoPessoa);
             proprietarioControle.alterarProprietario(proprietario);
         }
-
+        jRadioCPF.setEnabled(false);
+        jRadioCNPJ.setEnabled(false);
+        jTextCPFCNPJ.setEditable(false);
+        jTextBairro.setEditable(false);
+        jTextCEP.setEditable(false);
+        jTextCidade.setEditable(false);
+        jTextComplemento.setEditable(false);
+        jTextDDD.setEditable(false);
+        jTextEmail.setEditable(false);
+        jTextLogradouro.setEditable(false);
+        jTextNomeRazao.setEditable(false);
+        jTextNumero.setEditable(false);
+        jTextNumeroCasa.setEditable(false);
+        jComboBoxCNH.setEditable(false);
+        jComboBoxEstado.setEditable(false);
+        preencherCampos(proprietarioControle.consultarProprietario(tabela));
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        jTextBairro.setEnabled(true);
-        jTextCEP.setEnabled(true);
-        jTextCidade.setEnabled(true);
-        jTextComplemento.setEnabled(true);
-        jTextDDD.setEnabled(true);
-        jTextEmail.setEnabled(true);
-        jTextLogradouro.setEnabled(true);
-        jTextNomeRazao.setEnabled(true);
-        jTextNumero.setEnabled(true);
-        jTextNumeroCasa.setEnabled(true);
-        jComboBoxCNH.setEnabled(true);
-        jComboBoxEstado.setEnabled(true);
+        jTextBairro.setEditable(true);
+        jTextCEP.setEditable(true);
+        jTextCidade.setEditable(true);
+        jTextComplemento.setEditable(true);
+        jTextDDD.setEditable(true);
+        jTextEmail.setEditable(true);
+        jTextLogradouro.setEditable(true);
+        jTextNomeRazao.setEditable(true);
+        jTextNumero.setEditable(true);
+        jTextNumeroCasa.setEditable(true);
+        jComboBoxCNH.setEditable(true);
+        jComboBoxEstado.setEditable(true);
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void preencherCampos(Proprietario proprietario) {
@@ -673,8 +688,8 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextBairro.setText(proprietario.getBairro());
         jTextCidade.setText(proprietario.getCidade());
     }
-    
-        public static String[] separarString(String texto) {
+
+    public static String[] separarString(String texto) {
         return texto.split(";");
     }
 

@@ -4,11 +4,24 @@
  */
 package com.capycar.view;
 
+import com.capycar.controller.ModeloController;
+import com.capycar.model.Marca;
+import com.capycar.model.Modelo;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,8 +32,17 @@ public class ModeloView extends javax.swing.JFrame {
     /**
      * Creates new form ModeloView
      */
-    public ModeloView() {
+    ModeloController modeloController = new ModeloController();
+    int idModelo = 0;
+    int idMarca = 0;
+    ArrayList<Marca> listaMarca = new ArrayList<>();
+    String url;
+
+    public ModeloView() throws SQLException, IOException {
         initComponents();
+        carregaComboBox();
+        carregarTabela();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -43,14 +65,17 @@ public class ModeloView extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldMarca = new javax.swing.JTextField();
+        jTextFieldModelo = new javax.swing.JTextField();
         jLabelNomeRazao = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButtonSelecionarImg = new javax.swing.JButton();
         jLabelIMG = new javax.swing.JLabel();
-        jComboBoxMarca = new javax.swing.JComboBox<>();
+        jComboBoxMarca = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableModelo = new javax.swing.JTable();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
+        jButtonAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,27 +189,17 @@ public class ModeloView extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(238, 238, 238));
         jLabel3.setText("Cadastro de Modelo");
 
-        jTextFieldMarca.setBorder(new EmptyBorder(5, 10, 5, 10));
-        jTextFieldMarca.setBackground(new java.awt.Color(217, 217, 217));
-        jTextFieldMarca.setForeground(new java.awt.Color(0, 0, 0));
-        jTextFieldMarca.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldModelo.setBorder(new EmptyBorder(5, 10, 5, 10));
+        jTextFieldModelo.setBackground(new java.awt.Color(217, 217, 217));
+        jTextFieldModelo.setForeground(new java.awt.Color(0, 0, 0));
+        jTextFieldModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMarcaActionPerformed(evt);
+                jTextFieldModeloActionPerformed(evt);
             }
         });
 
         jLabelNomeRazao.setForeground(new java.awt.Color(238, 238, 238));
         jLabelNomeRazao.setText("Modelo:");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         jButtonSelecionarImg.setBackground(new java.awt.Color(121, 113, 234));
         jButtonSelecionarImg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -196,7 +211,81 @@ public class ModeloView extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxMarca.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jComboBoxMarcaAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jComboBoxMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxMarcaActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setForeground(new java.awt.Color(238, 238, 238));
         jLabel2.setText("Marca:");
+
+        jTableModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTableModelo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "DESCRIÇÃO", "MARCA"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableModelo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableModelo.setGridColor(new java.awt.Color(0, 0, 0));
+        jTableModelo.setRowHeight(50);
+        jTableModelo.setShowGrid(true);
+        jTableModelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableModeloMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableModelo);
+
+        jButtonExcluir.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonExcluir.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+
+        jButtonSalvar.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonSalvar.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
+
+        jButtonAlterar.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonAlterar.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,20 +299,27 @@ public class ModeloView extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabelNomeRazao))
                                 .addGap(33, 33, 33)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(107, 107, 107)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonSelecionarImg, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                                    .addComponent(jLabelIMG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(jButtonSelecionarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -238,18 +334,23 @@ public class ModeloView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelNomeRazao)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabelIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonSelecionarImg)
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonExcluir)
+                    .addComponent(jButtonSalvar)
+                    .addComponent(jButtonAlterar))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,12 +367,6 @@ public class ModeloView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        setVisible(false);
-        HomeView home = new HomeView();
-        home.setVisible(true);
-    }//GEN-LAST:event_jLabel1MouseClicked
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
@@ -279,26 +374,145 @@ public class ModeloView extends javax.swing.JFrame {
         proprietario.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextFieldMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMarcaActionPerformed
+    private void jTextFieldModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldModeloActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMarcaActionPerformed
+    }//GEN-LAST:event_jTextFieldModeloActionPerformed
 
     private void jButtonSelecionarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarImgActionPerformed
         try {
             JFileChooser fc = new JFileChooser();
-            File logo = new File("./src/com/locadora/logos");
-            fc.setCurrentDirectory(logo);
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fc.showOpenDialog(this);
             File arquivo = fc.getSelectedFile();
             String nomeDoArquivo = arquivo.getPath();
+            String nome = arquivo.getName();
+            url = nomeDoArquivo;
             ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(jLabelIMG.getWidth(), jLabelIMG.getHeight(), 1));
             jLabelIMG.setIcon(iconLogo);
-       } catch (Exception erro) {
-           JOptionPane.showMessageDialog(this, "Selecione uma imagem!");
-       }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Selecione uma imagem!");
+        }
     }//GEN-LAST:event_jButtonSelecionarImgActionPerformed
+
+    private void jTableModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableModeloMouseClicked
+        try {
+            idModelo = Integer.parseInt(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 0).toString());
+            jTextFieldModelo.setText(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 1).toString());
+            ResultSet resultSet = modeloController.carregTabela("Modelo");
+            idMarca = Integer.parseInt(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 2).toString());
+
+            while (resultSet.next()) {
+                if (idModelo == resultSet.getInt(1)) {
+                    InputStream inputStream = resultSet.getBinaryStream(3);
+                    BufferedImage image = ImageIO.read(inputStream);
+                    ImageIcon iconLogo = new ImageIcon(image);
+                    iconLogo.setImage(iconLogo.getImage().getScaledInstance(jLabelIMG.getWidth(), jLabelIMG.getHeight(), 1));
+                    jLabelIMG.setIcon(iconLogo);
+                }
+            }
+
+            jComboBoxMarca.removeAllItems();
+
+            for (Marca marca : listaMarca) {
+                jComboBoxMarca.addItem(marca);
+                if (idMarca == marca.getIdMarca()) {
+                    jComboBoxMarca.setSelectedItem(marca);
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jTableModeloMouseClicked
+
+    private void jComboBoxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMarcaActionPerformed
+
+    }//GEN-LAST:event_jComboBoxMarcaActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        Modelo modelo = new Modelo(idModelo, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
+        modeloController.deletarModelo(modelo);
+        try {
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextFieldModelo.setText("");
+        jLabelIMG.setIcon(null);
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        Modelo modelo = new Modelo(0, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
+        modeloController.criarModelo(modelo);
+        try {
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextFieldModelo.setText("");
+        jLabelIMG.setIcon(null);
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        Modelo modelo = new Modelo(idModelo, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
+        modeloController.alterarModelo(modelo);
+        try {
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextFieldModelo.setText("");
+        jLabelIMG.setIcon(null);
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jComboBoxMarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBoxMarcaAncestorAdded
+
+    }//GEN-LAST:event_jComboBoxMarcaAncestorAdded
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        setVisible(false);
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void carregaComboBox() throws SQLException {
+        ResultSet resultSet = modeloController.carregTabela("Marca");
+        while (resultSet.next()) {
+            Marca marca = new Marca();
+            marca.setIdMarca(resultSet.getInt(1));
+            marca.setNome(resultSet.getString(2));
+
+            listaMarca.add(marca);
+        }
+
+        jComboBoxMarca.removeAllItems();
+
+        for (Marca marca : listaMarca) {
+            jComboBoxMarca.addItem(marca);
+        }
+
+    }
+
+    private void carregarTabela() throws SQLException, IOException {
+        DefaultTableModel model = (DefaultTableModel) jTableModelo.getModel();
+        model.setNumRows(0);
+        ResultSet resultSet = modeloController.carregTabela("Modelo");
+
+        while (resultSet.next()) {
+            model.addRow(new Object[]{
+                resultSet.getString(1),
+                resultSet.getString(2),
+                resultSet.getString(4)
+            });
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -330,7 +544,13 @@ public class ModeloView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModeloView().setVisible(true);
+                try {
+                    new ModeloView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -343,8 +563,11 @@ public class ModeloView extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonAlterar;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonSelecionarImg;
-    private javax.swing.JComboBox<String> jComboBoxMarca;
+    private javax.swing.JComboBox jComboBoxMarca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -352,8 +575,8 @@ public class ModeloView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNomeRazao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldMarca;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableModelo;
+    private javax.swing.JTextField jTextFieldModelo;
     // End of variables declaration//GEN-END:variables
 }

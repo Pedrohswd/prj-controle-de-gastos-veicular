@@ -1,3 +1,0 @@
-url=jdbc:postgresql://localhost:5432/Controle_Gastos
-usuario=postgres
-senha=12345

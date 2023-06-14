@@ -47,6 +47,10 @@ public class Proprietario {
         this.tipoPessoa = tipoPessoa;
     }
 
+    public Proprietario(String CPF_CNPJ) {
+        this.CPF_CNPJ = CPF_CNPJ;
+    }
+
     public String getComplemento() {
         return complemento;
     }
