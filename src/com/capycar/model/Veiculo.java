@@ -4,11 +4,13 @@
  */
 package com.capycar.model;
 
+
 /**
  *
  * @author pedro
  */
 public class Veiculo {
+
 
     private int idVeiculo;
     private String placa;
@@ -35,6 +37,10 @@ public class Veiculo {
         this.kmAtual = kmAtual;
         this.categoria = categoria;
         this.modelo = modelo;
+    }
+
+    public Veiculo(int idVeiculo) {
+        this.idVeiculo = idVeiculo;
     }
 
     public int getIdVeiculo() {

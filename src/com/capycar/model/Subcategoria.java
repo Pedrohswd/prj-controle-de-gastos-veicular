@@ -9,23 +9,28 @@ package com.capycar.model;
  * @author educa
  */
 public class Subcategoria {
-    
+
     private int idSubcategoria;
     private String Descricao;
     private Categoria idCategoria;
-    
-    public Subcategoria(){
+
+    public Subcategoria() {
     }
-    
-    public Subcategoria(int idSubcategoria, String descricao, Categoria idCategoria){
-        this.idSubcategoria=idSubcategoria;
-        this.Descricao=descricao;
-        this.idCategoria=idCategoria;     
+
+    public Subcategoria(int idSubcategoria, String descricao, Categoria idCategoria) {
+        this.idSubcategoria = idSubcategoria;
+        this.Descricao = descricao;
+        this.idCategoria = idCategoria;
+    }
+
+    public Subcategoria(int idSubcategoria) {
+        this.idSubcategoria = idSubcategoria;
     }
 
     public int getIdSubcategoria() {
         return idSubcategoria;
     }
+
     public void setIdSubcategoria(int idSubcategoria) {
         this.idSubcategoria = idSubcategoria;
     }
@@ -33,6 +38,7 @@ public class Subcategoria {
     public String getDescricao() {
         return Descricao;
     }
+
     public void setDescricao(String Descricao) {
         this.Descricao = Descricao;
     }
@@ -40,6 +46,7 @@ public class Subcategoria {
     public Categoria getIdCategoria() {
         return idCategoria;
     }
+
     public void setIdCategoria(Categoria idCategoria) {
         this.idCategoria = idCategoria;
     }
@@ -48,5 +55,5 @@ public class Subcategoria {
     public String toString() {
         return Descricao;
     }
-    
+
 }
