@@ -484,20 +484,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        Veiculo veiculo = new Veiculo();
-        veiculo = (Veiculo) jComboBoxVeiculo.getSelectedItem();
-        Categoria categoria = new Categoria();
-        categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
-        Subcategoria subcategoria = new Subcategoria();
-        subcategoria = (Subcategoria) jComboBoxSubCategoria.getSelectedItem();
-        Date dateInicio = jDateInicio.getDate();
-        Date dateFim = jDateInicio.getDate();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String dateStringInicio = dateFormat.format(dateInicio);
-        String dateStringFim = dateFormat.format(dateFim);
-        System.out.println(dateStringFim);
-        String sql = "Lancamento" + " WHERE ID_VEICULO = " + veiculo.getIdVeiculo() + "AND ID_CATEGORIA = " + categoria.getidCategoria() + " AND ID_SUBCATEGORIA = " + subcategoria.getIdSubcategoria() + " AND data_lancamento BETWEEN " + dateStringInicio + " AND " + dateStringFim;
-        carretaTabela(sql);
+        carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(),(Categoria) jComboBoxCategoria.getSelectedItem(),(Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     public void carregaComboBox() throws SQLException {
@@ -541,11 +528,11 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
         }
     }
 
-    public void carretaTabela(String sql) {
+    public void carretaTabela(Veiculo veiculo1, Categoria categoria1, Subcategoria subcategoria1, Date dataInicio1, Date dataFim1) {
         try {
             DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
             model.setNumRows(0);
-            ResultSet resultSet = lancamentoController.consultarLancamento(sql);
+            ResultSet resultSet = lancamentoController.consultarLancamento(veiculo1, categoria1, subcategoria1, dataInicio1, dataFim1);
             ResultSet resultSetAuxiliar = null;
             while (resultSet.next()) {
                 Lancamento lacamento = new Lancamento();

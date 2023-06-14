@@ -4,9 +4,13 @@
  */
 package com.capycar.controller;
 
+import com.capycar.model.Categoria;
 import com.capycar.model.Lancamento;
+import com.capycar.model.Subcategoria;
+import com.capycar.model.Veiculo;
 import com.capycar.persistence.LancamentoDAO;
 import java.sql.ResultSet;
+import java.util.Date;
 
 /**
  *
@@ -24,6 +28,11 @@ public class LancamentoController implements ILancamentoController{
     @Override
     public ResultSet consultarLancamento(String table) {
         return lancamentoDAO.consultarLancamento(table);
+    }
+
+    @Override
+    public ResultSet consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria, Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(veiculo, categoria, subcategoria, dataInicio, dataFim);
     }
     
 }
