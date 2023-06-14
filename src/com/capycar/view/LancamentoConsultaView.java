@@ -14,6 +14,7 @@ import com.capycar.model.Veiculo;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -33,7 +34,13 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     Date date = new Date();
 
     public LancamentoConsultaView() {
-        initComponents();
+        try {
+            initComponents();
+            carregaComboBox();
+            jDateFim.setDate(date);
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -237,11 +244,11 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "VEICULO", "CATEGORIA", "SUBCATEGORIA", "DATA"
+                "ID", "VEICULO", "CATEGORIA", "SUBCATEGORIA", "VALOR", "DATA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -465,23 +472,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     private void jTableLancamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLancamentoMouseClicked
-        try {
-            DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
-            model.setNumRows(0);
-            ResultSet resultSet = lancamentoController.consultarLancamento("Lancamento");
-            while (resultSet.next()) {
-                Lancamento lacamento = new Lancamento();
-                Veiculo veiculo = new Veiculo();
-                
-                lacamento.setIdLancamento(resultSet.getInt(1));
-                
-                
-                
-                model.addRow(new Object[]{});
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_jTableLancamentoMouseClicked
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -493,7 +484,20 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        // TODO add your handling code here:
+        Veiculo veiculo = new Veiculo();
+        veiculo = (Veiculo) jComboBoxVeiculo.getSelectedItem();
+        Categoria categoria = new Categoria();
+        categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
+        Subcategoria subcategoria = new Subcategoria();
+        subcategoria = (Subcategoria) jComboBoxSubCategoria.getSelectedItem();
+        Date dateInicio = jDateInicio.getDate();
+        Date dateFim = jDateInicio.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dateStringInicio = dateFormat.format(dateInicio);
+        String dateStringFim = dateFormat.format(dateFim);
+        System.out.println(dateStringFim);
+        String sql = "Lancamento" + " WHERE ID_VEICULO = " + veiculo.getIdVeiculo() + "AND ID_CATEGORIA = " + categoria.getidCategoria() + " AND ID_SUBCATEGORIA = " + subcategoria.getIdSubcategoria() + " AND data_lancamento BETWEEN " + dateStringInicio + " AND " + dateStringFim;
+        carretaTabela(sql);
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     public void carregaComboBox() throws SQLException {
@@ -534,6 +538,52 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
         }
         for (Categoria categoria : listaCategoria) {
             jComboBoxCategoria.addItem(categoria);
+        }
+    }
+
+    public void carretaTabela(String sql) {
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
+            model.setNumRows(0);
+            ResultSet resultSet = lancamentoController.consultarLancamento(sql);
+            ResultSet resultSetAuxiliar = null;
+            while (resultSet.next()) {
+                Lancamento lacamento = new Lancamento();
+                Veiculo veiculo = new Veiculo();
+                Categoria categoria = new Categoria();
+                Subcategoria subcategoria = new Subcategoria();
+                lacamento.setIdLancamento(resultSet.getInt(1));
+                resultSetAuxiliar = lancamentoController.consultarLancamento("Veiculo WHERE id_Veiculo = " + resultSet.getInt(2));
+                while (resultSetAuxiliar.next()) {
+                    veiculo.setIdVeiculo(resultSetAuxiliar.getInt(1));
+                    veiculo.setPlaca(resultSetAuxiliar.getString(2));
+                }
+                lacamento.setVeiculo(veiculo);
+                resultSetAuxiliar = lancamentoController.consultarLancamento("Categoria WHERE id_Categoria = " + resultSet.getInt(3));
+                while (resultSetAuxiliar.next()) {
+                    categoria.setidCategoria(resultSetAuxiliar.getInt(1));
+                    categoria.setDescricao(resultSetAuxiliar.getString(2));
+                }
+                lacamento.setCategoria(categoria);
+                resultSetAuxiliar = lancamentoController.consultarLancamento("Subcategoria WHERE id_Subcategoria = " + resultSet.getInt(4));
+                while (resultSetAuxiliar.next()) {
+                    subcategoria.setIdSubcategoria(resultSetAuxiliar.getInt(1));
+                    subcategoria.setDescricao(resultSetAuxiliar.getString(2));
+                }
+                lacamento.setSubCategoria(subcategoria);
+                lacamento.setValor(resultSet.getFloat(5));
+                lacamento.setDataRegistro(resultSet.getDate(6));
+                model.addRow(new Object[]{
+                    lacamento.getIdLancamento(),
+                    lacamento.getVeiculo(),
+                    lacamento.getCategoria(),
+                    lacamento.getSubCategoria(),
+                    lacamento.getValor(),
+                    lacamento.getDataRegistro()
+                });
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
