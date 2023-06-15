@@ -445,41 +445,17 @@ public class ModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-       String placa = jTextFieldPlaca.getText();
-    String renavam = jTextFieldRenavam.getText();
-    int anoFabricacao = Integer.parseInt(jTextFieldAnoFabricacao.getText());
-    int anoModelo = Integer.parseInt(jTextFieldAnoModelo.getText());
-    String combustivel = jComboBoxCombustivel.getSelectedItem().toString();
-    float kmAtual = Float.parseFloat(jTextFieldKmAtual.getText());
-    String categoria = jComboBoxCategoria.getSelectedItem().toString();
-    boolean status = jCheckBoxStatus.isSelected();
-
-    Veiculo veiculo = new Veiculo(0, placa, renavam, anoFabricacao, anoModelo, combustivel, kmAtual, categoria, status);
-    VeiculoController veiculoController = new VeiculoController(new VeiculoDao()); // Crie uma instância de VeiculoDao ou ajuste de acordo com sua implementação.
-
-    veiculoController.cadastrarVeiculo(veiculo);
-
-    try {
-        List<Veiculo> veiculos = veiculoController.listarVeiculos();
-        StringBuilder mensagem = new StringBuilder("Veículos Cadastrados:\n");
-        for (Veiculo v : veiculos) {
-            mensagem.append(v.toString()).append("\n");
+        Modelo modelo = new Modelo(0, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
+        modeloController.criarModelo(modelo);
+        try {
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, mensagem.toString(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Erro ao listar veículos: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
-    }
-
-    jTextFieldPlaca.setText("");
-    jTextFieldRenavam.setText("");
-    jTextFieldAnoFabricacao.setText("");
-    jTextFieldAnoModelo.setText("");
-    jComboBoxCombustivel.setSelectedIndex(0);
-    jTextFieldKmAtual.setText("");
-    jComboBoxCategoria.setSelectedIndex(0);
-    jCheckBoxStatus.setSelected(false);
-
+        jTextFieldModelo.setText("");
+        jLabelIMG.setIcon(null);
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
