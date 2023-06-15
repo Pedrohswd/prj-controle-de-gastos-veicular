@@ -84,4 +84,35 @@ public class LancamentoDAO implements ILancamentoDAO {
         return null;
     }
 
+    @Override
+    public void alterarLancamento(Lancamento lancamento) {
+        try {
+            Date date = new Date(lancamento.getDataRegistro().getTime());
+            String sql = "UPDATE Lancamento SET ID_VEICULO = ?, ID_CATEGORIA = ?, ID_SUBCATEGORIA = ?, valor = ?, data_lancamento = ? WHERE ID_LANCAMENTO = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, lancamento.getVeiculo().getIdVeiculo());
+            preparedStatement.setInt(2, lancamento.getCategoria().getidCategoria());
+            preparedStatement.setInt(3, lancamento.getSubCategoria().getIdSubcategoria());
+            preparedStatement.setFloat(4, lancamento.getValor());
+            preparedStatement.setDate(5, date);
+            preparedStatement.setInt(6, lancamento.getIdLancamento());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    @Override
+    public void excluirLancamento(Lancamento lancamento) {
+        try {
+            String sql = "DELETE FROM Lancamento WHERE ID_LANCAMENTO = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, lancamento.getIdLancamento());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
 }

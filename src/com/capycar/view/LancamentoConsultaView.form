@@ -483,9 +483,9 @@
                     <Column editable="false" title="ID" type="java.lang.Object"/>
                     <Column editable="false" title="VEICULO" type="java.lang.Object"/>
                     <Column editable="false" title="CATEGORIA" type="java.lang.Object"/>
-                    <Column editable="true" title="SUBCATEGORIA" type="java.lang.Object"/>
-                    <Column editable="true" title="VALOR" type="java.lang.Object"/>
-                    <Column editable="true" title="DATA" type="java.lang.Object"/>
+                    <Column editable="false" title="SUBCATEGORIA" type="java.lang.Object"/>
+                    <Column editable="false" title="VALOR" type="java.lang.Object"/>
+                    <Column editable="false" title="DATA" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
