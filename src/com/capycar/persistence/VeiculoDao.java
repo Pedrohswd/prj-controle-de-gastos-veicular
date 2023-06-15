@@ -31,17 +31,17 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void cadastrarVeiculo(Veiculo veiculo) {
         try {
-            String sql = "INSERT INTO Veiculo (Placa, Renavam, AnoFabricacao, AnoModelo, ProprietarioId, Combustivel, KmAtual, Categoria, ModeloId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Veiculo (Placa, Renavam, AnoFabricacao, AnoModelo, Combustivel, KmAtual, Categoria, ModeloId, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, veiculo.getPlaca());
             preparedStatement.setString(2, veiculo.getRenavam());
             preparedStatement.setString(3, veiculo.getAnoFabricacao());
             preparedStatement.setString(4, veiculo.getAnoModelo());
-            preparedStatement.setString(5, veiculo.getProprietario().getCPF_CNPJ());
-            preparedStatement.setString(6, veiculo.getCombustivel());
-            preparedStatement.setFloat(7, veiculo.getKmAtual());
-            preparedStatement.setString(8, veiculo.getCategoria());
-            preparedStatement.setInt(9, veiculo.getModelo().getIdModelo());
+            preparedStatement.setString(5, veiculo.getCombustivel());
+            preparedStatement.setFloat(6, veiculo.getKmAtual());
+            preparedStatement.setString(7, veiculo.getCategoria());
+            preparedStatement.setInt(8, veiculo.getModelo().getIdModelo());
+            preparedStatement.setString(9, veiculo.getStatus());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,17 +63,17 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void alterarVeiculo(Veiculo veiculo) {
         try {
-            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, AnoFabricacao = ?, AnoModelo = ?, ProprietarioId = ?, Combustivel = ?, KmAtual = ?, Categoria = ?, ModeloId = ? WHERE IdVeiculo = ?";
+            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, AnoFabricacao = ?, AnoModelo = ?, Combustivel = ?, KmAtual = ?, Categoria = ?, ModeloId = ?  Status = ? WHERE IdVeiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, veiculo.getPlaca());
             preparedStatement.setString(2, veiculo.getRenavam());
             preparedStatement.setString(3, veiculo.getAnoFabricacao());
             preparedStatement.setString(4, veiculo.getAnoModelo());
-            preparedStatement.setString(5, veiculo.getProprietario().getCPF_CNPJ());
-            preparedStatement.setString(6, veiculo.getCombustivel());
-            preparedStatement.setFloat(7, veiculo.getKmAtual());
-            preparedStatement.setString(8, veiculo.getCategoria());
-            preparedStatement.setInt(9, veiculo.getModelo().getIdModelo());
+           preparedStatement.setString(5, veiculo.getCombustivel());
+            preparedStatement.setFloat(6, veiculo.getKmAtual());
+            preparedStatement.setString(7, veiculo.getCategoria());
+            preparedStatement.setInt(8, veiculo.getModelo().getIdModelo());
+           preparedStatement.setString(9, veiculo.getStatus());
             preparedStatement.setInt(10, veiculo.getIdVeiculo());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
