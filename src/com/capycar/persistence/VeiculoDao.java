@@ -22,16 +22,16 @@ import java.util.List;
 
 public class VeiculoDao implements IVeiculoDao {
 
-    private Connection connection;
+      private java.sql.Connection connection = null;
 
-    public VeiculoDao(Connection connection) {
-        this.connection = connection;
+    public VeiculoDao() {
+        connection = GastoRiderAPI.conectBD();
     }
 
     @Override
     public void cadastrarVeiculo(Veiculo veiculo) {
         try {
-            String sql = "INSERT INTO Veiculo (Placa, Renavam, AnoFabricacao, AnoModelo, Combustivel, KmAtual, Categoria, ModeloId, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Veiculo (Placa, Renavam, Ano_Fabricacao, Ano_Modelo, Combustivel, Km_Atual, Categoria, Id_Modelo, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, veiculo.getPlaca());
             preparedStatement.setString(2, veiculo.getRenavam());
@@ -63,7 +63,7 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void alterarVeiculo(Veiculo veiculo) {
         try {
-            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, AnoFabricacao = ?, AnoModelo = ?, Combustivel = ?, KmAtual = ?, Categoria = ?, ModeloId = ?  Status = ? WHERE IdVeiculo = ?";
+            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, Ano_Fabricacao = ?, Ano_Modelo = ?, Combustivel = ?, Km_Atual = ?, Categoria = ?, Id_Modelo = ?  Status = ? WHERE IdVeiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, veiculo.getPlaca());
             preparedStatement.setString(2, veiculo.getRenavam());
@@ -85,7 +85,7 @@ public class VeiculoDao implements IVeiculoDao {
     public Veiculo buscarVeiculoPorId(int idVeiculo) {
         Veiculo veiculo = null;
         try {
-            String sql = "SELECT * FROM Veiculo WHERE IdVeiculo = ?";
+            String sql = "SELECT * FROM Veiculo WHERE Id_Veiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idVeiculo);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -117,11 +117,11 @@ public class VeiculoDao implements IVeiculoDao {
 
     private Veiculo construirVeiculo(ResultSet resultSet) throws SQLException {
         Veiculo veiculo = new Veiculo();
-        veiculo.setIdVeiculo(resultSet.getInt("IdVeiculo"));
+        veiculo.setIdVeiculo(resultSet.getInt("Id_Veiculo"));
         veiculo.setPlaca(resultSet.getString("Placa"));
         veiculo.setRenavam(resultSet.getString("Renavam"));
-        veiculo.setAnoFabricacao(resultSet.getString("AnoFabricacao"));
-        veiculo.setAnoModelo(resultSet.getString("AnoModelo"));
+        veiculo.setAnoFabricacao(resultSet.getString("Ano_Fabricacao"));
+        veiculo.setAnoModelo(resultSet.getString("Ano_Modelo"));
         // Recuperar os demais atributos do veículo, como Proprietario e Modelo
         // Utilize os métodos getProprietario() e getModelo() para obter os objetos relacionados
         return veiculo;

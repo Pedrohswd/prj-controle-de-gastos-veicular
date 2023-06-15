@@ -4,6 +4,7 @@
  */
 package com.capycar.view;
 
+import com.capycar.controller.ModeloController;
 import com.capycar.controller.VeiculoController;
 import com.capycar.model.Marca;
 import com.capycar.model.Modelo;
@@ -11,29 +12,32 @@ import com.capycar.model.Veiculo;
 import com.capycar.persistence.VeiculoDao;
 import com.sun.jdi.connect.spi.Connection;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author felip
  */
 public class VeiculoView extends javax.swing.JFrame {
-private VeiculoController veiculoController;
-private Connection connection;
+
+    private VeiculoController veiculoController = new VeiculoController();
+    ArrayList<Modelo> listaModelo = new ArrayList<>();
+
     /**
      * Creates new form VeiculoView
      */
 
-    public VeiculoView() {
+    public VeiculoView() throws SQLException {
         initComponents();
-        veiculoController = new VeiculoController(new VeiculoDao((java.sql.Connection) connection));
-        
+         listarTabela();
+        carregaComboBox();
     }
 
     /**
@@ -63,7 +67,7 @@ private Connection connection;
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldPlaca = new javax.swing.JTextField();
-        jComboBoxModelo = new javax.swing.JComboBox<>();
+        jComboBoxModelo = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldRenavam = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -211,7 +215,7 @@ private Connection connection;
             }
         });
 
-        jComboBoxModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxModelo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Renavam:");
@@ -441,56 +445,84 @@ private Connection connection;
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-      Veiculo veiculo = new Veiculo();
-veiculo.setPlaca(jTextFieldPlaca.getText());
-veiculo.setRenavam(jTextFieldRenavam.getText());
-veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
-veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
-veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
-veiculo.setKmAtual(Float.parseFloat(jTextFieldKmAtual.getText()));
-veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
-veiculo.setStatus(jCheckBoxStatus.isSelected() ? "Ativo" : "Inativo");
-veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
+        Veiculo veiculo = new Veiculo();
+        veiculo.setPlaca(jTextFieldPlaca.getText());
+        veiculo.setRenavam(jTextFieldRenavam.getText());
+        veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
+        veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
+        veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
+        veiculo.setKmAtual(Float.parseFloat(jTextFieldKmAtual.getText()));
+        veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
+        if(jCheckBoxStatus.isSelected()== false ){
+            veiculo.setStatus("Ativo");
+        }else{
+            veiculo.setStatus("Inativo");
+        }
+
+        veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
 
 // Criar uma instância de VeiculoController
-VeiculoController veiculoController = new VeiculoController(new VeiculoDao((java.sql.Connection) connection));
 
-veiculoController.cadastrarVeiculo(veiculo);
 
-jTextFieldPlaca.setText("");
-jTextFieldRenavam.setText("");
-jTextFieldAnoFabricacao.setText("");
-jTextFieldAnoModelo.setText("");
-jComboBoxCombustivel.setSelectedIndex(0);
-jTextFieldKmAtual.setText("");
-jComboBoxCategoria.setSelectedIndex(0);
-jCheckBoxStatus.setSelected(false);
+        veiculoController.cadastrarVeiculo(veiculo);
 
-try {
-    List<Veiculo> veiculos = veiculoController.listarVeiculos();
-    DefaultTableModel model = (DefaultTableModel) jTableVeiculos.getModel();
-    model.setRowCount(0); // Limpa os dados existentes na tabela
+        jTextFieldPlaca.setText("");
+        jTextFieldRenavam.setText("");
+        jTextFieldAnoFabricacao.setText("");
+        jTextFieldAnoModelo.setText("");
+        jComboBoxCombustivel.setSelectedIndex(0);
+        jTextFieldKmAtual.setText("");
+        jComboBoxCategoria.setSelectedIndex(0);
+        jCheckBoxStatus.setSelected(false);
 
-    for (Veiculo veiculoItem : veiculos) {
-        // Adicione cada veículo como uma nova linha na tabela
-        Object[] row = {
-            veiculoItem.getPlaca(),
-            veiculoItem.getRenavam(),
-            veiculoItem.getAnoFabricacao(),
-            veiculoItem.getAnoModelo(),
-            veiculoItem.getCombustivel(),
-            veiculoItem.getKmAtual(),
-            veiculoItem.getCategoria(),
-            veiculoItem.getStatus()
-        };
-        model.addRow(row);
-    }
-} catch (Exception ex) {
-    Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
-}
+     listarTabela();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
-   
+    private void carregaComboBox() throws SQLException {
+        ModeloController modeloController = new ModeloController();
+        ResultSet resultSet = modeloController.carregTabela("Modelo");
+        while (resultSet.next()) {
+            Modelo modelo = new Modelo();
+            modelo.setIdModelo(resultSet.getInt(1));
+            modelo.setNome(resultSet.getString(2));
+
+            listaModelo.add(modelo);
+        }
+
+        jComboBoxModelo.removeAllItems();
+
+        for (Modelo modelo : listaModelo) {
+            jComboBoxModelo.addItem(modelo);
+        }
+
+    }
+    public void listarTabela() {
+        try {
+            List<Veiculo> veiculos = veiculoController.listarVeiculos();
+            DefaultTableModel model = (DefaultTableModel) jTableVeiculos.getModel();
+            model.setRowCount(0); // Limpa os dados existentes na tabela
+
+            for (Veiculo veiculoItem : veiculos) {
+                // Adicione cada veículo como uma nova linha na tabela
+                Object[] row = {
+                    veiculoItem.getIdVeiculo(),
+                    veiculoItem.getPlaca(),
+                    veiculoItem.getRenavam(),
+                    veiculoItem.getAnoFabricacao(),
+                    veiculoItem.getAnoModelo(),
+                    veiculoItem.getCombustivel(),
+                    veiculoItem.getKmAtual(),
+                    veiculoItem.getCategoria(),
+                    veiculoItem.getStatus()
+                } ;
+                model.addRow(row);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
 
     }//GEN-LAST:event_jButtonAlterarActionPerformed
@@ -526,7 +558,11 @@ try {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new VeiculoView().setVisible(true);
+                try {
+                    new VeiculoView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -545,7 +581,7 @@ try {
     private javax.swing.JCheckBox jCheckBoxStatus;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JComboBox<String> jComboBoxCombustivel;
-    private javax.swing.JComboBox<String> jComboBoxModelo;
+    private javax.swing.JComboBox jComboBoxModelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

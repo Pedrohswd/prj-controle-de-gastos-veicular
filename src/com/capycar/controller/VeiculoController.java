@@ -10,10 +10,10 @@ import java.util.List;
 
 public class VeiculoController implements IVeiculoController {
 
-    private VeiculoDao veiculoDao;
+    VeiculoDao veiculoDao = new VeiculoDao();
 
-    public VeiculoController(VeiculoDao veiculoDao) {
-        this.veiculoDao = veiculoDao;
+    public VeiculoController() {
+
     }
 
     @Override
