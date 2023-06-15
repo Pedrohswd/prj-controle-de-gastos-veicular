@@ -36,4 +36,14 @@ public class LancamentoController implements ILancamentoController {
         return lancamentoDAO.consultarLancamento(veiculo, categoria, subcategoria, dataInicio, dataFim);
     }
 
+    @Override
+    public void alterarLancamento(Lancamento lancamento) {
+        lancamentoDAO.alterarLancamento(lancamento);
+    }
+
+    @Override
+    public void excluirLancamento(Lancamento lancamento) {
+        lancamentoDAO.excluirLancamento(lancamento);
+    }
+
 }

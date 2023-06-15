@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,13 +33,14 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     ArrayList<Categoria> listaCategoria = new ArrayList<>();
     ArrayList<Subcategoria> listaSubCategoria = new ArrayList<>();
     Date date = new Date();
-    Lancamento lancamento = new Lancamento();
+    Lancamento lancamento = null;
 
     public LancamentoConsultaView() {
         try {
             initComponents();
             carregaComboBox();
             jDateFim.setDate(date);
+            setLocationRelativeTo(null);
         } catch (SQLException ex) {
             Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -249,7 +251,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -473,6 +475,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     private void jTableLancamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLancamentoMouseClicked
+        lancamento = new Lancamento();
         lancamento.setIdLancamento(Integer.parseInt(jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 0).toString()));
         lancamento.setVeiculo((Veiculo) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 1));
         lancamento.setCategoria((Categoria) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 2));
@@ -482,15 +485,36 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableLancamentoMouseClicked
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-
+        if (lancamento != null) {
+            lancamentoController.excluirLancamento(lancamento);
+            jButtonPesquisarActionPerformed(evt);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um item da tabela");
+        }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-         
+        try {
+            LancamentoView lancamentoView = new LancamentoView();
+            if (lancamento != null) {
+                lancamentoView.setVisible(true);
+                lancamentoView.recebeDadosAlterar(lancamento);
+                setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um item da tabela");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(),(Categoria) jComboBoxCategoria.getSelectedItem(),(Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
+        if(jComboBoxSubCategoria.getSelectedItem() == null || jDateInicio.getDate() == null){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            return; 
+        }
+        carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
+        lancamento = null;
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     public void carregaComboBox() throws SQLException {

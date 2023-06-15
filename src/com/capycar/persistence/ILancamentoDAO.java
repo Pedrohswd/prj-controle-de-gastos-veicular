@@ -23,4 +23,8 @@ public interface ILancamentoDAO {
     
     public ResultSet consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria, Date dataInicio, Date dataFim);
     
+    public void alterarLancamento(Lancamento lancamento);
+    
+    public void excluirLancamento(Lancamento lancamento);
+    
 }
