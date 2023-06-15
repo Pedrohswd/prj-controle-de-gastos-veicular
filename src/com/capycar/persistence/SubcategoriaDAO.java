@@ -42,6 +42,7 @@ public class SubcategoriaDAO implements ISubcategoriaDAO{
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, subcategoria.getDescricao());
             preparedStatement.setInt(2, subcategoria.getIdCategoria().getidCategoria());
+            preparedStatement.setInt(3,subcategoria.getIdSubcategoria());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());

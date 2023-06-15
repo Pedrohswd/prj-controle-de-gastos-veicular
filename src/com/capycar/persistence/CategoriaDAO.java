@@ -32,9 +32,10 @@ public class CategoriaDAO implements ICategoriaDAO {
     @Override
     public void alterarCategoria(Categoria categoria) {
         try {
-            String sql = "UPDATE Categoria SET Descricao = ? WHERE id = ?";
+            String sql = "UPDATE Categoria SET Descricao = ?  WHERE id_categoria = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, categoria.getDescricao());
+            preparedStatement.setInt(2,categoria.getidCategoria());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -44,7 +45,7 @@ public class CategoriaDAO implements ICategoriaDAO {
     @Override
     public void excluirCategoria(Categoria categoria){
         try {
-            String sql = "DELETE FROM Categoria WHERE id = ?";
+            String sql = "DELETE FROM Categoria WHERE id_categoria = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, categoria.getidCategoria());
             preparedStatement.executeUpdate();   

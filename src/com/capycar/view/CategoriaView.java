@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class CategoriaView extends javax.swing.JFrame {
@@ -22,7 +23,8 @@ public class CategoriaView extends javax.swing.JFrame {
      * Creates new form CategoriaView
      */
     CategoriaController categoriaController = new CategoriaController();
-    int ID = 0;
+    SubcategoriaController subcategoriaController = new SubcategoriaController();
+    int idCategoria, idSubcategoria = 0;
     ArrayList<Categoria> listaCategoria = new ArrayList<>();
 
     public CategoriaView() throws SQLException, IOException {
@@ -221,6 +223,11 @@ public class CategoriaView extends javax.swing.JFrame {
         jButtonAlterar.setForeground(new java.awt.Color(34, 40, 49));
         jButtonAlterar.setText("ALTERAR");
         jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jButtonSalvar.setBackground(new java.awt.Color(121, 113, 234));
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -362,22 +369,24 @@ public class CategoriaView extends javax.swing.JFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
         if (jComboBoxTipo.getSelectedItem() == "Categoria") {
-            Categoria categoria = new Categoria(ID, jTextFieldDescricaoCategoria.getText());
+            Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
             CategoriaController categoriaControle = new CategoriaController();
             categoriaControle.incluirCategoria(categoria);
             try {
                 carregarTabela();
+                carregaComboBox();
             } catch (SQLException ex) {
                 Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
-            Subcategoria subcategoria = new Subcategoria(ID, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
+            Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
             SubcategoriaController subcatControle = new SubcategoriaController();
             subcatControle.incluirSubcategoria(subcategoria);
             try {
                 carregarTabela();
+                carregaComboBox();
             } catch (SQLException ex) {
                 Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -395,7 +404,31 @@ public class CategoriaView extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
+        if (jComboBoxTipo.getSelectedItem() == "Categoria"){
+            Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
+            categoriaController.excluirCategoria(categoria);
+            try {
+                carregarTabela();
+                carregaComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+           Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
+           subcategoriaController.excluirSubcategoria(subcategoria);
+           try {
+                carregarTabela();
+                carregaComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
+
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
@@ -403,12 +436,14 @@ public class CategoriaView extends javax.swing.JFrame {
 
         if (jComboBoxTipo.getSelectedItem() == "Categoria") {
             jComboBoxCategorias.setVisible(false);
+            jLabelCategoriaPai.setVisible(false);
         } else {
             jComboBoxCategorias.setVisible(true);
         }
         try {
             // TODO add your handling code here:
             carregarTabela();
+            carregaComboBox();
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -418,8 +453,55 @@ public class CategoriaView extends javax.swing.JFrame {
 
     private void jTableCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasMouseClicked
         // TODO add your handling code here:
-        
+        try {
+            if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+                idCategoria = Integer.parseInt(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 0).toString());
+                jTextFieldDescricaoCategoria.setText(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 1).toString());
+                ResultSet resultset = categoriaController.carregTabela("Categoria");
+            } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+                idSubcategoria = Integer.parseInt(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 0).toString());
+                jTextFieldDescricaoCategoria.setText(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 1).toString());
+                ResultSet resultset = categoriaController.carregTabela("Subcategoria");
+                jComboBoxCategorias.removeAllItems();
+
+                for (Categoria categoria : listaCategoria) {
+                    jComboBoxCategorias.addItem(categoria);
+                    if (idCategoria == categoria.getidCategoria()) {
+                        jComboBoxCategorias.setSelectedItem(categoria);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
     }//GEN-LAST:event_jTableCategoriasMouseClicked
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+            Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
+            categoriaController.alterarCategoria(categoria);
+            try {
+                carregarTabela();
+                carregaComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if(jComboBoxTipo.getSelectedItem() == "Subcategoria"){
+            Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(),(Categoria) jComboBoxCategorias.getSelectedItem());
+            subcategoriaController.alterarSubcategoria(subcategoria);
+            try {
+                carregarTabela();
+                carregaComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     /**
      * @param args the command line arguments
