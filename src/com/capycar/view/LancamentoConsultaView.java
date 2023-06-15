@@ -509,9 +509,9 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        if(jComboBoxSubCategoria.getSelectedItem() == null || jDateInicio.getDate() == null){
+        if (jComboBoxSubCategoria.getSelectedItem() == null || jDateInicio.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
-            return; 
+            return;
         }
         carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
         lancamento = null;
@@ -528,10 +528,9 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
             veiculo.setRenavam(resultSet.getString(3));
             veiculo.setAnoFabricacao(resultSet.getString(4));
             veiculo.setAnoModelo(resultSet.getString(5));
-            veiculo.setProprietario(proprietario = new Proprietario(resultSet.getString(6)));
-            veiculo.setCombustivel(resultSet.getString(7));
-            veiculo.setKmAtual(resultSet.getInt(8));
-            veiculo.setCategoria(resultSet.getString(9));
+            veiculo.setCombustivel(resultSet.getString(6));
+            veiculo.setKmAtual(resultSet.getInt(7));
+            veiculo.setStatus(resultSet.getString(9));
             veiculo.setModelo(modelo = new Modelo(resultSet.getInt(10)));
 
             listaVeiculo.add(veiculo);
@@ -559,48 +558,19 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     }
 
     public void carretaTabela(Veiculo veiculo1, Categoria categoria1, Subcategoria subcategoria1, Date dataInicio1, Date dataFim1) {
-        try {
-            DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
-            model.setNumRows(0);
-            ResultSet resultSet = lancamentoController.consultarLancamento(veiculo1, categoria1, subcategoria1, dataInicio1, dataFim1);
-            ResultSet resultSetAuxiliar = null;
-            while (resultSet.next()) {
-                Lancamento lacamento = new Lancamento();
-                Veiculo veiculo = new Veiculo();
-                Categoria categoria = new Categoria();
-                Subcategoria subcategoria = new Subcategoria();
-                lacamento.setIdLancamento(resultSet.getInt(1));
-                resultSetAuxiliar = lancamentoController.consultarLancamento("Veiculo WHERE id_Veiculo = " + resultSet.getInt(2));
-                while (resultSetAuxiliar.next()) {
-                    veiculo.setIdVeiculo(resultSetAuxiliar.getInt(1));
-                    veiculo.setPlaca(resultSetAuxiliar.getString(2));
-                }
-                lacamento.setVeiculo(veiculo);
-                resultSetAuxiliar = lancamentoController.consultarLancamento("Categoria WHERE id_Categoria = " + resultSet.getInt(3));
-                while (resultSetAuxiliar.next()) {
-                    categoria.setidCategoria(resultSetAuxiliar.getInt(1));
-                    categoria.setDescricao(resultSetAuxiliar.getString(2));
-                }
-                lacamento.setCategoria(categoria);
-                resultSetAuxiliar = lancamentoController.consultarLancamento("Subcategoria WHERE id_Subcategoria = " + resultSet.getInt(4));
-                while (resultSetAuxiliar.next()) {
-                    subcategoria.setIdSubcategoria(resultSetAuxiliar.getInt(1));
-                    subcategoria.setDescricao(resultSetAuxiliar.getString(2));
-                }
-                lacamento.setSubCategoria(subcategoria);
-                lacamento.setValor(resultSet.getFloat(5));
-                lacamento.setDataRegistro(resultSet.getDate(6));
-                model.addRow(new Object[]{
-                    lacamento.getIdLancamento(),
-                    lacamento.getVeiculo(),
-                    lacamento.getCategoria(),
-                    lacamento.getSubCategoria(),
-                    lacamento.getValor(),
-                    lacamento.getDataRegistro()
-                });
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+        DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
+        model.setNumRows(0);
+        ArrayList<Lancamento> listLancamento = null;
+        listLancamento = lancamentoController.consultarLancamento(veiculo1, categoria1, subcategoria1, dataInicio1, dataFim1);
+        for(Lancamento lancamento : listLancamento){
+            model.addRow(new Object[]{
+                lancamento.getIdLancamento(),
+                lancamento.getVeiculo(),
+                lancamento.getCategoria(),
+                lancamento.getSubCategoria(),
+                lancamento.getValor(),
+                lancamento.getDataRegistro()
+            });
         }
     }
 

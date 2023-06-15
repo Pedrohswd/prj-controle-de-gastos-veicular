@@ -10,6 +10,7 @@ import com.capycar.model.Subcategoria;
 import com.capycar.model.Veiculo;
 import com.capycar.persistence.LancamentoDAO;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -31,7 +32,7 @@ public class LancamentoController implements ILancamentoController {
     }
 
     @Override
-    public ResultSet consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria,
+    public ArrayList<Lancamento> consultarLancamento(Veiculo veiculo, Categoria categoria, Subcategoria subcategoria,
             Date dataInicio, Date dataFim) {
         return lancamentoDAO.consultarLancamento(veiculo, categoria, subcategoria, dataInicio, dataFim);
     }
@@ -44,6 +45,41 @@ public class LancamentoController implements ILancamentoController {
     @Override
     public void excluirLancamento(Lancamento lancamento) {
         lancamentoDAO.excluirLancamento(lancamento);
+    }
+
+    @Override
+    public ArrayList<Lancamento> consultarLancamento(Categoria categoria, Subcategoria subcategoria, Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(categoria, subcategoria, dataInicio, dataFim);
+    }
+
+    @Override
+    public ArrayList<Lancamento> consultarLancamento(Subcategoria subcategoria, Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(subcategoria, dataInicio, dataFim);
+    }
+
+    @Override
+    public ArrayList<Lancamento> consultarLancamento(Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(dataInicio, dataFim);
+    }
+
+    @Override
+    public ArrayList<Lancamento> consultarLancamento(Veiculo veiculo, Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(veiculo, dataInicio, dataFim);
+    }
+
+    @Override
+    public ArrayList<Lancamento> consultarLancamento(Veiculo veiculo, Categoria categoria, Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(veiculo, categoria, dataInicio, dataFim);
+    }
+
+    @Override
+    public ArrayList<Lancamento> consultarLancamento(Veiculo veiculo, Subcategoria subcategoria, Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(veiculo, subcategoria, dataInicio, dataFim);
+    }
+
+    @Override
+    public ArrayList<Lancamento> consultarLancamento(Categoria categoria, Date dataInicio, Date dataFim) {
+        return lancamentoDAO.consultarLancamento(categoria, dataInicio, dataFim);
     }
 
 }

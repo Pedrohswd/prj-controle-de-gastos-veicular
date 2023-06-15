@@ -57,15 +57,6 @@ public class RelatorioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButtonCategoria = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCPF_CNPJ = new javax.swing.JTextField();
@@ -87,132 +78,17 @@ public class RelatorioView extends javax.swing.JFrame {
         jButtonPesquisar = new javax.swing.JButton();
         jButtonExportarPDF = new javax.swing.JButton();
         jButtonGerarGrafico = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButtonCategoria = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel2.setBackground(new java.awt.Color(121, 113, 234));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
-
-        jButton1.setBackground(new java.awt.Color(121, 113, 234));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(34, 40, 49));
-        jButton1.setText("Cadastro de Proprietário");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(121, 113, 234));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(34, 40, 49));
-        jButton2.setText("Lançamento de gastos");
-        jButton2.setBorder(null);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setBackground(new java.awt.Color(121, 113, 234));
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(34, 40, 49));
-        jButton3.setText("Cadastro de Marca");
-        jButton3.setBorder(null);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setBackground(new java.awt.Color(121, 113, 234));
-        jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(34, 40, 49));
-        jButton4.setText("Cadastro de Modelo");
-        jButton4.setBorder(null);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButtonCategoria.setBackground(new java.awt.Color(121, 113, 234));
-        jButtonCategoria.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButtonCategoria.setForeground(new java.awt.Color(34, 40, 49));
-        jButtonCategoria.setText("Cadastro de Categorias");
-        jButtonCategoria.setBorder(null);
-        jButtonCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButtonCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCategoriaActionPerformed(evt);
-            }
-        });
-
-        jButton6.setBackground(new java.awt.Color(121, 113, 234));
-        jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(34, 40, 49));
-        jButton6.setText("Cadastro de Veiculo");
-        jButton6.setBorder(null);
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jButton7.setBackground(new java.awt.Color(121, 113, 234));
-        jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(34, 40, 49));
-        jButton7.setText("Relatórios");
-        jButton7.setBorder(null);
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonCategoria)
-                        .addComponent(jButton6)
-                        .addComponent(jButton2)
-                        .addComponent(jButton7)
-                        .addComponent(jButton1)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addGap(18, 18, 18)
-                .addComponent(jButton6)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonCategoria)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addContainerGap(284, Short.MAX_VALUE))
-        );
 
         jPanel8.setBackground(new java.awt.Color(57, 62, 70));
 
@@ -329,60 +205,183 @@ public class RelatorioView extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(121, 113, 234));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
+
+        jButton1.setBackground(new java.awt.Color(121, 113, 234));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(34, 40, 49));
+        jButton1.setText("Cadastro de Proprietário");
+        jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(121, 113, 234));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(34, 40, 49));
+        jButton2.setText("Lançamento de gastos");
+        jButton2.setBorder(null);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(121, 113, 234));
+        jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(34, 40, 49));
+        jButton3.setText("Cadastro de Marca");
+        jButton3.setBorder(null);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setBackground(new java.awt.Color(121, 113, 234));
+        jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(34, 40, 49));
+        jButton4.setText("Cadastro de Modelo");
+        jButton4.setBorder(null);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButtonCategoria.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonCategoria.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButtonCategoria.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonCategoria.setText("Cadastro de Categorias");
+        jButtonCategoria.setBorder(null);
+        jButtonCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCategoriaActionPerformed(evt);
+            }
+        });
+
+        jButton6.setBackground(new java.awt.Color(121, 113, 234));
+        jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(34, 40, 49));
+        jButton6.setText("Cadastro de Veiculo");
+        jButton6.setBorder(null);
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setBackground(new java.awt.Color(121, 113, 234));
+        jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(34, 40, 49));
+        jButton7.setText("Relatórios");
+        jButton7.setBorder(null);
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonCategoria)
+                        .addComponent(jButton6)
+                        .addComponent(jButton2)
+                        .addComponent(jButton7)
+                        .addComponent(jButton1)
+                        .addComponent(jButton3)
+                        .addComponent(jButton4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonCategoria)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(309, 309, 309)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldCPF_CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8))
-                            .addGap(34, 34, 34)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9)
-                                .addComponent(jTextFieldProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(33, 33, 33)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jComboBoxVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(25, 25, 25))
-                        .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(41, 41, 41)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(53, 53, 53)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jDateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonExportarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonGerarGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jTextFieldCPF_CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jTextFieldProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(294, 294, 294)
-                        .addComponent(jLabel3)
-                        .addGap(301, 301, 301)))
-                .addGap(110, 110, 110))
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jComboBoxVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonExportarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonGerarGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2))
+                .addGap(70, 70, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel3)
                 .addGap(47, 47, 47)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -395,10 +394,10 @@ public class RelatorioView extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldCPF_CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextFieldProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldCPF_CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBoxVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -422,31 +421,20 @@ public class RelatorioView extends javax.swing.JFrame {
                     .addComponent(jButtonExportarPDF)
                     .addComponent(jButtonGerarGrafico))
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                .addGap(49, 49, 49))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                .addGap(77, 77, 77))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 977, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(1, 1, 1)))
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -509,8 +497,8 @@ public class RelatorioView extends javax.swing.JFrame {
 
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
         int selectedIndex = jComboBoxCategoria.getSelectedIndex() - 1;
-        if (selectedIndex >= 0) {
-            Categoria categoriaSelecionada = listaCategoria.get(selectedIndex);
+        if (selectedIndex >= 1) {
+            Categoria categoriaSelecionada = listaCategoria.get(selectedIndex-1);
             ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria where id_categoria = " + categoriaSelecionada.getidCategoria());
             try {
                 while (resultSet.next()) {
@@ -521,6 +509,7 @@ public class RelatorioView extends javax.swing.JFrame {
                     listaSubCategoria.add(subcategoria);
                 }
                 jComboBoxSubCategoria.removeAllItems();
+                jComboBoxSubCategoria.addItem("Todas");
 
                 for (Subcategoria subcategoria : listaSubCategoria) {
                     jComboBoxSubCategoria.addItem(subcategoria);
@@ -529,7 +518,12 @@ public class RelatorioView extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-        } else {
+        }
+        if (selectedIndex == 0) {
+            jComboBoxSubCategoria.removeAllItems();
+            jComboBoxSubCategoria.addItem("Todas");
+        }
+        if (selectedIndex < 0) {
             jComboBoxSubCategoria.removeAllItems();
         }
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
@@ -549,7 +543,7 @@ public class RelatorioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return;
         }
-        carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
+        carregaTabela();
         lancamento = null;
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -572,10 +566,9 @@ public class RelatorioView extends javax.swing.JFrame {
             veiculo.setRenavam(resultSet.getString(3));
             veiculo.setAnoFabricacao(resultSet.getString(4));
             veiculo.setAnoModelo(resultSet.getString(5));
-            veiculo.setProprietario(proprietario = new Proprietario(resultSet.getString(6)));
-            veiculo.setCombustivel(resultSet.getString(7));
-            veiculo.setKmAtual(resultSet.getInt(8));
-            veiculo.setCategoria(resultSet.getString(9));
+            veiculo.setCombustivel(resultSet.getString(6));
+            veiculo.setKmAtual(resultSet.getInt(7));
+            veiculo.setStatus(resultSet.getString(9));
             veiculo.setModelo(modelo = new Modelo(resultSet.getInt(10)));
 
             listaVeiculo.add(veiculo);
@@ -591,8 +584,10 @@ public class RelatorioView extends javax.swing.JFrame {
         }
 
         jComboBoxVeiculo.removeAllItems();
+        jComboBoxVeiculo.addItem("Todos");
         jComboBoxCategoria.removeAllItems();
         jComboBoxCategoria.addItem("Selecione uma categoria:");
+        jComboBoxCategoria.addItem("Todas");
 
         for (Veiculo veiculo : listaVeiculo) {
             jComboBoxVeiculo.addItem(veiculo);
@@ -602,53 +597,41 @@ public class RelatorioView extends javax.swing.JFrame {
         }
     }
 
-    public void carretaTabela(Veiculo veiculo1, Categoria categoria1, Subcategoria subcategoria1, Date dataInicio1, Date dataFim1) {
-        try {
-            DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
-            model.setNumRows(0);
-            ResultSet resultSet = lancamentoController.consultarLancamento(veiculo1, categoria1, subcategoria1, dataInicio1, dataFim1);
-            ResultSet resultSetAuxiliar = null;
-            while (resultSet.next()) {
-                Lancamento lacamento = new Lancamento();
-                Veiculo veiculo = new Veiculo();
-                Categoria categoria = new Categoria();
-                Subcategoria subcategoria = new Subcategoria();
-                lacamento.setIdLancamento(resultSet.getInt(1));
-                resultSetAuxiliar = lancamentoController.consultarLancamento("Veiculo WHERE id_Veiculo = " + resultSet.getInt(2));
-                while (resultSetAuxiliar.next()) {
-                    veiculo.setIdVeiculo(resultSetAuxiliar.getInt(1));
-                    veiculo.setPlaca(resultSetAuxiliar.getString(2));
-                }
-                lacamento.setVeiculo(veiculo);
-                resultSetAuxiliar = lancamentoController.consultarLancamento("Categoria WHERE id_Categoria = " + resultSet.getInt(3));
-                while (resultSetAuxiliar.next()) {
-                    categoria.setidCategoria(resultSetAuxiliar.getInt(1));
-                    categoria.setDescricao(resultSetAuxiliar.getString(2));
-                }
-                lacamento.setCategoria(categoria);
-                resultSetAuxiliar = lancamentoController.consultarLancamento("Subcategoria WHERE id_Subcategoria = " + resultSet.getInt(4));
-                while (resultSetAuxiliar.next()) {
-                    subcategoria.setIdSubcategoria(resultSetAuxiliar.getInt(1));
-                    subcategoria.setDescricao(resultSetAuxiliar.getString(2));
-                }
-                lacamento.setSubCategoria(subcategoria);
-                lacamento.setValor(resultSet.getFloat(5));
-                lacamento.setDataRegistro(resultSet.getDate(6));
-                model.addRow(new Object[]{
-                    lacamento.getIdLancamento(),
-                    lacamento.getVeiculo(),
-                    lacamento.getCategoria(),
-                    lacamento.getSubCategoria(),
-                    lacamento.getValor(),
-                    lacamento.getDataRegistro()
-                });
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+    public void carregaTabela() {
+        DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
+        model.setNumRows(0);
+        Veiculo veiculo;
+        Categoria categoria;
+        Subcategoria subcategoria;
+        ArrayList<Lancamento> listLancamento = null;
+        if(jComboBoxVeiculo.getSelectedItem() == "Todos") veiculo=null;
+        else veiculo = (Veiculo) jComboBoxVeiculo.getSelectedItem();
+        if(jComboBoxCategoria.getSelectedItem() == "Todos") categoria=null;
+        else categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
+        if(jComboBoxSubCategoria.getSelectedItem() == "Todos") subcategoria=null;
+        else subcategoria = (Subcategoria) jComboBoxSubCategoria.getSelectedItem();
+        Date dataInicio = jDateInicio.getDate();
+        Date dataFim = jDateFim.getDate();
+        if(veiculo == null && categoria == null && subcategoria == null)  listLancamento = lancamentoController.consultarLancamento(dataInicio, dataFim);
+        if(categoria == null && subcategoria == null) listLancamento = lancamentoController.consultarLancamento(veiculo, dataInicio, dataFim);
+        if(veiculo == null && categoria == null) listLancamento = lancamentoController.consultarLancamento(subcategoria, dataInicio, dataFim);
+        if(veiculo == null && subcategoria == null) listLancamento = lancamentoController.consultarLancamento(categoria, dataInicio, dataFim);
+        if(categoria == null) listLancamento = lancamentoController.consultarLancamento(veiculo, subcategoria, dataInicio, dataFim);
+        if(categoria != null && veiculo != null && subcategoria != null) listLancamento = lancamentoController.consultarLancamento(veiculo, categoria,subcategoria, dataInicio, dataFim);
+        ResultSet resultSetAuxiliar = null;
+        for(Lancamento lancamento : listLancamento){
+            model.addRow(new Object[]{
+                lancamento.getIdLancamento(),
+                lancamento.getVeiculo(),
+                lancamento.getCategoria(),
+                lancamento.getSubCategoria(),
+                lancamento.getValor(),
+                lancamento.getDataRegistro()
+            });
         }
     }
-    
-    public void carregaProprietario(){
+
+    public void carregaProprietario() {
         try {
             ResultSet resultSet = lancamentoController.consultarLancamento("proprietario");
             Proprietario proprietario = new Proprietario();
@@ -662,7 +645,6 @@ public class RelatorioView extends javax.swing.JFrame {
             Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     /**
      * @param args the command line arguments
@@ -701,33 +683,12 @@ public class RelatorioView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonCategoria;
-    private javax.swing.JButton jButtonCategoria1;
-    private javax.swing.JButton jButtonCategoria2;
-    private javax.swing.JButton jButtonCategoria3;
     private javax.swing.JButton jButtonExportarPDF;
     private javax.swing.JButton jButtonGerarGrafico;
     private javax.swing.JButton jButtonPesquisar;
@@ -737,9 +698,6 @@ public class RelatorioView extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateFim;
     private com.toedter.calendar.JDateChooser jDateInicio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -748,13 +706,7 @@ public class RelatorioView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableLancamento;
