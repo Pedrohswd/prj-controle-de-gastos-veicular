@@ -11,36 +11,31 @@ package com.capycar.model;
  */
 public class Veiculo {
 
-
-    private int idVeiculo;
+   private int idVeiculo;
     private String placa;
     private String renavam;
     private String anoFabricacao;
     private String anoModelo;
-    private Proprietario proprietario;
     private String combustivel;
     private float kmAtual;
     private String categoria;
     private Modelo modelo;
+    private String status;
 
     public Veiculo() {
     }
 
-    public Veiculo(int idVeiculo, String placa, String renavam, String anoFabricacao, String anoModelo, Proprietario proprietario, String combustivel, float kmAtual, String categoria, Modelo modelo) {
+    public Veiculo(int idVeiculo, String placa, String renavam, String anoFabricacao, String anoModelo, Proprietario proprietario, String combustivel, float kmAtual, String categoria, Modelo modelo, String status) {
         this.idVeiculo = idVeiculo;
         this.placa = placa;
         this.renavam = renavam;
         this.anoFabricacao = anoFabricacao;
         this.anoModelo = anoModelo;
-        this.proprietario = proprietario;
         this.combustivel = combustivel;
         this.kmAtual = kmAtual;
         this.categoria = categoria;
         this.modelo = modelo;
-    }
-
-    public Veiculo(int idVeiculo) {
-        this.idVeiculo = idVeiculo;
+        this.status = status;
     }
 
     public int getIdVeiculo() {
@@ -83,14 +78,6 @@ public class Veiculo {
         this.anoModelo = anoModelo;
     }
 
-    public Proprietario getProprietario() {
-        return proprietario;
-    }
-
-    public void setProprietario(Proprietario proprietario) {
-        this.proprietario = proprietario;
-    }
-
     public String getCombustivel() {
         return combustivel;
     }
@@ -123,9 +110,11 @@ public class Veiculo {
         this.modelo = modelo;
     }
 
-    @Override
-    public String toString() {
-        return placa; 
+    public String getStatus() {
+        return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
