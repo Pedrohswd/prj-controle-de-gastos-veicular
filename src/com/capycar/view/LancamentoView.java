@@ -414,6 +414,8 @@ public class LancamentoView extends javax.swing.JFrame {
             jComboBoxVeiculo.setSelectedIndex(0);
             jComboBoxCategoria.setSelectedIndex(0);
             jDateChooserRegistro.setDate(date);
+            jButtonCancelarActionPerformed(evt);
+            
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -476,10 +478,10 @@ public class LancamentoView extends javax.swing.JFrame {
             veiculo.setRenavam(resultSet.getString(3));
             veiculo.setAnoFabricacao(resultSet.getString(4));
             veiculo.setAnoModelo(resultSet.getString(5));
-            veiculo.setProprietario(proprietario = new Proprietario(resultSet.getString(6)));
-            veiculo.setCombustivel(resultSet.getString(7));
-            veiculo.setKmAtual(resultSet.getInt(8));
-            veiculo.setCategoria(resultSet.getString(9));
+            veiculo.setCombustivel(resultSet.getString(6));
+            veiculo.setKmAtual(resultSet.getInt(7));
+            veiculo.setCategoria(resultSet.getString(8));
+            veiculo.setStatus(resultSet.getString(9));
             veiculo.setModelo(modelo = new Modelo(resultSet.getInt(10)));
 
             listaVeiculo.add(veiculo);
