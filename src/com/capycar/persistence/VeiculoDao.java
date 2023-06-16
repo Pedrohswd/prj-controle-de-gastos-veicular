@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class VeiculoDao implements IVeiculoDao {
 
@@ -115,15 +116,33 @@ public class VeiculoDao implements IVeiculoDao {
         return veiculos;
     }
 
-    private Veiculo construirVeiculo(ResultSet resultSet) throws SQLException {
-        Veiculo veiculo = new Veiculo();
-        veiculo.setIdVeiculo(resultSet.getInt("Id_Veiculo"));
-        veiculo.setPlaca(resultSet.getString("Placa"));
-        veiculo.setRenavam(resultSet.getString("Renavam"));
-        veiculo.setAnoFabricacao(resultSet.getString("Ano_Fabricacao"));
-        veiculo.setAnoModelo(resultSet.getString("Ano_Modelo"));
-        // Recuperar os demais atributos do veículo, como Proprietario e Modelo
-        // Utilize os métodos getProprietario() e getModelo() para obter os objetos relacionados
-        return veiculo;
+   private Veiculo construirVeiculo(ResultSet resultSet) throws SQLException {
+    Veiculo veiculo = new Veiculo();
+    veiculo.setIdVeiculo(resultSet.getInt("Id_Veiculo"));
+    veiculo.setPlaca(resultSet.getString("Placa"));
+    veiculo.setRenavam(resultSet.getString("Renavam"));
+    veiculo.setAnoFabricacao(resultSet.getString("Ano_Fabricacao"));
+    veiculo.setAnoModelo(resultSet.getString("Ano_Modelo"));
+    veiculo.setStatus(resultSet.getString("Status"));
+    veiculo.setCombustivel(resultSet.getString("Combustivel"));
+    veiculo.setCategoria(resultSet.getString("Categoria"));
+    veiculo.setKmAtual(resultSet.getFloat("Km_atual"));
+    int idModelo = resultSet.getInt("Id_Modelo");
+
+    ModeloDao modeloDao = new ModeloDao();
+    Modelo modelo = modeloDao.buscarModeloPorId(idModelo);
+
+    if (modelo != null) {
+        veiculo.setModelo(modelo);
+    } else {
+        // Tratar o caso em que o modelo não foi encontrado
     }
+
+    return veiculo;
+}
+
+
+
+
+
 }
