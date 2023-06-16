@@ -102,4 +102,28 @@ public class ModeloDao implements IModeloDao {
         return null;
     }
 
+    public Modelo buscarModeloPorId(int idModelo) {
+    try {
+        String sql = "SELECT * FROM Modelo WHERE ID_MODELO = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, idModelo);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            Modelo modelo = new Modelo();
+            modelo.setIdModelo(resultSet.getInt("ID_MODELO"));
+            modelo.setNome(resultSet.getString("Nome"));
+            modelo.setUrl(resultSet.getString("Imagem"));
+
+            // Aqui você pode definir a marca do modelo se ela estiver disponível no ResultSet
+            // modelo.setIdMarca(resultSet.getInt("ID_MARCA"));
+
+            return modelo;
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage());
+    }
+    return null;
+}
+
 }
