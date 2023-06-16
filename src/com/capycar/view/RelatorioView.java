@@ -498,7 +498,7 @@ public class RelatorioView extends javax.swing.JFrame {
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
         int selectedIndex = jComboBoxCategoria.getSelectedIndex() - 1;
         if (selectedIndex >= 1) {
-            Categoria categoriaSelecionada = listaCategoria.get(selectedIndex-1);
+            Categoria categoriaSelecionada = listaCategoria.get(selectedIndex - 1);
             ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria where id_categoria = " + categoriaSelecionada.getidCategoria());
             try {
                 while (resultSet.next()) {
@@ -522,6 +522,25 @@ public class RelatorioView extends javax.swing.JFrame {
         if (selectedIndex == 0) {
             jComboBoxSubCategoria.removeAllItems();
             jComboBoxSubCategoria.addItem("Todas");
+            ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria");
+            try {
+                while (resultSet.next()) {
+                    Subcategoria subcategoria = new Subcategoria();
+                    subcategoria.setIdSubcategoria(resultSet.getInt(1));
+                    subcategoria.setDescricao(resultSet.getString(2));
+
+                    listaSubCategoria.add(subcategoria);
+                }
+                jComboBoxSubCategoria.removeAllItems();
+                jComboBoxSubCategoria.addItem("Todas");
+
+                for (Subcategoria subcategoria : listaSubCategoria) {
+                    jComboBoxSubCategoria.addItem(subcategoria);
+                }
+                listaSubCategoria.clear();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
         }
         if (selectedIndex < 0) {
             jComboBoxSubCategoria.removeAllItems();
@@ -552,7 +571,9 @@ public class RelatorioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExportarPDFActionPerformed
 
     private void jButtonGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarGraficoActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        RelatorioGraficoView relatorioGrafico = new RelatorioGraficoView();
+        relatorioGrafico.setVisible(true);
     }//GEN-LAST:event_jButtonGerarGraficoActionPerformed
 
     public void carregaComboBox() throws SQLException {
@@ -604,22 +625,49 @@ public class RelatorioView extends javax.swing.JFrame {
         Categoria categoria;
         Subcategoria subcategoria;
         ArrayList<Lancamento> listLancamento = null;
-        if(jComboBoxVeiculo.getSelectedItem() == "Todos") veiculo=null;
-        else veiculo = (Veiculo) jComboBoxVeiculo.getSelectedItem();
-        if(jComboBoxCategoria.getSelectedItem() == "Todos") categoria=null;
-        else categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
-        if(jComboBoxSubCategoria.getSelectedItem() == "Todos") subcategoria=null;
-        else subcategoria = (Subcategoria) jComboBoxSubCategoria.getSelectedItem();
+        if (jComboBoxVeiculo.getSelectedItem() == "Todos") {
+            veiculo = null;
+        } else {
+            veiculo = (Veiculo) jComboBoxVeiculo.getSelectedItem();
+        }
+        if (jComboBoxCategoria.getSelectedItem() == "Todas") {
+            categoria = null;
+        } else {
+            categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
+        }
+        if (jComboBoxSubCategoria.getSelectedItem() == "Todas") {
+            subcategoria = null;
+        } else {
+            subcategoria = (Subcategoria) jComboBoxSubCategoria.getSelectedItem();
+        }
         Date dataInicio = jDateInicio.getDate();
         Date dataFim = jDateFim.getDate();
-        if(veiculo == null && categoria == null && subcategoria == null)  listLancamento = lancamentoController.consultarLancamento(dataInicio, dataFim);
-        if(categoria == null && subcategoria == null) listLancamento = lancamentoController.consultarLancamento(veiculo, dataInicio, dataFim);
-        if(veiculo == null && categoria == null) listLancamento = lancamentoController.consultarLancamento(subcategoria, dataInicio, dataFim);
-        if(veiculo == null && subcategoria == null) listLancamento = lancamentoController.consultarLancamento(categoria, dataInicio, dataFim);
-        if(categoria == null) listLancamento = lancamentoController.consultarLancamento(veiculo, subcategoria, dataInicio, dataFim);
-        if(categoria != null && veiculo != null && subcategoria != null) listLancamento = lancamentoController.consultarLancamento(veiculo, categoria,subcategoria, dataInicio, dataFim);
+        if (veiculo == null && categoria == null && subcategoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(dataInicio, dataFim);
+        }
+        else if(categoria == null && subcategoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, dataInicio, dataFim);
+        }
+        else if (veiculo == null && categoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(subcategoria, dataInicio, dataFim);
+        }
+        else if (veiculo == null && subcategoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(categoria, dataInicio, dataFim);
+        }
+        else if (categoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, subcategoria, dataInicio, dataFim);
+        }
+        else if (veiculo == null) {
+            listLancamento = lancamentoController.consultarLancamento(categoria, subcategoria, dataInicio, dataFim);
+        }
+        else if (subcategoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, categoria, dataInicio, dataFim);
+        }
+        else if (categoria != null && veiculo != null && subcategoria != null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, categoria, subcategoria, dataInicio, dataFim);
+        }
         ResultSet resultSetAuxiliar = null;
-        for(Lancamento lancamento : listLancamento){
+        for (Lancamento lancamento : listLancamento) {
             model.addRow(new Object[]{
                 lancamento.getIdLancamento(),
                 lancamento.getVeiculo(),
