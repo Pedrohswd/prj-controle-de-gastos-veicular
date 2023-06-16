@@ -13,10 +13,13 @@ import com.capycar.model.Subcategoria;
 import java.sql.ResultSet;
 
 public interface ISubcategoriaDAO {
-    
+
     public void incluirSubcategoria(Subcategoria subcategoria);
+
     public void alterarSubcategoria(Subcategoria subcategoria);
+
     public void excluirSubcategoria(Subcategoria subcategoria);
+
     public ResultSet carregTabela(String tabela);
-    
+
 }

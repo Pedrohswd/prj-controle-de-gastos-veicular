@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -28,12 +30,15 @@ public class LancamentoView extends javax.swing.JFrame {
     ArrayList<Categoria> listaCategoria = new ArrayList<>();
     ArrayList<Subcategoria> listaSubCategoria = new ArrayList<>();
     Date date = new Date();
+    Lancamento lancamento = new Lancamento();
+    boolean alterador = false;
 
     /**
      * Creates new form LancamentoView
      */
     public LancamentoView() throws SQLException {
         initComponents();
+        jButtonCancelar.setVisible(false);
         carregaComboBox();
         setLocationRelativeTo(null);
         jDateChooserRegistro.setDate(date);
@@ -71,6 +76,7 @@ public class LancamentoView extends javax.swing.JFrame {
         jComboBoxVeiculo = new javax.swing.JComboBox();
         jComboBoxCategoria = new javax.swing.JComboBox();
         jComboBoxSubCategoria = new javax.swing.JComboBox();
+        jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -250,6 +256,16 @@ public class LancamentoView extends javax.swing.JFrame {
             }
         });
 
+        jButtonCancelar.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonCancelar.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -263,8 +279,9 @@ public class LancamentoView extends javax.swing.JFrame {
                                 .addGap(226, 226, 226)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(78, 78, 78)
+                                    .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jDateChooserRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -323,7 +340,8 @@ public class LancamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
-                    .addComponent(jButtonConsultar))
+                    .addComponent(jButtonConsultar)
+                    .addComponent(jButtonCancelar))
                 .addGap(123, 123, 123))
         );
 
@@ -374,9 +392,31 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldValorActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        float valor = Float.parseFloat(jTextFieldValor.getText());
-        Lancamento lancamento = new Lancamento(0, (Veiculo) jComboBoxVeiculo.getSelectedItem(),(Categoria) jComboBoxCategoria.getSelectedItem(),(Subcategoria) jComboBoxSubCategoria.getSelectedItem(), valor, jDateChooserRegistro.getDate());
-        lancamentoController.criarLancamento(lancamento);
+        if(jComboBoxSubCategoria.getSelectedItem() == null || jDateChooserRegistro.getDate() == null || jTextFieldValor.getText() == "" ||jTextFieldValor.getText().isEmpty() == true){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            return; 
+        }
+        if (alterador == false) {
+            float valor = Float.parseFloat(jTextFieldValor.getText());
+            Lancamento lancamento = new Lancamento(0, (Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), valor, jDateChooserRegistro.getDate());
+            lancamentoController.criarLancamento(lancamento);
+            jTextFieldValor.setText("");
+            jComboBoxVeiculo.setSelectedIndex(0);
+            jComboBoxCategoria.setSelectedIndex(0);
+            jDateChooserRegistro.setDate(date);
+        } else {
+            float valor = Float.parseFloat(jTextFieldValor.getText());
+            Lancamento lancamento = new Lancamento(this.lancamento.getIdLancamento(), (Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), valor, jDateChooserRegistro.getDate());
+            lancamentoController.alterarLancamento(lancamento);
+            alterador = false;
+            this.lancamento = null;
+            jTextFieldValor.setText("");
+            jComboBoxVeiculo.setSelectedIndex(0);
+            jComboBoxCategoria.setSelectedIndex(0);
+            jDateChooserRegistro.setDate(date);
+            jButtonCancelarActionPerformed(evt);
+            
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
@@ -413,8 +453,19 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     private void jComboBoxCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaMouseClicked
-
+        alterador = false;
+        lancamento = null;
     }//GEN-LAST:event_jComboBoxCategoriaMouseClicked
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        jButtonConsultar.setEnabled(true);
+        alterador = false;
+        jButtonCancelar.setVisible(false);
+        jTextFieldValor.setText("");
+        jComboBoxVeiculo.setSelectedIndex(0);
+        jComboBoxCategoria.setSelectedIndex(0);
+        jDateChooserRegistro.setDate(date);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     public void carregaComboBox() throws SQLException {
         ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
@@ -427,10 +478,10 @@ public class LancamentoView extends javax.swing.JFrame {
             veiculo.setRenavam(resultSet.getString(3));
             veiculo.setAnoFabricacao(resultSet.getString(4));
             veiculo.setAnoModelo(resultSet.getString(5));
-            veiculo.setProprietario(proprietario = new Proprietario(resultSet.getString(6)));
-            veiculo.setCombustivel(resultSet.getString(7));
-            veiculo.setKmAtual(resultSet.getInt(8));
-            veiculo.setCategoria(resultSet.getString(9));
+            veiculo.setCombustivel(resultSet.getString(6));
+            veiculo.setKmAtual(resultSet.getInt(7));
+            veiculo.setCategoria(resultSet.getString(8));
+            veiculo.setStatus(resultSet.getString(9));
             veiculo.setModelo(modelo = new Modelo(resultSet.getInt(10)));
 
             listaVeiculo.add(veiculo);
@@ -455,6 +506,28 @@ public class LancamentoView extends javax.swing.JFrame {
         for (Categoria categoria : listaCategoria) {
             jComboBoxCategoria.addItem(categoria);
         }
+    }
+
+    public void recebeDadosAlterar(Lancamento lancamento) {
+        jButtonCancelar.setVisible(true);
+        jButtonConsultar.setEnabled(false);
+        int contador = 0;
+        for (Veiculo veiculo : listaVeiculo) {
+            if (lancamento.getVeiculo().getIdVeiculo() == veiculo.getIdVeiculo()) {
+                jComboBoxVeiculo.setSelectedIndex(contador);
+            }
+            contador++;
+        }
+        contador = 1;
+        for (Categoria categoria : listaCategoria) {
+            if (lancamento.getCategoria().getidCategoria() == categoria.getidCategoria()) {
+                jComboBoxCategoria.setSelectedIndex(contador);
+            }
+        }
+        jTextFieldValor.setText(lancamento.getValor() + "");
+        jDateChooserRegistro.setDate(lancamento.getDataRegistro());
+        alterador = true;
+        this.lancamento = lancamento;
     }
 
     /**
@@ -503,6 +576,7 @@ public class LancamentoView extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonCategoria;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonSalvar;

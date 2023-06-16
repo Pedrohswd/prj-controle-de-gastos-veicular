@@ -12,13 +12,13 @@ import java.sql.ResultSet;
  *
  * @author educa
  */
-public class CategoriaController implements ICategoriaController{
-       CategoriaDAO categoriaDAO = new CategoriaDAO();
-       
-       @Override
-       public void incluirCategoria(Categoria categoria){
-           categoriaDAO.incluirCategoria(categoria);
-       }
+public class CategoriaController implements ICategoriaController {
+    CategoriaDAO categoriaDAO = new CategoriaDAO();
+
+    @Override
+    public void incluirCategoria(Categoria categoria) {
+        categoriaDAO.incluirCategoria(categoria);
+    }
 
     @Override
     public void alterarCategoria(Categoria categoria) {
@@ -29,8 +29,8 @@ public class CategoriaController implements ICategoriaController{
     public void excluirCategoria(Categoria categoria) {
         categoriaDAO.excluirCategoria(categoria);
     }
-    
-    public ResultSet carregTabela(String table){
+
+    public ResultSet carregTabela(String table) {
         return categoriaDAO.carregTabela(table);
     }
 

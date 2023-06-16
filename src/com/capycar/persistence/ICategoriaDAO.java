@@ -8,10 +8,13 @@ import com.capycar.model.Categoria;
 import java.sql.ResultSet;
 
 public interface ICategoriaDAO {
-    
+
     public void incluirCategoria(Categoria categoria);
+
     public void alterarCategoria(Categoria categoria);
+
     public void excluirCategoria(Categoria categoria);
+
     public ResultSet carregTabela(String tabela);
-    
+
 }

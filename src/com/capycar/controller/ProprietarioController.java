@@ -11,8 +11,8 @@ import com.capycar.persistence.ProprietarioDao;
  *
  * @author pedro
  */
-public class ProprietarioController implements IPropretarioController{
-    
+public class ProprietarioController implements IPropretarioController {
+
     ProprietarioDao proprietarioDao = new ProprietarioDao();
 
     @Override
@@ -29,5 +29,5 @@ public class ProprietarioController implements IPropretarioController{
     public Proprietario consultarProprietario(String tabela) {
         return proprietarioDao.consultarProprietario(tabela);
     }
-    
+
 }

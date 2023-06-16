@@ -12,13 +12,13 @@ import java.sql.ResultSet;
  *
  * @author aluno
  */
-public class SubcategoriaController implements ISubcategoriaController{
+public class SubcategoriaController implements ISubcategoriaController {
 
     SubcategoriaDAO subcategoriaDAO = new SubcategoriaDAO();
-    
+
     @Override
     public void incluirSubcategoria(Subcategoria subcategoria) {
-       subcategoriaDAO.incluirSubcategoria(subcategoria);
+        subcategoriaDAO.incluirSubcategoria(subcategoria);
     }
 
     @Override
@@ -35,5 +35,5 @@ public class SubcategoriaController implements ISubcategoriaController{
     public ResultSet carregTabela(String tabela) {
         return subcategoriaDAO.carregTabela(tabela);
     }
-    
+
 }
