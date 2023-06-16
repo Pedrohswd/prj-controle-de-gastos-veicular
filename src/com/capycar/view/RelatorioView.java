@@ -11,6 +11,8 @@ import com.capycar.model.Modelo;
 import com.capycar.model.Proprietario;
 import com.capycar.model.Subcategoria;
 import com.capycar.model.Veiculo;
+import com.capycar.controller.ReportController;
+import com.capycar.ordenation.Ordenation;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,6 +37,7 @@ public class RelatorioView extends javax.swing.JFrame {
     ArrayList<Subcategoria> listaSubCategoria = new ArrayList<>();
     Date date = new Date();
     Lancamento lancamento = null;
+    ArrayList<Lancamento> listLancamento = null;
 
     public RelatorioView() {
         try {
@@ -567,7 +571,14 @@ public class RelatorioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jButtonExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarPDFActionPerformed
-        // TODO add your handling code here:
+        Ordenation ordenation = new Ordenation();
+        listLancamento = ordenation.quickSortByVeiculo(listLancamento, 0, listLancamento.size() - 1);
+        ReportController report = new ReportController();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String dataInicio = format.format(jDateInicio.getDate());
+        String dataFim = format.format(jDateFim.getDate());
+        report.gerarRelatorioPdf(jTextFieldCPF_CNPJ.getText(), jTextFieldProprietario.getText(), jComboBoxVeiculo.getSelectedItem().toString(), jComboBoxCategoria.getSelectedItem().toString(), jComboBoxSubCategoria.getSelectedItem().toString(),
+                dataInicio, dataFim, listLancamento);
     }//GEN-LAST:event_jButtonExportarPDFActionPerformed
 
     private void jButtonGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarGraficoActionPerformed
@@ -624,7 +635,7 @@ public class RelatorioView extends javax.swing.JFrame {
         Veiculo veiculo;
         Categoria categoria;
         Subcategoria subcategoria;
-        ArrayList<Lancamento> listLancamento = null;
+        listLancamento = null;
         if (jComboBoxVeiculo.getSelectedItem() == "Todos") {
             veiculo = null;
         } else {
@@ -644,26 +655,19 @@ public class RelatorioView extends javax.swing.JFrame {
         Date dataFim = jDateFim.getDate();
         if (veiculo == null && categoria == null && subcategoria == null) {
             listLancamento = lancamentoController.consultarLancamento(dataInicio, dataFim);
-        }
-        else if(categoria == null && subcategoria == null) {
+        } else if (categoria == null && subcategoria == null) {
             listLancamento = lancamentoController.consultarLancamento(veiculo, dataInicio, dataFim);
-        }
-        else if (veiculo == null && categoria == null) {
+        } else if (veiculo == null && categoria == null) {
             listLancamento = lancamentoController.consultarLancamento(subcategoria, dataInicio, dataFim);
-        }
-        else if (veiculo == null && subcategoria == null) {
+        } else if (veiculo == null && subcategoria == null) {
             listLancamento = lancamentoController.consultarLancamento(categoria, dataInicio, dataFim);
-        }
-        else if (categoria == null) {
+        } else if (categoria == null) {
             listLancamento = lancamentoController.consultarLancamento(veiculo, subcategoria, dataInicio, dataFim);
-        }
-        else if (veiculo == null) {
+        } else if (veiculo == null) {
             listLancamento = lancamentoController.consultarLancamento(categoria, subcategoria, dataInicio, dataFim);
-        }
-        else if (subcategoria == null) {
+        } else if (subcategoria == null) {
             listLancamento = lancamentoController.consultarLancamento(veiculo, categoria, dataInicio, dataFim);
-        }
-        else if (categoria != null && veiculo != null && subcategoria != null) {
+        } else if (categoria != null && veiculo != null && subcategoria != null) {
             listLancamento = lancamentoController.consultarLancamento(veiculo, categoria, subcategoria, dataInicio, dataFim);
         }
         ResultSet resultSetAuxiliar = null;
