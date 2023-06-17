@@ -34,10 +34,14 @@ public class MarcaView extends javax.swing.JFrame {
     Marca marca = new Marca();
     MarcaController marcaController = new MarcaController();
     int ID = 0;
+    int alterar = 1;
 
     public MarcaView() throws SQLException, IOException {
         initComponents();
         carregarTabela();
+        jTextFieldMarca.setEditable(false);
+        jButtonSelecionarImg.setEnabled(false);
+        jButtonSalvar.setEnabled(false);
         setLocationRelativeTo(null);
     }
 
@@ -71,6 +75,7 @@ public class MarcaView extends javax.swing.JFrame {
         jButtonAlterar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableMarcas = new javax.swing.JTable();
+        jButtonAdicionar = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(238, 238, 238));
@@ -268,6 +273,16 @@ public class MarcaView extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableMarcas);
 
+        jButtonAdicionar.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonAdicionar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonAdicionar.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonAdicionar.setText("Adicionar");
+        jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdicionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -291,16 +306,18 @@ public class MarcaView extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jButtonSelecionarImg, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                                             .addComponent(jLabelIMG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(138, 138, 138))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
+                        .addGap(141, 141, 141)
+                        .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -319,13 +336,14 @@ public class MarcaView extends javax.swing.JFrame {
                     .addComponent(jLabelIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonSelecionarImg)
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonExcluir)
                     .addComponent(jButtonSalvar)
-                    .addComponent(jButtonAlterar))
+                    .addComponent(jButtonAlterar)
+                    .addComponent(jButtonAdicionar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -394,12 +412,33 @@ public class MarcaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        marca = new Marca(0, jTextFieldMarca.getText(), url);
-        marcaController.criarMarca(marca);
-        url = null;
-        jTextFieldMarca.setText("");
-        jLabelIMG.setIcon(null);
         try {
+            if (alterar == 0) {
+                marca = new Marca(0, jTextFieldMarca.getText(), url);
+                marcaController.criarMarca(marca);
+                url = null;
+                jTextFieldMarca.setText("");
+                jLabelIMG.setIcon(null);
+            } else if (alterar == 1) {
+                marca = new Marca(ID, jTextFieldMarca.getText(), url);
+                marcaController.alterarMarca(marca);
+                url = null;
+                jTextFieldMarca.setText("");
+                jLabelIMG.setIcon(null);
+                try {
+                    carregarTabela();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            jTextFieldMarca.setEditable(false);
+            jButtonSelecionarImg.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+            jButtonAlterar.setEnabled(true);
+            jButtonExcluir.setEnabled(true);
+            jButtonAdicionar.setEnabled(true);
             carregarTabela();
         } catch (SQLException ex) {
             Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
@@ -410,18 +449,12 @@ public class MarcaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        marca = new Marca(ID, jTextFieldMarca.getText(), url);
-        marcaController.alterarMarca(marca);
-        url = null;
-        jTextFieldMarca.setText("");
-        jLabelIMG.setIcon(null);
-        try {
-            carregarTabela();
-        } catch (SQLException ex) {
-            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        alterar = 1;
+        jButtonExcluir.setEnabled(false);
+        jButtonAdicionar.setEnabled(false);
+        jButtonSelecionarImg.setEnabled(true);
+        jTextFieldMarca.setEditable(true);
+        jButtonSalvar.setEnabled(true);
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jTableMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasMouseClicked
@@ -445,6 +478,17 @@ public class MarcaView extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jTableMarcasMouseClicked
+
+    private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
+        alterar = 0;
+        jButtonSalvar.setEnabled(true);
+        jButtonSelecionarImg.setEnabled(true);
+        jButtonExcluir.setEnabled(false);
+        jButtonAlterar.setEnabled(false);
+        jTextFieldMarca.setText("");
+        jLabelIMG.setIcon(null);
+        jTextFieldMarca.setEditable(true);
+    }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void carregarTabela() throws SQLException, IOException {
         DefaultTableModel model = (DefaultTableModel) jTableMarcas.getModel();
@@ -508,6 +552,7 @@ public class MarcaView extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonSalvar;

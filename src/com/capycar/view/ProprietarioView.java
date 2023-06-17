@@ -8,8 +8,13 @@ import com.capycar.connection.GastoRiderAPI;
 import com.capycar.controller.ProprietarioController;
 import com.capycar.model.Proprietario;
 import java.awt.Color;
+import java.io.IOException;
 import javax.swing.border.EmptyBorder;
 import java.lang.String;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -164,6 +169,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton2.setText("Lançamento de gastos");
         jButton2.setBorder(null);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(121, 113, 234));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -171,6 +181,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton3.setText("Cadastro de Marca");
         jButton3.setBorder(null);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(121, 113, 234));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -178,6 +193,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton4.setText("Cadastro de Modelo");
         jButton4.setBorder(null);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(121, 113, 234));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -185,6 +205,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton5.setText("Cadastro de Categorias");
         jButton5.setBorder(null);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(121, 113, 234));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -204,6 +229,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -306,14 +336,32 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextDDI.setBackground(new java.awt.Color(217, 217, 217));
         jTextDDI.setForeground(new java.awt.Color(0, 0, 0));
         jTextDDI.setBorder(null);
+        jTextDDI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextDDIKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextDDIKeyReleased(evt);
+            }
+        });
 
         jTextDDD.setBackground(new java.awt.Color(217, 217, 217));
         jTextDDD.setForeground(new java.awt.Color(0, 0, 0));
         jTextDDD.setBorder(null);
+        jTextDDD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextDDDKeyReleased(evt);
+            }
+        });
 
         jTextNumero.setBackground(new java.awt.Color(217, 217, 217));
         jTextNumero.setForeground(new java.awt.Color(0, 0, 0));
         jTextNumero.setBorder(null);
+        jTextNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextNumeroKeyReleased(evt);
+            }
+        });
 
         jLabelData.setForeground(new java.awt.Color(238, 238, 238));
         jLabelData.setText("Data de Nascimento:");
@@ -345,6 +393,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextCEP.setBackground(new java.awt.Color(217, 217, 217));
         jTextCEP.setForeground(new java.awt.Color(0, 0, 0));
         jTextCEP.setBorder(null);
+        jTextCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextCEPKeyReleased(evt);
+            }
+        });
 
         jTextNumeroCasa.setBackground(new java.awt.Color(217, 217, 217));
         jTextNumeroCasa.setForeground(new java.awt.Color(0, 0, 0));
@@ -636,6 +689,11 @@ public class ProprietarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        if (jTextBairro.getText().isEmpty() == true || jTextCPFCNPJ.getText().isEmpty() == true || jTextCEP.getText().isEmpty() == true || jTextCidade.getText().isEmpty() == true || jTextDDD.getText().isEmpty() == true || jTextDDI.getText().isEmpty() == true
+                || jTextEmail.getText().isEmpty() == true || jTextLogradouro.getText().isEmpty() == true || jTextNomeRazao.getText().isEmpty() == true || jTextNumero.getText().isEmpty() == true || jTextNumeroCasa.getText().isEmpty() == true || jDateDataNasCri.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            return;
+        }
         if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
             String telefone = jTextDDI.getText() + ";" + jTextDDD.getText() + ";" + jTextNumero.getText();
             Proprietario proprietario = new Proprietario(jTextCPFCNPJ.getText(), jTextNomeRazao.getText(), jTextEmail.getText(), telefone, jComboBoxCNH.getSelectedItem().toString(), jDateDataNasCri.getDate(), jTextCEP.getText(), jTextLogradouro.getText(),
@@ -701,8 +759,118 @@ public class ProprietarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        VeiculoView veiculo = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                veiculo = new VeiculoView();
+                veiculo.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextDDIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDDIKeyPressed
+
+    }//GEN-LAST:event_jTextDDIKeyPressed
+
+    private void jTextDDIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDDIKeyReleased
+        jTextDDI.setText(jTextDDI.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextDDIKeyReleased
+
+    private void jTextDDDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDDDKeyReleased
+        jTextDDD.setText(jTextDDD.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextDDDKeyReleased
+
+    private void jTextNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNumeroKeyReleased
+        jTextNumero.setText(jTextNumero.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextNumeroKeyReleased
+
+    private void jTextCEPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCEPKeyReleased
+        jTextCEP.setText(jTextCEP.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextCEPKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        MarcaView marca = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                marca = new MarcaView();
+                marca.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ModeloView modelo = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                modelo = new ModeloView();
+                modelo.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                CategoriaView categoria = new CategoriaView();
+                categoria.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        LancamentoView lancamentoView = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                lancamentoView = new LancamentoView();
+                lancamentoView.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+            JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+        } else {
+            setVisible(false);
+            RelatorioView relatorioView = null;
+            relatorioView = new RelatorioView();
+            relatorioView.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void preencherCampos(Proprietario proprietario) {
         if (proprietario.getTipoPessoa() == "PF") {
