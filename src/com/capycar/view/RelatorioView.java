@@ -212,6 +212,11 @@ public class RelatorioView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(121, 113, 234));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(121, 113, 234));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -291,6 +296,11 @@ public class RelatorioView extends javax.swing.JFrame {
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -463,7 +473,15 @@ public class RelatorioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            MarcaView marca = new MarcaView();
+            marca.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -480,11 +498,25 @@ public class RelatorioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            CategoriaView categoria = new CategoriaView();
+            categoria.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonCategoriaActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        try {
+            setVisible(false);
+            VeiculoView veiculo = new VeiculoView();
+            veiculo.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextFieldCPF_CNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCPF_CNPJActionPerformed
@@ -586,6 +618,19 @@ public class RelatorioView extends javax.swing.JFrame {
         RelatorioGraficoView relatorioGrafico = new RelatorioGraficoView();
         relatorioGrafico.setVisible(true);
     }//GEN-LAST:event_jButtonGerarGraficoActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        setVisible(false);
+        RelatorioView relatorioView = null;
+        relatorioView = new RelatorioView();
+        relatorioView.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        setVisible(false);
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     public void carregaComboBox() throws SQLException {
         ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");

@@ -86,7 +86,6 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextFieldProprietario = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jButtonGrafico = new javax.swing.JButton();
         jPanelGrafico = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,8 +172,18 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -200,8 +209,8 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel8)
-                .addGap(61, 61, 61)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
@@ -293,13 +302,6 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(238, 238, 238));
         jLabel10.setText("Proprietário:");
 
-        jButtonGrafico.setText("jButton5");
-        jButtonGrafico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGraficoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelGraficoLayout = new javax.swing.GroupLayout(jPanelGrafico);
         jPanelGrafico.setLayout(jPanelGraficoLayout);
         jPanelGraficoLayout.setHorizontalGroup(
@@ -319,9 +321,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addComponent(jButtonGrafico)
-                        .addGap(122, 122, 122)
+                        .addGap(396, 396, 396)
                         .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -407,9 +407,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonVoltar)
-                    .addComponent(jButtonGrafico))
+                .addComponent(jButtonVoltar)
                 .addGap(59, 59, 59))
         );
 
@@ -446,7 +444,15 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            MarcaView marca = new MarcaView();
+            marca.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -463,11 +469,25 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            CategoriaView categoria = new CategoriaView();
+            categoria.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonCategoriaActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        try {
+            setVisible(false);
+            VeiculoView veiculo = new VeiculoView();
+            veiculo.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jComboBoxCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaMouseClicked
@@ -509,20 +529,20 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jPanelGrafico.removeAll();
         jPanelGrafico.revalidate();
         jPanelGrafico.repaint();
-        
+
         ReportController reportControle = new ReportController();
         ChartPanel panel = reportControle.gerarRelatorioGrafico((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
 
         jPanelGrafico.setLayout(new BorderLayout());
         jPanelGrafico.add(panel, BorderLayout.CENTER);
         panel.setSize(787, 350);
-        
+
         //carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
         lancamento = null;
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        setVisible(true);
+        setVisible(false);
         RelatorioView relatorio = new RelatorioView();
         relatorio.setVisible(true);
     }//GEN-LAST:event_jButtonVoltarActionPerformed
@@ -535,24 +555,16 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldProprietarioActionPerformed
 
-    private void jButtonGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraficoActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        try {
-            /*String sql = "SELECT data_lancamento, valor FROM Lancamento";
-            JDBCCategoryDataset dataset = new JDBCCategoryDataset(GastoRiderAPI.conectBD(),sql);
-            JFreeChart chart = ChartFactory.createBarChart("Gasto no Mês", "Data", "Valor", dataset, PlotOrientation.VERTICAL, true, true, false);
-             */
-            //ReportController reportControle = new ReportController();
-            //ChartPanel panel = reportControle.gerarRelatorioGrafico(veiculo, categoria, subcategoria, date, date);
 
-            //jPanelGrafico.setLayout(new BorderLayout());
-            //jPanelGrafico.add(panel, BorderLayout.CENTER);
-            //panel.setSize(787, 350);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
-        } catch (Exception e) {
-        }
-
-    }//GEN-LAST:event_jButtonGraficoActionPerformed
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        setVisible(false);
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
 
     public void carregaComboBox() throws SQLException {
         ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
@@ -668,7 +680,6 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButtonCategoria;
-    private javax.swing.JButton jButtonGrafico;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JComboBox jComboBoxCategoria;
