@@ -537,6 +537,9 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxStatus">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="46" green="3e" red="39" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Inativo"/>
           </Properties>
           <Events>
@@ -684,7 +687,7 @@
         <Component class="javax.swing.JComboBox" name="jComboBoxCategoria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="8">
+              <StringArray count="7">
                 <StringItem index="0" value="Hatch"/>
                 <StringItem index="1" value="SUV"/>
                 <StringItem index="2" value="Sedan"/>
@@ -692,7 +695,6 @@
                 <StringItem index="4" value="Caminhonete "/>
                 <StringItem index="5" value="Caminhoneta"/>
                 <StringItem index="6" value="Utilit&#xe1;rio"/>
-                <StringItem index="7" value=" "/>
               </StringArray>
             </Property>
           </Properties>

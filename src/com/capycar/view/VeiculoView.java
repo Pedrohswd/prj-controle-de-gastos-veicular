@@ -6,11 +6,8 @@ package com.capycar.view;
 
 import com.capycar.controller.ModeloController;
 import com.capycar.controller.VeiculoController;
-import com.capycar.model.Marca;
 import com.capycar.model.Modelo;
 import com.capycar.model.Veiculo;
-import com.capycar.persistence.VeiculoDao;
-import com.sun.jdi.connect.spi.Connection;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +26,7 @@ public class VeiculoView extends javax.swing.JFrame {
     private DefaultTableModel model;
     private VeiculoController veiculoController = new VeiculoController();
     ArrayList<Modelo> listaModelo = new ArrayList<>();
+    int idVeiculo = 0;
 
     /**
      * Creates new form VeiculoView
@@ -256,6 +253,7 @@ public class VeiculoView extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Categoria:");
 
+        jCheckBoxStatus.setBackground(new java.awt.Color(57, 62, 70));
         jCheckBoxStatus.setText("Inativo");
         jCheckBoxStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -319,7 +317,7 @@ public class VeiculoView extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hatch", "SUV", "Sedan", "Moto", "Caminhonete ", "Caminhoneta", "Utilitário", " " }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hatch", "SUV", "Sedan", "Moto", "Caminhonete ", "Caminhoneta", "Utilitário" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -572,12 +570,20 @@ public class VeiculoView extends javax.swing.JFrame {
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         Veiculo veiculo = new Veiculo();
-
+        veiculo.setIdVeiculo(idVeiculo);
         veiculo.setPlaca(jTextFieldPlaca.getText());
         veiculo.setRenavam(jTextFieldRenavam.getText());
         veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
         veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
         veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
+        veiculo.setKmAtual(Float.parseFloat(jTextFieldKmAtual.getText()));
+        veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
+        veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
+        if (jCheckBoxStatus.isSelected() == false) {
+            veiculo.setStatus("Ativo");
+        } else {
+            veiculo.setStatus("Inativo");
+        }
 
         String kmAtualText = jTextFieldKmAtual.getText();
         float kmAtual = 0.0f; // Valor padrão em caso de campo vazio
@@ -602,50 +608,66 @@ public class VeiculoView extends javax.swing.JFrame {
 // Limpe os campos de texto
         limparCampos();
     }//GEN-LAST:event_jButtonAlterarActionPerformed
-   private void carregarTabela() throws SQLException, IOException {
-    model.setNumRows(0);
-    List<Veiculo> veiculos = veiculoController.listarVeiculos();
-
-    for (Veiculo veiculo : veiculos) {
-        Object[] rowData = new Object[10];
-        rowData[0] = veiculo.getIdVeiculo();
-        rowData[1] = veiculo.getPlaca();
-        rowData[2] = veiculo.getRenavam();
-        rowData[3] = veiculo.getAnoFabricacao();
-        rowData[4] = veiculo.getAnoModelo();
-        rowData[5] = veiculo.getCombustivel();
-        rowData[6] = veiculo.getKmAtual();
-        rowData[7] = veiculo.getCategoria();
-
-        Modelo modelo = veiculo.getModelo();
-        if (modelo != null && getModeloId(modelo) != 0) {
-            rowData[8] = getModeloId(modelo);
-        } else {
-            rowData[8] = "";
+    private void carregarTabela() throws SQLException, IOException {
+        DefaultTableModel model = (DefaultTableModel) jTableVeiculos.getModel();
+        model.setNumRows(0);
+        List<Veiculo> listLancamento = null;
+        listLancamento = veiculoController.listarVeiculos();
+        for (Veiculo veiculo : listLancamento) {
+            model.addRow(new Object[]{
+                veiculo.getIdVeiculo(),
+                veiculo.getPlaca(),
+                veiculo.getRenavam(),
+                veiculo.getAnoFabricacao(),
+                veiculo.getAnoModelo(),
+                veiculo.getCombustivel(),
+                veiculo.getKmAtual(),
+                veiculo.getCategoria(),
+                  veiculo.getModelo(),
+                veiculo.getStatus()
+            });
         }
 
-        rowData[9] = veiculo.getStatus();
-
-        model.addRow(rowData);
     }
-}
 
 // Função auxiliar para obter o valor do idModelo de forma segura
-private int getModeloId(Modelo modelo) {
-    return modelo.getIdModelo();
-}
+    private int getModeloId(Modelo modelo) {
+        return modelo.getIdModelo();
+    }
 
 
-
-
-
-        
-    
     private void jTableVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVeiculosMouseClicked
+
         // TODO add your handling code here:
         Veiculo veiculo = new Veiculo();
         veiculo.setIdVeiculo(Integer.parseInt(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 0).toString()));
         veiculo.setPlaca(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 1).toString());
+        veiculo.setModelo((Modelo) jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 8));
+        veiculo.setRenavam(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 2).toString());
+        veiculo.setAnoFabricacao(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 3).toString());
+        veiculo.setAnoModelo(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 4).toString());
+        veiculo.setCombustivel(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 5).toString());
+        veiculo.setKmAtual(Float.parseFloat(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 6).toString()));
+        veiculo.setCategoria(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 7).toString());
+        veiculo.setStatus(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 9).toString());
+        
+        jTextFieldPlaca.setText(veiculo.getPlaca());
+        jTextFieldAnoFabricacao.setText(veiculo.getAnoFabricacao());
+        jTextFieldKmAtual.setText(veiculo.getKmAtual() + "");
+        jTextFieldRenavam.setText(veiculo.getRenavam());
+        jTextFieldAnoModelo.setText(veiculo.getAnoModelo());
+        jComboBoxModelo.removeAllItems();
+
+        for (Modelo modelo : listaModelo) {
+            jComboBoxModelo.addItem(modelo);
+            if (veiculo.getModelo().getIdModelo() == modelo.getIdModelo()) {
+                jComboBoxModelo.setSelectedItem(modelo);
+            }
+        }
+        jComboBoxCategoria.setSelectedItem(veiculo.getCategoria());
+        jComboBoxCombustivel.setSelectedItem(veiculo.getCombustivel());
+        idVeiculo = veiculo.getIdVeiculo();
+
     }//GEN-LAST:event_jTableVeiculosMouseClicked
 
     /**
