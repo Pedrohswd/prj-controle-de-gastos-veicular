@@ -35,8 +35,11 @@ public class Report {
             Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18f);
             Font companyFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12f);
             Font selectionTopicFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12f);
+            Font capycar = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14f);
+            capycar.setColor(BaseColor.GRAY);
+            Font subTotal = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11f);
+            subTotal.setColor(BaseColor.BLUE);
             selectionTopicFont.setColor(BaseColor.BLACK);
-            Font dataFieldFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12f);
             Font tableHeaderFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12f);
 
             // Título
@@ -130,7 +133,7 @@ public class Report {
                     proximoItem = lancamentoLista.get(currentIndex).getVeiculo().getIdVeiculo();
                     if (veiculoAnterior != proximoItem) {
                         document.add(table);
-                        Paragraph subtotal = new Paragraph("SubTotal: " + valorPorCarro, companyFont);
+                        Paragraph subtotal = new Paragraph("SubTotal: " + valorPorCarro, subTotal);
                         subtotal.setAlignment(Element.ALIGN_RIGHT);
                         document.add(subtotal);
                         document.add(new Paragraph("\n"));
@@ -147,7 +150,7 @@ public class Report {
                     }
                 } else {
                     document.add(table);
-                    Paragraph subtotal = new Paragraph("SubTotal: " + valorPorCarro, companyFont);
+                    Paragraph subtotal = new Paragraph("SubTotal: " + valorPorCarro, subTotal);
                     subtotal.setAlignment(Element.ALIGN_RIGHT);
                     document.add(subtotal);
                     document.add(new Paragraph("\n"));

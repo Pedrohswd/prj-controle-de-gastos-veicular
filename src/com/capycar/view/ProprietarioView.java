@@ -7,6 +7,7 @@ package com.capycar.view;
 import com.capycar.connection.GastoRiderAPI;
 import com.capycar.controller.ProprietarioController;
 import com.capycar.model.Proprietario;
+import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import java.lang.String;
 
@@ -46,6 +47,7 @@ public class ProprietarioView extends javax.swing.JFrame {
             jTextCidade.setEditable(false);
             jTextComplemento.setEditable(false);
             jTextDDD.setEditable(false);
+            jTextDDI.setEditable(false);
             jTextEmail.setEditable(false);
             jTextLogradouro.setEditable(false);
             jTextNomeRazao.setEditable(false);
@@ -53,6 +55,21 @@ public class ProprietarioView extends javax.swing.JFrame {
             jTextNumeroCasa.setEditable(false);
             jComboBoxCNH.setEditable(false);
             jComboBoxEstado.setEditable(false);
+            jDateDataNasCri.setEnabled(false);;
+            jTextCPFCNPJ.setForeground(Color.GRAY);
+            jTextBairro.setForeground(Color.GRAY);
+            jTextCEP.setForeground(Color.GRAY);
+            jTextCidade.setForeground(Color.GRAY);
+            jTextComplemento.setForeground(Color.GRAY);
+            jTextDDD.setForeground(Color.GRAY);
+            jTextDDI.setForeground(Color.GRAY);
+            jTextEmail.setForeground(Color.GRAY);
+            jTextLogradouro.setForeground(Color.GRAY);
+            jTextNomeRazao.setForeground(Color.GRAY);
+            jTextNumero.setForeground(Color.GRAY);
+            jTextNumeroCasa.setForeground(Color.GRAY);
+            jComboBoxCNH.setForeground(Color.GRAY);
+            jComboBoxEstado.setForeground(Color.GRAY);
             preencherCampos(proprietarioControle.consultarProprietario(tabela));
         }
     }
@@ -112,7 +129,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButtonSalvar = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jLabelCNH = new javax.swing.JLabel();
-        jComboBoxCNH = new javax.swing.JComboBox<>();
+        jComboBoxCNH = new javax.swing.JComboBox();
         jDateDataNasCri = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -175,6 +192,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton6.setText("Cadastro de Veiculo");
         jButton6.setBorder(null);
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(121, 113, 234));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -344,7 +366,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextCidade.setForeground(new java.awt.Color(0, 0, 0));
         jTextCidade.setBorder(null);
 
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GO" }));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
 
         jButtonSalvar.setBackground(new java.awt.Color(121, 113, 234));
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -369,7 +391,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabelCNH.setForeground(new java.awt.Color(238, 238, 238));
         jLabelCNH.setText("Categoria CNH:");
 
-        jComboBoxCNH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "C", "D", "E", "AC", "AD", "AE" }));
+        jComboBoxCNH.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "AB", "C", "D", "E", "AC", "AD", "AE" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -625,22 +647,25 @@ public class ProprietarioView extends javax.swing.JFrame {
                     jTextNumeroCasa.getText(), jTextBairro.getText(), jTextCidade.getText(), jComboBoxEstado.getSelectedItem().toString(), jTextComplemento.getText(), tipoPessoa);
             proprietarioControle.alterarProprietario(proprietario);
         }
-        jRadioCPF.setEnabled(false);
-        jRadioCNPJ.setEnabled(false);
-        jTextCPFCNPJ.setEditable(false);
-        jTextBairro.setEditable(false);
-        jTextCEP.setEditable(false);
-        jTextCidade.setEditable(false);
-        jTextComplemento.setEditable(false);
-        jTextDDD.setEditable(false);
-        jTextEmail.setEditable(false);
-        jTextLogradouro.setEditable(false);
-        jTextNomeRazao.setEditable(false);
-        jTextNumero.setEditable(false);
-        jTextNumeroCasa.setEditable(false);
-        jComboBoxCNH.setEditable(false);
-        jComboBoxEstado.setEditable(false);
-        preencherCampos(proprietarioControle.consultarProprietario(tabela));
+        if (GastoRiderAPI.tabelaPossuiDados(tabela) == true) {
+            jRadioCPF.setEnabled(false);
+            jRadioCNPJ.setEnabled(false);
+            jTextCPFCNPJ.setEditable(false);
+            jTextBairro.setEditable(false);
+            jTextCEP.setEditable(false);
+            jTextCidade.setEditable(false);
+            jTextComplemento.setEditable(false);
+            jTextDDD.setEditable(false);
+            jTextEmail.setEditable(false);
+            jTextLogradouro.setEditable(false);
+            jTextNomeRazao.setEditable(false);
+            jTextNumero.setEditable(false);
+            jTextNumeroCasa.setEditable(false);
+            jComboBoxCNH.setEditable(false);
+            jComboBoxEstado.setEditable(false);
+            preencherCampos(proprietarioControle.consultarProprietario(tabela));
+
+        }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -650,6 +675,8 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextCidade.setEditable(true);
         jTextComplemento.setEditable(true);
         jTextDDD.setEditable(true);
+        jTextDDI.setEditable(true);
+        jDateDataNasCri.setEnabled(true);
         jTextEmail.setEditable(true);
         jTextLogradouro.setEditable(true);
         jTextNomeRazao.setEditable(true);
@@ -657,7 +684,25 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextNumeroCasa.setEditable(true);
         jComboBoxCNH.setEditable(true);
         jComboBoxEstado.setEditable(true);
+        jTextCPFCNPJ.setForeground(Color.GRAY);
+        jTextBairro.setForeground(Color.BLACK);
+        jTextCEP.setForeground(Color.BLACK);
+        jTextCidade.setForeground(Color.BLACK);
+        jTextComplemento.setForeground(Color.BLACK);
+        jTextDDD.setForeground(Color.BLACK);
+        jTextDDI.setForeground(Color.BLACK);
+        jTextEmail.setForeground(Color.BLACK);
+        jTextLogradouro.setForeground(Color.BLACK);
+        jTextNomeRazao.setForeground(Color.BLACK);
+        jTextNumero.setForeground(Color.BLACK);
+        jTextNumeroCasa.setForeground(Color.BLACK);
+        jComboBoxCNH.setForeground(Color.BLACK);
+        jComboBoxEstado.setForeground(Color.BLACK);
     }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void preencherCampos(Proprietario proprietario) {
         if (proprietario.getTipoPessoa() == "PF") {
@@ -668,10 +713,6 @@ public class ProprietarioView extends javax.swing.JFrame {
         }
 
         String[] substrings = separarString(proprietario.getTelefone());
-
-        for (String substring : substrings) {
-            System.out.println(substring);
-        }
 
         jTextNomeRazao.setText(proprietario.getNome());
         jTextCPFCNPJ.setText(proprietario.getCPF_CNPJ());
@@ -687,6 +728,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextComplemento.setText(proprietario.getComplemento());
         jTextBairro.setText(proprietario.getBairro());
         jTextCidade.setText(proprietario.getCidade());
+        jComboBoxEstado.setSelectedItem(proprietario.getEstado());
     }
 
     public static String[] separarString(String texto) {
@@ -739,7 +781,7 @@ public class ProprietarioView extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JComboBox<String> jComboBoxCNH;
+    private javax.swing.JComboBox jComboBoxCNH;
     private javax.swing.JComboBox<String> jComboBoxEstado;
     private com.toedter.calendar.JDateChooser jDateDataNasCri;
     private javax.swing.JLabel jLabel1;

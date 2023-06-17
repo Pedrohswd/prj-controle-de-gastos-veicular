@@ -479,6 +479,9 @@
                   <Color id="Cursor Padr&#xe3;o"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton7">
               <Properties>
@@ -835,8 +838,34 @@
         <Component class="javax.swing.JComboBox" name="jComboBoxEstado">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="GO"/>
+              <StringArray count="27">
+                <StringItem index="0" value="AC"/>
+                <StringItem index="1" value="AL"/>
+                <StringItem index="2" value="AM"/>
+                <StringItem index="3" value="AP"/>
+                <StringItem index="4" value="BA"/>
+                <StringItem index="5" value="CE"/>
+                <StringItem index="6" value="DF"/>
+                <StringItem index="7" value="ES"/>
+                <StringItem index="8" value="GO"/>
+                <StringItem index="9" value="MA"/>
+                <StringItem index="10" value="MG"/>
+                <StringItem index="11" value="MS"/>
+                <StringItem index="12" value="MT"/>
+                <StringItem index="13" value="PA"/>
+                <StringItem index="14" value="PB"/>
+                <StringItem index="15" value="PE"/>
+                <StringItem index="16" value="PI"/>
+                <StringItem index="17" value="PR"/>
+                <StringItem index="18" value="RJ"/>
+                <StringItem index="19" value="RN"/>
+                <StringItem index="20" value="RO"/>
+                <StringItem index="21" value="RR"/>
+                <StringItem index="22" value="RS"/>
+                <StringItem index="23" value="SC"/>
+                <StringItem index="24" value="SE"/>
+                <StringItem index="25" value="SP"/>
+                <StringItem index="26" value="TO"/>
               </StringArray>
             </Property>
           </Properties>
@@ -903,7 +932,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
           </AuxValues>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateDataNasCri">

@@ -468,7 +468,7 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     public void carregaComboBox() throws SQLException {
-        ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
+        ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo WHERE Status = 'Ativo'");
         Proprietario proprietario = new Proprietario();
         Modelo modelo = new Modelo();
         while (resultSet.next()) {
