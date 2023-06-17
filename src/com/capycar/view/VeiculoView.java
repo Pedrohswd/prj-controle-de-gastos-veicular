@@ -6,6 +6,7 @@ package com.capycar.view;
 
 import com.capycar.controller.ModeloController;
 import com.capycar.controller.VeiculoController;
+import com.capycar.model.Categoria;
 import com.capycar.model.Modelo;
 import com.capycar.model.Veiculo;
 import java.io.IOException;
@@ -149,6 +150,11 @@ public class VeiculoView extends javax.swing.JFrame {
         jButton2.setText("Lançamento de gastos");
         jButton2.setBorder(null);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(121, 113, 234));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -156,6 +162,11 @@ public class VeiculoView extends javax.swing.JFrame {
         jButton3.setText("Cadastro de Marca");
         jButton3.setBorder(null);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(121, 113, 234));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -163,6 +174,11 @@ public class VeiculoView extends javax.swing.JFrame {
         jButton4.setText("Cadastro de Modelo");
         jButton4.setBorder(null);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(121, 113, 234));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -170,6 +186,11 @@ public class VeiculoView extends javax.swing.JFrame {
         jButton5.setText("Cadastro de Categorias");
         jButton5.setBorder(null);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(121, 113, 234));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -184,6 +205,11 @@ public class VeiculoView extends javax.swing.JFrame {
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -390,10 +416,11 @@ public class VeiculoView extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
+                                .addGap(26, 26, 26)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldKmAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextFieldKmAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12, 12, 12)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(22, 22, 22)
@@ -521,82 +548,87 @@ public class VeiculoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+try {
+    Veiculo veiculo = new Veiculo();
 
-        try {
-            Veiculo veiculo = new Veiculo();
+    // Verificar se todos os campos estão preenchidos
+    if (jTextFieldPlaca.getText().isEmpty() || jTextFieldRenavam.getText().isEmpty()
+            || jTextFieldAnoFabricacao.getText().isEmpty() || jTextFieldAnoModelo.getText().isEmpty()
+            || jTextFieldKmAtual.getText().isEmpty() || jComboBoxCombustivel.getSelectedItem() == null
+            || jComboBoxCategoria.getSelectedItem() == null || jComboBoxModelo.getSelectedItem() == null) {
+        throw new CamposIncompletosException("Por favor, preencha todos os campos antes de salvar.");
+    }
 
-            // Verificar se todos os campos estão preenchidos
-            if (jTextFieldPlaca.getText().isEmpty() || jTextFieldRenavam.getText().isEmpty()
-                    || jTextFieldAnoFabricacao.getText().isEmpty() || jTextFieldAnoModelo.getText().isEmpty()
-                    || jTextFieldKmAtual.getText().isEmpty() || jComboBoxCombustivel.getSelectedItem() == null
-                    || jComboBoxCategoria.getSelectedItem() == null || jComboBoxModelo.getSelectedItem() == null) {
-                throw new CamposIncompletosException("Por favor, preencha todos os campos antes de salvar.");
-            }
+    // Verificar se "AnoModelo" e "AnoFabricacao" possuem 4 dígitos
+    if (jTextFieldAnoModelo.getText().length() != 4 || jTextFieldAnoFabricacao.getText().length() != 4) {
+        throw new CamposIncompletosException("O Ano de Fabricação e o Ano do Modelo devem ter exatamente 4 dígitos.");
+    }
 
-            // Verificar se "AnoModelo" e "AnoFabricacao" possuem 4 dígitos
-            if (jTextFieldAnoModelo.getText().length() != 4 || jTextFieldAnoFabricacao.getText().length() != 4) {
-                throw new CamposIncompletosException("O Ano de Fabricação e o Ano do Modelo devem ter exatamente 4 dígitos.");
-            }
+    // Verificar se campos numéricos contêm apenas números
+    if (!isCampoNumerico(jTextFieldRenavam.getText()) || !isCampoNumerico(jTextFieldAnoFabricacao.getText())
+            || !isCampoNumerico(jTextFieldAnoModelo.getText())) {
+        throw new CamposIncompletosException("Certos campos aceitam apenas números.");
+    }
+    
+    float kmAtual = 0;
+    try {
+        kmAtual = Float.parseFloat(jTextFieldKmAtual.getText().replace(",", ".").trim());
+    } catch (NumberFormatException ex) {
+        throw new CamposIncompletosException("O campo 'KM Atual' deve conter um valor numérico válido.");
+    }
 
-            // Verificar se campos numéricos contêm apenas números
-            if (!isCampoNumerico(jTextFieldRenavam.getText()) || !isCampoNumerico(jTextFieldAnoFabricacao.getText())
-                    || !isCampoNumerico(jTextFieldAnoModelo.getText()) || !isCampoNumerico(jTextFieldKmAtual.getText())) {
-                throw new CamposIncompletosException("Certos campos aceitam apenas números.");
-            }
-            if (alterar == 0) {
-                veiculo.setPlaca(jTextFieldPlaca.getText());
-                veiculo.setRenavam(jTextFieldRenavam.getText());
-                veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
-                veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
-                veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
-                veiculo.setKmAtual(Float.parseFloat(jTextFieldKmAtual.getText()));
-                veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
-                veiculo.setStatus(jCheckBoxStatus.isSelected() ? "Inativo" : "Ativo");
-                veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
+    if (alterar == 0) {
+        veiculo.setPlaca(jTextFieldPlaca.getText());
+        veiculo.setRenavam(jTextFieldRenavam.getText());
+        veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
+        veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
+        veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
+        veiculo.setKmAtual(kmAtual);
+        veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
+        veiculo.setStatus(jCheckBoxStatus.isSelected() ? "Inativo" : "Ativo");
+        veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
 
-                // Criar uma instância de VeiculoController
-                veiculoController.cadastrarVeiculo(veiculo);
-            } else if (alterar == 1) {
-                alterar = 0;
-                String status = "";
-                if (jCheckBoxStatus.isSelected() == false) {
-                    status = "Ativo";
-                } else {
-                    status = "Inativo";
-                }
-                veiculo = new Veiculo(idVeiculo, jTextFieldPlaca.getText(), jTextFieldRenavam.getText(), jTextFieldAnoFabricacao.getText(), jTextFieldAnoModelo.getText(), jComboBoxCombustivel.getSelectedItem().toString(), Float.parseFloat(jTextFieldKmAtual.getText()), jComboBoxCategoria.getSelectedItem().toString(), (Modelo) jComboBoxModelo.getSelectedItem(), status);
-                // Chame o método de alteração do VeiculoController
-                veiculoController.alterarVeiculo(veiculo);
-            }
+        // Criar uma instância de VeiculoController
+        veiculoController.cadastrarVeiculo(veiculo);
+    } else if (alterar == 1) {
+        alterar = 0;
+        String status = jCheckBoxStatus.isSelected() ? "Inativo" : "Ativo";
+        veiculo = new Veiculo(idVeiculo, jTextFieldPlaca.getText(), jTextFieldRenavam.getText(), jTextFieldAnoFabricacao.getText(), jTextFieldAnoModelo.getText(), jComboBoxCombustivel.getSelectedItem().toString(), kmAtual, jComboBoxCategoria.getSelectedItem().toString(), (Modelo) jComboBoxModelo.getSelectedItem(), status);
+        // Chame o método de alteração do VeiculoController
+        veiculoController.alterarVeiculo(veiculo);
+    }
 
-            // Preencher os dados do veículo
-            // Limpar os campos após salvar
-            jTextFieldPlaca.setText("");
-            jTextFieldRenavam.setText("");
-            jTextFieldAnoFabricacao.setText("");
-            jTextFieldAnoModelo.setText("");
-            jTextFieldKmAtual.setText("");
-            jCheckBoxStatus.setSelected(false);
+    // Preencher os dados do veículo
+    // Limpar os campos após salvar
+    jTextFieldPlaca.setText("");
+    jTextFieldRenavam.setText("");
+    jTextFieldAnoFabricacao.setText("");
+    jTextFieldAnoModelo.setText("");
+    jTextFieldKmAtual.setText("");
+    jCheckBoxStatus.setSelected(false);
 
-            try {
-                carregarTabela();
-            } catch (SQLException ex) {
-                Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (CamposIncompletosException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-        jButtonAlterar.setEnabled(true);
-        jButtonAdicionar.setEnabled(true);
-        jButtonExcluir.setEnabled(true);
-        jButtonSalvar.setEnabled(false);
-        jTextFieldRenavam.setEditable(false);
-        jTextFieldAnoModelo.setEditable(false);
-        jTextFieldKmAtual.setEditable(false);
-        jTextFieldPlaca.setEditable(false);
-        jTextFieldAnoFabricacao.setEditable(false);
+    try {
+        carregarTabela();
+    } catch (SQLException ex) {
+        Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+        Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+    }
+} catch (CamposIncompletosException ex) {
+    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+}
+
+jButtonAlterar.setEnabled(true);
+jButtonAdicionar.setEnabled(true);
+jButtonExcluir.setEnabled(true);
+jButtonSalvar.setEnabled(false);
+jTextFieldRenavam.setEditable(false);
+jTextFieldAnoModelo.setEditable(false);
+jTextFieldKmAtual.setEditable(false);
+jTextFieldPlaca.setEditable(false);
+jTextFieldAnoFabricacao.setEditable(false);
+
+jTextFieldAnoFabricacao.setEditable(false);
     }//GEN-LAST:event_jButtonSalvarActionPerformed
     private boolean isCampoNumerico(String campo) {
         try {
@@ -731,6 +763,58 @@ public class VeiculoView extends javax.swing.JFrame {
         idVeiculo = veiculo.getIdVeiculo();
 
     }//GEN-LAST:event_jTableVeiculosMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            setVisible(false);
+            MarcaView marca = new MarcaView();
+            marca.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            setVisible(false);
+            ModeloView modelo = new ModeloView();
+            modelo.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            setVisible(false);
+            CategoriaView categoria = new CategoriaView();
+            categoria.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            setVisible(false);
+            LancamentoView lancamento = new LancamentoView();
+            lancamento.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       setVisible(false);
+        RelatorioView relatorio = new RelatorioView();
+        relatorio.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
