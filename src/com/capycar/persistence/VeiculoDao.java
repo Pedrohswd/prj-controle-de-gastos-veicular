@@ -53,7 +53,7 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void deletarVeiculo(int idVeiculo) {
         try {
-            String sql = "DELETE FROM Veiculo WHERE IdVeiculo = ?";
+            String sql = "DELETE FROM Veiculo WHERE Id_Veiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idVeiculo);
             preparedStatement.executeUpdate();
@@ -65,7 +65,7 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void alterarVeiculo(Veiculo veiculo) {
         try {
-            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, Ano_Fabricacao = ?, Ano_Modelo = ?, Combustivel = ?, Km_Atual = ?, Categoria = ?, Id_Modelo = ?  Status = ? WHERE IdVeiculo = ?";
+            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, Ano_Fabricacao = ?, Ano_Modelo = ?, Combustivel = ?, Km_Atual = ?, Categoria = ?, Id_Modelo = ?, Status = ? WHERE Id_Veiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, veiculo.getPlaca());
             preparedStatement.setString(2, veiculo.getRenavam());

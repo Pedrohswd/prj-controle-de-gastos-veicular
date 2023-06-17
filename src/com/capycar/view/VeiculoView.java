@@ -473,7 +473,15 @@ public class VeiculoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxStatusActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-
+        try {
+            VeiculoController veiculoController = new VeiculoController();
+            veiculoController.deletarVeiculo(idVeiculo);
+            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
@@ -569,44 +577,34 @@ public class VeiculoView extends javax.swing.JFrame {
 
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        Veiculo veiculo = new Veiculo();
-        veiculo.setIdVeiculo(idVeiculo);
-        veiculo.setPlaca(jTextFieldPlaca.getText());
-        veiculo.setRenavam(jTextFieldRenavam.getText());
-        veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
-        veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
-        veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
-        veiculo.setKmAtual(Float.parseFloat(jTextFieldKmAtual.getText()));
-        veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
-        veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
-        if (jCheckBoxStatus.isSelected() == false) {
-            veiculo.setStatus("Ativo");
-        } else {
-            veiculo.setStatus("Inativo");
-        }
+      try {
+            String status = "";
+            if (jCheckBoxStatus.isSelected() == false) {
+                status = "Ativo";
+            } else {
+                status = "Inativo";
+            }
 
-        String kmAtualText = jTextFieldKmAtual.getText();
-        float kmAtual = 0.0f; // Valor padrão em caso de campo vazio
+            Veiculo veiculo = new Veiculo(idVeiculo, jTextFieldPlaca.getText(), jTextFieldRenavam.getText(), jTextFieldAnoFabricacao.getText(), jTextFieldAnoModelo.getText(), jComboBoxCombustivel.getSelectedItem().toString(), Float.parseFloat(jTextFieldKmAtual.getText()), jComboBoxCategoria.getSelectedItem().toString(), (Modelo) jComboBoxModelo.getSelectedItem(), status);
 
-        if (!kmAtualText.isEmpty()) {
-            kmAtual = Float.parseFloat(kmAtualText);
-        }
+            // Chame o método de alteração do VeiculoController
+            veiculoController.alterarVeiculo(veiculo);
 
-        veiculo.setKmAtual(kmAtual);
-        veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
 
-// Chame o método de alteração do VeiculoController
-        veiculoController.alterarVeiculo(veiculo);
-
-// Atualize a tabela de veículos
-        try {
             carregarTabela();
-        } catch (SQLException | IOException ex) {
-            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                carregarTabela();
+            } catch (SQLException | IOException ex) {
+                Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
 // Limpe os campos de texto
-        limparCampos();
+            limparCampos();
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
     private void carregarTabela() throws SQLException, IOException {
         DefaultTableModel model = (DefaultTableModel) jTableVeiculos.getModel();
