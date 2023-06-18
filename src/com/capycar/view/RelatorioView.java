@@ -603,14 +603,18 @@ public class RelatorioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jButtonExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarPDFActionPerformed
-        Ordenation ordenation = new Ordenation();
-        listLancamento = ordenation.quickSortByVeiculo(listLancamento, 0, listLancamento.size() - 1);
-        ReportController report = new ReportController();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String dataInicio = format.format(jDateInicio.getDate());
-        String dataFim = format.format(jDateFim.getDate());
-        report.gerarRelatorioPdf(jTextFieldCPF_CNPJ.getText(), jTextFieldProprietario.getText(), jComboBoxVeiculo.getSelectedItem().toString(), jComboBoxCategoria.getSelectedItem().toString(), jComboBoxSubCategoria.getSelectedItem().toString(),
-                dataInicio, dataFim, listLancamento);
+        if (this.listLancamento == null || this.listLancamento.isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "Não existe lançamentos para gerar relatório!");
+        } else {
+            Ordenation ordenation = new Ordenation();
+            listLancamento = ordenation.quickSortByVeiculo(listLancamento, 0, listLancamento.size() - 1);
+            ReportController report = new ReportController();
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String dataInicio = format.format(jDateInicio.getDate());
+            String dataFim = format.format(jDateFim.getDate());
+            report.gerarRelatorioPdf(jTextFieldCPF_CNPJ.getText(), jTextFieldProprietario.getText(), jComboBoxVeiculo.getSelectedItem().toString(), jComboBoxCategoria.getSelectedItem().toString(), jComboBoxSubCategoria.getSelectedItem().toString(),
+                    dataInicio, dataFim, listLancamento);
+        }
     }//GEN-LAST:event_jButtonExportarPDFActionPerformed
 
     private void jButtonGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarGraficoActionPerformed

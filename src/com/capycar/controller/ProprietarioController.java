@@ -21,7 +21,8 @@ public class ProprietarioController implements IPropretarioController {
         if (validarCPF(proprietario.getCPF_CNPJ()) == true || validarCNPJ(proprietario.getCPF_CNPJ()) == true) {
             proprietarioDao.incluirProprietario(proprietario);
         } else {
-            JOptionPane.showMessageDialog(null, "CPF inválido");
+            if(proprietario.getTipoPessoa() == "PF")JOptionPane.showMessageDialog(null, "CPF inválido");
+            if(proprietario.getTipoPessoa() == "PJ")JOptionPane.showMessageDialog(null, "CNPJ inválido");
         }
     }
 

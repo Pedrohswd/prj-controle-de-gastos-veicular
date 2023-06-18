@@ -676,7 +676,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabelCPFCNPJ.setVisible(true);
         jLabelNomeRazao.setText("Razão Social:");
         jLabelCPFCNPJ.setText("CNPJ:");
-        jLabelData.setText("Data de emissão:");
+        jLabelData.setText("Data de criação:");
         jComboBoxCNH.setVisible(false);
         jLabelCNH.setVisible(false);
         tipoPessoa = "PJ";
@@ -721,6 +721,20 @@ public class ProprietarioView extends javax.swing.JFrame {
             jTextNumeroCasa.setEditable(false);
             jComboBoxCNH.setEditable(false);
             jComboBoxEstado.setEditable(false);
+            jTextCPFCNPJ.setForeground(Color.GRAY);
+            jTextBairro.setForeground(Color.GRAY);
+            jTextCEP.setForeground(Color.GRAY);
+            jTextCidade.setForeground(Color.GRAY);
+            jTextComplemento.setForeground(Color.GRAY);
+            jTextDDD.setForeground(Color.GRAY);
+            jTextDDI.setForeground(Color.GRAY);
+            jTextEmail.setForeground(Color.GRAY);
+            jTextLogradouro.setForeground(Color.GRAY);
+            jTextNomeRazao.setForeground(Color.GRAY);
+            jTextNumero.setForeground(Color.GRAY);
+            jTextNumeroCasa.setForeground(Color.GRAY);
+            jComboBoxCNH.setForeground(Color.GRAY);
+            jComboBoxEstado.setForeground(Color.GRAY);
             preencherCampos(proprietarioControle.consultarProprietario(tabela));
 
         }

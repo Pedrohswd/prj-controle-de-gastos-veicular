@@ -9,6 +9,7 @@ import java.awt.color.ColorSpace;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Report {
 
@@ -172,7 +173,7 @@ public class Report {
 
             document.close();
 
-            System.out.println("Relatório criado com sucesso!");
+            JOptionPane.showMessageDialog(null,"Relatório criado com sucesso!");
 
         } catch (Exception e) {
             e.printStackTrace();

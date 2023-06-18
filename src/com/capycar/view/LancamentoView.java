@@ -409,10 +409,6 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCategoriaActionPerformed
-
-    private void jTextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorActionPerformed
         try {
             setVisible(false);
             CategoriaView categoria = new CategoriaView();
@@ -422,6 +418,10 @@ public class LancamentoView extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(LancamentoView.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_jButtonCategoriaActionPerformed
+
+    private void jTextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorActionPerformed
+
     }//GEN-LAST:event_jTextFieldValorActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -468,6 +468,7 @@ public class LancamentoView extends javax.swing.JFrame {
                     Subcategoria subcategoria = new Subcategoria();
                     subcategoria.setIdSubcategoria(resultSet.getInt(1));
                     subcategoria.setDescricao(resultSet.getString(2));
+                    subcategoria.setIdCategoria(categoriaSelecionada);
 
                     listaSubCategoria.add(subcategoria);
                 }

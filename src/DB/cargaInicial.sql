@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS Lancamento (
     data_lancamento DATE not null,
     FOREIGN KEY (ID_VEICULO) REFERENCES Veiculo (ID_VEICULO),
     FOREIGN KEY (ID_CATEGORIA) REFERENCES Categoria (id_categoria),
-    FOREIGN KEY (ID_SUBCATEGORIA) REFERENCES Categoria (id_categoria)    
+    FOREIGN KEY (ID_SUBCATEGORIA) REFERENCES Subcategoria (id_subcategoria)    
 );
 CREATE TABLE IF NOT EXISTS Subcategoria (
     ID_SUBCATEGORIA SERIAL PRIMARY KEY,
