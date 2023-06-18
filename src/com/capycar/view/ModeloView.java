@@ -7,7 +7,6 @@ package com.capycar.view;
 import com.capycar.controller.ModeloController;
 import com.capycar.model.Marca;
 import com.capycar.model.Modelo;
-import com.capycar.persistence.MarcaDao;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -552,7 +551,7 @@ public class ModeloView extends javax.swing.JFrame {
         jButtonExcluir.setEnabled(false);
         jButtonSalvar.setEnabled(true);
         jButtonSelecionarImg.setEnabled(true);
-        jTextFieldModelo.setEditable(false);
+        jTextFieldModelo.setEditable(true);
         jButtonSelecionarImg.setEnabled(true);
 
     }//GEN-LAST:event_jButtonAlterarActionPerformed
@@ -658,26 +657,19 @@ public class ModeloView extends javax.swing.JFrame {
 
     }
 
-  private void carregarTabela() throws SQLException, IOException {
-    DefaultTableModel model = (DefaultTableModel) jTableModelo.getModel();
-    model.setNumRows(0);
-    ResultSet resultSet = modeloController.carregTabela("Modelo");
+    private void carregarTabela() throws SQLException, IOException {
+        DefaultTableModel model = (DefaultTableModel) jTableModelo.getModel();
+        model.setNumRows(0);
+        ResultSet resultSet = modeloController.carregTabela("Modelo");
 
-     MarcaDao marcaDao = new MarcaDao(); // Instancia correta do MarcaDao
-
-    while (resultSet.next()) {
-        int idMarca = resultSet.getInt(4);
-        Marca marca = marcaDao.buscarMarcaPorId(idMarca);
-
-        model.addRow(new Object[]{
-            resultSet.getString(1),
-            resultSet.getString(2),
-            marca != null ? marca.getNome() : "" // Adiciona o nome da marca na tabela
-        });
+        while (resultSet.next()) {
+            model.addRow(new Object[]{
+                resultSet.getString(1),
+                resultSet.getString(2),
+                resultSet.getString(4)
+            });
+        }
     }
-}
-
- 
 
     /**
      * @param args the command line arguments
