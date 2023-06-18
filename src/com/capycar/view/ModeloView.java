@@ -497,50 +497,51 @@ public class ModeloView extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
-
-
-        try {
-            if (alterar == 0) {
-                String modeloTexto = jTextFieldModelo.getText();
-                if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
-                    if (url != null) {
-                        Modelo modelo = new Modelo(0, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
-                        modeloController.criarModelo(modelo);
-                        carregarTabela();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Selecione uma imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-            } else if (alterar == 1) {
-                String modeloTexto = jTextFieldModelo.getText();
-                if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
-                    if (url != null) {
-                        Modelo modelo = new Modelo(idModelo, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
-                        modeloController.alterarModelo(modelo);
-                        carregarTabela();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Selecione uma imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
+  try {
+    if (alterar == 0) {
+        String modeloTexto = jTextFieldModelo.getText();
+        if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
+            if (url != null) {
+                Modelo modelo = new Modelo(0, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
+                modeloController.criarModelo(modelo);
+                carregarTabela();
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione uma imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    } else if (alterar == 1) {
+        String modeloTexto = jTextFieldModelo.getText();
+        if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
+            if (url != null) {
+                Modelo modelo = new Modelo(idModelo, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
+                modeloController.alterarModelo(modelo);
+                carregarTabela();
+            } else {
+                int option = JOptionPane.showConfirmDialog(null, "Deseja selecionar uma nova imagem?", "Aviso", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    // Permite a seleção de uma nova imagem
                 }
             }
-            jTextFieldModelo.setText("");
-            jLabelIMG.setIcon(null);
-        } catch (SQLException ex) {
-            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    jTextFieldModelo.setText("");
+    jLabelIMG.setIcon(null);
+} catch (SQLException ex) {
+    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+} catch (IOException ex) {
+    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+}
 
-        jTextFieldModelo.setEditable(false);
-        jButtonSelecionarImg.setEnabled(false);
-        jButtonSalvar.setEnabled(false);
-        jButtonAlterar.setEnabled(true);
-        jButtonExcluir.setEnabled(true);
-        jButtonAdicionar.setEnabled(true);
+jTextFieldModelo.setEditable(false);
+jButtonSelecionarImg.setEnabled(false);
+jButtonSalvar.setEnabled(false);
+jButtonAlterar.setEnabled(true);
+jButtonExcluir.setEnabled(true);
+jButtonAdicionar.setEnabled(true);
 
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
