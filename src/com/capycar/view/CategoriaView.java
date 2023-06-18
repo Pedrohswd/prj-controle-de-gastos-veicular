@@ -542,7 +542,7 @@ public class CategoriaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jComboBoxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoItemStateChanged
-
+        
     }//GEN-LAST:event_jComboBoxTipoItemStateChanged
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -575,7 +575,7 @@ public class CategoriaView extends javax.swing.JFrame {
                 jLabelCategoriaPai.setVisible(false);
                 jLabelDescricao.setVisible(true);
                 jTextFieldDescricaoCategoria.setVisible(true);
-                jTextFieldDescricaoCategoria.setEditable(false);
+                jTextFieldDescricaoCategoria.setEditable(true);
                 jButtonExcluir.setEnabled(true);
                 jButtonAdicionar.setEnabled(true);
                 jButtonAlterar.setEnabled(true);
@@ -584,7 +584,7 @@ public class CategoriaView extends javax.swing.JFrame {
             } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
                 jLabelCategoriaPai.setVisible(true);
                 jTextFieldDescricaoCategoria.setVisible(true);
-                jTextFieldDescricaoCategoria.setEditable(false);
+                jTextFieldDescricaoCategoria.setEditable(true);
                 jLabelDescricao.setVisible(true);
                 jComboBoxCategorias.setVisible(true);
                 jComboBoxCategorias.setEditable(false);
