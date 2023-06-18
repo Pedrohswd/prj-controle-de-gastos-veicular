@@ -7,6 +7,7 @@ package com.capycar.view;
 import com.capycar.controller.ModeloController;
 import com.capycar.model.Marca;
 import com.capycar.model.Modelo;
+import com.capycar.persistence.MarcaDao;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,12 +40,15 @@ public class ModeloView extends javax.swing.JFrame {
     String url;
     int alterar = 0;
 
-
     public ModeloView() throws SQLException, IOException {
         initComponents();
         carregaComboBox();
         carregarTabela();
         setLocationRelativeTo(null);
+        jButtonSalvar.setEnabled(false);
+        jTextFieldModelo.setEditable(false);
+        jButtonSelecionarImg.setEnabled(false);
+
     }
 
     /**
@@ -493,31 +497,64 @@ public class ModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        Modelo modelo = new Modelo(0, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
-        modeloController.criarModelo(modelo);
+
+
+
         try {
-            carregarTabela();
+            if (alterar == 0) {
+                String modeloTexto = jTextFieldModelo.getText();
+                if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
+                    if (url != null) {
+                        Modelo modelo = new Modelo(0, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
+                        modeloController.criarModelo(modelo);
+                        carregarTabela();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione uma imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (alterar == 1) {
+                String modeloTexto = jTextFieldModelo.getText();
+                if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
+                    if (url != null) {
+                        Modelo modelo = new Modelo(idModelo, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
+                        modeloController.alterarModelo(modelo);
+                        carregarTabela();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione uma imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            jTextFieldModelo.setText("");
+            jLabelIMG.setIcon(null);
         } catch (SQLException ex) {
             Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jTextFieldModelo.setText("");
-        jLabelIMG.setIcon(null);
+
+        jTextFieldModelo.setEditable(false);
+        jButtonSelecionarImg.setEnabled(false);
+        jButtonSalvar.setEnabled(false);
+        jButtonAlterar.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+        jButtonAdicionar.setEnabled(true);
+
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        Modelo modelo = new Modelo(idModelo, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
-        modeloController.alterarModelo(modelo);
-        try {
-            carregarTabela();
-        } catch (SQLException ex) {
-            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        jTextFieldModelo.setText("");
-        jLabelIMG.setIcon(null);
+        alterar = 1;
+        jButtonAdicionar.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
+        jButtonSalvar.setEnabled(true);
+        jButtonSelecionarImg.setEnabled(true);
+        jTextFieldModelo.setEditable(false);
+        jButtonSelecionarImg.setEnabled(true);
+
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jComboBoxMarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBoxMarcaAncestorAdded
@@ -589,7 +626,7 @@ public class ModeloView extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         setVisible(false);
         RelatorioView relatorio = new RelatorioView();
-         relatorio.setVisible(true);
+        relatorio.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
@@ -621,19 +658,26 @@ public class ModeloView extends javax.swing.JFrame {
 
     }
 
-    private void carregarTabela() throws SQLException, IOException {
-        DefaultTableModel model = (DefaultTableModel) jTableModelo.getModel();
-        model.setNumRows(0);
-        ResultSet resultSet = modeloController.carregTabela("Modelo");
+  private void carregarTabela() throws SQLException, IOException {
+    DefaultTableModel model = (DefaultTableModel) jTableModelo.getModel();
+    model.setNumRows(0);
+    ResultSet resultSet = modeloController.carregTabela("Modelo");
 
-        while (resultSet.next()) {
-            model.addRow(new Object[]{
-                resultSet.getString(1),
-                resultSet.getString(2),
-                resultSet.getString(4)
-            });
-        }
+     MarcaDao marcaDao = new MarcaDao(); // Instancia correta do MarcaDao
+
+    while (resultSet.next()) {
+        int idMarca = resultSet.getInt(4);
+        Marca marca = marcaDao.buscarMarcaPorId(idMarca);
+
+        model.addRow(new Object[]{
+            resultSet.getString(1),
+            resultSet.getString(2),
+            marca != null ? marca.getNome() : "" // Adiciona o nome da marca na tabela
+        });
     }
+}
+
+ 
 
     /**
      * @param args the command line arguments
