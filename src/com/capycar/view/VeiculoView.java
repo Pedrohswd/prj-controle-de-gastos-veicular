@@ -688,6 +688,7 @@ jTextFieldAnoFabricacao.setEditable(false);
         jTextFieldKmAtual.setEditable(true);
         jTextFieldPlaca.setEditable(true);
         jTextFieldAnoFabricacao.setEditable(true);
+        jCheckBoxStatus.setEnabled(true);
 
     }//GEN-LAST:event_jButtonAlterarActionPerformed
     private void carregarTabela() throws SQLException, IOException {

@@ -412,18 +412,26 @@ public class MarcaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSelecionarImgActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        marca = new Marca(ID, jTextFieldMarca.getText(), url);
+marca = new Marca(ID, jTextFieldMarca.getText(), url);
+try {
+    Marca marcaEncontrada = marcaController.buscarMarcaPorId(marca.getIdMarca());
+    if (marcaEncontrada != null && marcaController.verificarModelosAssociados(marcaEncontrada)) {
+        JOptionPane.showMessageDialog(null, "Não é possível excluir a marca. Existem modelos associados a ela.", "Erro", JOptionPane.ERROR_MESSAGE);
+    } else {
         marcaController.deletarMarca(marca);
         jTextFieldMarca.setText("");
         jLabelIMG.setIcon(null);
         url = null;
-        try {
-            carregarTabela();
-        } catch (SQLException ex) {
-            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        carregarTabela();
+    }
+} catch (SQLException ex) {
+    Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
+    JOptionPane.showMessageDialog(null, "Erro ao excluir a marca. Ocorreu um erro no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+} catch (IOException ex) {
+    Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
+    JOptionPane.showMessageDialog(null, "Erro ao excluir a marca. Ocorreu um erro de E/S.", "Erro", JOptionPane.ERROR_MESSAGE);
+}
+
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed

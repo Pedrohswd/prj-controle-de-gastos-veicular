@@ -53,6 +53,7 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void deletarVeiculo(int idVeiculo) {
         try {
+            
             String sql = "DELETE FROM Veiculo WHERE Id_Veiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idVeiculo);

@@ -116,6 +116,10 @@ public class GastoRiderAPI {
 
         return possuiDados;
     }
+
+    public static com.sun.jdi.connect.spi.Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 
 //------------------------------Start 'Hard Test Insert'-------------------------------------//
