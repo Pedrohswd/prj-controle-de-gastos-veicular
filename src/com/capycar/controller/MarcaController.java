@@ -35,5 +35,10 @@ public class MarcaController implements IMarcaController {
     public ResultSet carregTabela() {
         return marcaDao.carregTabela();
     }
-
+   public boolean verificarModelosAssociados(Marca marca) {
+        return marcaDao.verificarModelosAssociados(marca);
+    }
+     public Marca buscarMarcaPorId(int idMarca) {
+        return marcaDao.buscarMarcaPorId(idMarca);
+    }
 }

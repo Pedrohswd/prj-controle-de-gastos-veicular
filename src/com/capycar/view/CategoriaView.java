@@ -4,10 +4,12 @@
  */
 package com.capycar.view;
 
+import com.capycar.connection.GastoRiderAPI;
 import com.capycar.controller.CategoriaController;
 import com.capycar.controller.SubcategoriaController;
 import com.capycar.model.Categoria;
 import com.capycar.model.Subcategoria;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
@@ -16,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class CategoriaView extends javax.swing.JFrame {
 
@@ -26,12 +29,21 @@ public class CategoriaView extends javax.swing.JFrame {
     SubcategoriaController subcategoriaController = new SubcategoriaController();
     int idCategoria, idSubcategoria = 0;
     ArrayList<Categoria> listaCategoria = new ArrayList<>();
+    int alterar = 0;
 
     public CategoriaView() throws SQLException, IOException {
         initComponents();
+        jComboBoxTipo.setSelectedIndex(0);
+        jTextFieldDescricaoCategoria.setVisible(false);
+        jComboBoxCategorias.setVisible(false);
+        jLabelCategoriaPai.setVisible(false);
+        jLabelDescricao.setVisible(false);
         carregaComboBox();
-        carregarTabela();
         setLocationRelativeTo(null);
+        jButtonSalvar.setEnabled(false);
+        jButtonAlterar.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
+        jButtonAdicionar.setEnabled(false);
     }
 
     /**
@@ -58,16 +70,17 @@ public class CategoriaView extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldDescricaoCategoria = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelDescricao = new javax.swing.JLabel();
         jComboBoxCategorias = new javax.swing.JComboBox();
         jLabelCategoriaPai = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCategorias = new javax.swing.JTable();
         jButtonAlterar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jComboBoxTipo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableCategorias = new javax.swing.JTable();
+        jButtonAdicionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,13 +89,18 @@ public class CategoriaView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(121, 113, 234));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(121, 113, 234));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jButton1.setForeground(new java.awt.Color(34, 40, 49));
         jButton1.setText("Cadastro de Proprietário");
         jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -94,28 +112,43 @@ public class CategoriaView extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(34, 40, 49));
         jButton2.setText("Lançamento de gastos");
         jButton2.setBorder(null);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(121, 113, 234));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jButton3.setForeground(new java.awt.Color(34, 40, 49));
         jButton3.setText("Cadastro de Marca");
         jButton3.setBorder(null);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(121, 113, 234));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jButton4.setForeground(new java.awt.Color(34, 40, 49));
         jButton4.setText("Cadastro de Modelo");
         jButton4.setBorder(null);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButtonCategoria.setBackground(new java.awt.Color(121, 113, 234));
         jButtonCategoria.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jButtonCategoria.setForeground(new java.awt.Color(34, 40, 49));
         jButtonCategoria.setText("Cadastro de Categorias");
         jButtonCategoria.setBorder(null);
-        jButtonCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCategoriaActionPerformed(evt);
@@ -127,14 +160,24 @@ public class CategoriaView extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(34, 40, 49));
         jButton6.setText("Cadastro de Veiculo");
         jButton6.setBorder(null);
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(121, 113, 234));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jButton7.setForeground(new java.awt.Color(34, 40, 49));
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -181,8 +224,8 @@ public class CategoriaView extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(238, 238, 238));
         jLabel2.setText("Cadastro de Categoria");
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Descrição:");
+        jLabelDescricao.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelDescricao.setText("Descrição:");
 
         jComboBoxCategorias.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -197,32 +240,11 @@ public class CategoriaView extends javax.swing.JFrame {
         jLabelCategoriaPai.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCategoriaPai.setText("Categoria:");
 
-        jTableCategorias.setBackground(new java.awt.Color(255, 255, 255));
-        jTableCategorias.setForeground(new java.awt.Color(0, 0, 0));
-        jTableCategorias.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "ID", "Descrição"
-            }
-        ));
-        jTableCategorias.setGridColor(new java.awt.Color(51, 51, 51));
-        jTableCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableCategoriasMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTableCategorias);
-
         jButtonAlterar.setBackground(new java.awt.Color(121, 113, 234));
         jButtonAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonAlterar.setForeground(new java.awt.Color(34, 40, 49));
         jButtonAlterar.setText("ALTERAR");
-        jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAlterarActionPerformed(evt);
@@ -233,7 +255,7 @@ public class CategoriaView extends javax.swing.JFrame {
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonSalvar.setForeground(new java.awt.Color(34, 40, 49));
         jButtonSalvar.setText("SALVAR");
-        jButtonSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
@@ -244,7 +266,7 @@ public class CategoriaView extends javax.swing.JFrame {
         jButtonExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(34, 40, 49));
         jButtonExcluir.setText("EXCLUIR");
-        jButtonExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExcluirActionPerformed(evt);
@@ -257,11 +279,60 @@ public class CategoriaView extends javax.swing.JFrame {
                 jComboBoxTipoItemStateChanged(evt);
             }
         });
+        jComboBoxTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxTipoMouseClicked(evt);
+            }
+        });
+        jComboBoxTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTipoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("TIPO DE CATEGORIA:");
+
+        jTableCategorias.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTableCategorias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "CATEGORIA", "SUBCATEGORIA"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableCategorias.setGridColor(new java.awt.Color(0, 0, 0));
+        jTableCategorias.setRowHeight(50);
+        jTableCategorias.setShowGrid(true);
+        jTableCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoriasMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableCategorias);
+
+        jButtonAdicionar.setBackground(new java.awt.Color(121, 113, 234));
+        jButtonAdicionar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButtonAdicionar.setForeground(new java.awt.Color(34, 40, 49));
+        jButtonAdicionar.setText("ADICIONAR");
+        jButtonAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdicionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -271,37 +342,41 @@ public class CategoriaView extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jTextFieldDescricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(71, 71, 71)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelCategoriaPai))
-                                        .addGap(128, 128, 128))
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(267, 267, 267))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(155, 155, 155))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButtonSalvar)
-                                .addGap(69, 69, 69)
-                                .addComponent(jButtonAlterar)
-                                .addGap(61, 61, 61)
-                                .addComponent(jButtonExcluir)
-                                .addGap(283, 283, 283))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(401, 401, 401)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(207, 207, 207))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(115, 115, 115)
+                                        .addComponent(jLabel2))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextFieldDescricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabelDescricao))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelCategoriaPai)
+                                            .addComponent(jComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(267, 267, 267))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,22 +388,26 @@ public class CategoriaView extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabelCategoriaPai))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldDescricaoCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jComboBoxCategorias))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabelDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldDescricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabelCategoriaPai)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxCategorias)))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSalvar)
                     .addComponent(jButtonAlterar)
                     .addComponent(jButtonExcluir)
-                    .addComponent(jButtonSalvar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonAdicionar))
+                .addGap(67, 67, 67))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -368,33 +447,66 @@ public class CategoriaView extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
-            Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
-            CategoriaController categoriaControle = new CategoriaController();
-            categoriaControle.incluirCategoria(categoria);
-            try {
-                carregarTabela();
-                carregaComboBox();
-            } catch (SQLException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        if (alterar == 0) {
+            if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+                Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
+                CategoriaController categoriaControle = new CategoriaController();
+                categoriaControle.incluirCategoria(categoria);
+                try {
+                    carregarTabela();
+                    carregaComboBox();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+                Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
+                SubcategoriaController subcatControle = new SubcategoriaController();
+                subcatControle.incluirSubcategoria(subcategoria);
+                try {
+                    carregarTabela();
+                    carregaComboBox();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar! Tente novamente");
             }
-        } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
-            Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
-            SubcategoriaController subcatControle = new SubcategoriaController();
-            subcatControle.incluirSubcategoria(subcategoria);
-            try {
-                carregarTabela();
-                carregaComboBox();
-            } catch (SQLException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } else if (alterar == 1) {
+            alterar = 0;
+            if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+                Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
+                categoriaController.alterarCategoria(categoria);
+                try {
+                    carregarTabela();
+                    carregaComboBox();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+                Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
+                subcategoriaController.alterarSubcategoria(subcategoria);
+                try {
+                    carregarTabela();
+                    carregaComboBox();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } else {
-            System.out.println("não cadastrou nada");
         }
+        jTextFieldDescricaoCategoria.setText("");
+        jTextFieldDescricaoCategoria.setEditable(false);
+        jButtonSalvar.setEnabled(false);
+        jButtonAdicionar.setEnabled(true);
+        jButtonAlterar.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -404,9 +516,37 @@ public class CategoriaView extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxTipo.getSelectedItem() == "Categoria"){
+        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
             Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
-            categoriaController.excluirCategoria(categoria);
+            boolean confirmCat = GastoRiderAPI.tabelaPossuiDados("Subcategoria WHERE id_categoria = " + categoria.getidCategoria());
+            if (confirmCat == true) {
+                JOptionPane.showMessageDialog(this, "Essa categoria não pode ser excluída, pois há subcategorias vinculadas a ela.");
+                jTextFieldDescricaoCategoria.setText("");
+
+            } else {
+                try {
+                    categoriaController.excluirCategoria(categoria);
+                    jTextFieldDescricaoCategoria.setText("");
+                    carregarTabela();
+                    carregaComboBox();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else if (jComboBoxTipo.getSelectedItem()
+                == "Subcategoria") {
+            Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
+            boolean confirmSub = GastoRiderAPI.tabelaPossuiDados("Lancamento WHERE id_subcategoria = " + subcategoria.getIdSubcategoria());
+            if (confirmSub == true) {
+                JOptionPane.showMessageDialog(this, "Essa Subcategoria não pode ser excluída, pois há lançamentos vinculados a ela.");
+                jTextFieldDescricaoCategoria.setText("");
+            } else {
+                subcategoriaController.excluirSubcategoria(subcategoria);
+                jTextFieldDescricaoCategoria.setText("");
+            }
+
             try {
                 carregarTabela();
                 carregaComboBox();
@@ -415,58 +555,91 @@ public class CategoriaView extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
-           Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
-           subcategoriaController.excluirSubcategoria(subcategoria);
-           try {
-                carregarTabela();
-                carregaComboBox();
-            } catch (SQLException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-        
 
-
+        //jTextFieldDescricaoCategoria.setText("");
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jComboBoxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoItemStateChanged
 
-        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
-            jComboBoxCategorias.setVisible(false);
-            jLabelCategoriaPai.setVisible(false);
-        } else {
-            jComboBoxCategorias.setVisible(true);
-        }
-        try {
-            // TODO add your handling code here:
-            carregarTabela();
-            carregaComboBox();
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jComboBoxTipoItemStateChanged
 
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        alterar = 1;
+        jButtonAdicionar.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
+        jTextFieldDescricaoCategoria.setEditable(true);
+        jButtonSalvar.setEnabled(true);
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jComboBoxTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxTipoMouseClicked
+
+    }//GEN-LAST:event_jComboBoxTipoMouseClicked
+
+    private void jComboBoxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoActionPerformed
+        try {
+            if (jComboBoxTipo.getSelectedItem() == "Escolha o Tipo") {
+                jComboBoxCategorias.setVisible(false);
+                jLabelCategoriaPai.setVisible(false);
+                jLabelDescricao.setVisible(false);
+                jTextFieldDescricaoCategoria.setVisible(false);
+                jButtonExcluir.setEnabled(false);
+                jButtonAdicionar.setEnabled(false);
+                jButtonAlterar.setEnabled(false);
+                DefaultTableModel model = (DefaultTableModel) jTableCategorias.getModel();
+                model.setRowCount(0);
+            }
+            if (jComboBoxTipo.getSelectedItem() == "Categoria") {
+                jComboBoxCategorias.setVisible(false);
+                jLabelCategoriaPai.setVisible(false);
+                jLabelDescricao.setVisible(true);
+                jTextFieldDescricaoCategoria.setVisible(true);
+                jTextFieldDescricaoCategoria.setEditable(true);
+                jButtonExcluir.setEnabled(true);
+                jButtonAdicionar.setEnabled(true);
+                jButtonAlterar.setEnabled(true);
+                jTextFieldDescricaoCategoria.setText("");
+                carregarTabela();
+            } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+                jLabelCategoriaPai.setVisible(true);
+                jTextFieldDescricaoCategoria.setVisible(true);
+                jTextFieldDescricaoCategoria.setEditable(true);
+                jLabelDescricao.setVisible(true);
+                jComboBoxCategorias.setVisible(true);
+                jComboBoxCategorias.setEditable(false);
+                jButtonExcluir.setEnabled(true);
+                jButtonAdicionar.setEnabled(true);
+                jButtonAlterar.setEnabled(true);
+                jTextFieldDescricaoCategoria.setText("");
+                carregarTabela();
+            }
+            // TODO add your handling code here:
+            carregaComboBox();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jComboBoxTipoActionPerformed
+
     private void jTableCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasMouseClicked
-        // TODO add your handling code here:
         try {
             if (jComboBoxTipo.getSelectedItem() == "Categoria") {
                 idCategoria = Integer.parseInt(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 0).toString());
                 jTextFieldDescricaoCategoria.setText(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 1).toString());
-                ResultSet resultset = categoriaController.carregTabela("Categoria");
             } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
-                idSubcategoria = Integer.parseInt(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 0).toString());
-                jTextFieldDescricaoCategoria.setText(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 1).toString());
-                ResultSet resultset = categoriaController.carregTabela("Subcategoria");
-                jComboBoxCategorias.removeAllItems();
-
+                Subcategoria subcategoria = new Subcategoria();
+                subcategoria.setIdSubcategoria(Integer.parseInt(jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 0).toString()));
+                subcategoria.setDescricao((jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 2).toString()));
+                subcategoria.setIdCategoria((Categoria) (jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 1)));
+                idSubcategoria = subcategoria.getIdSubcategoria();
+                jTextFieldDescricaoCategoria.setText(subcategoria.getDescricao());
                 for (Categoria categoria : listaCategoria) {
-                    jComboBoxCategorias.addItem(categoria);
-                    if (idCategoria == categoria.getidCategoria()) {
+                    if (categoria.getidCategoria() == subcategoria.getIdCategoria().getidCategoria()) {
                         jComboBoxCategorias.setSelectedItem(categoria);
                     }
                 }
@@ -476,32 +649,81 @@ public class CategoriaView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableCategoriasMouseClicked
 
-    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        // TODO add your handling code here:
-        if (jComboBoxTipo.getSelectedItem() == "Categoria") {
-            Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
-            categoriaController.alterarCategoria(categoria);
-            try {
-                carregarTabela();
-                carregaComboBox();
-            } catch (SQLException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if(jComboBoxTipo.getSelectedItem() == "Subcategoria"){
-            Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(),(Categoria) jComboBoxCategorias.getSelectedItem());
-            subcategoriaController.alterarSubcategoria(subcategoria);
-            try {
-                carregarTabela();
-                carregaComboBox();
-            } catch (SQLException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
+        jButtonSalvar.setEnabled(true);
+        jTextFieldDescricaoCategoria.setEditable(true);
+        alterar = 0;
+        jButtonAlterar.setEnabled(false);
+    }//GEN-LAST:event_jButtonAdicionarActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        setVisible(false);
+        RelatorioView relatorioView = null;
+        relatorioView = new RelatorioView();
+        relatorioView.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        setVisible(false);
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            setVisible(false);
+            MarcaView marca = new MarcaView();
+            marca.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonAlterarActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            setVisible(false);
+            ModeloView modelo = new ModeloView();
+            modelo.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try {
+            setVisible(false);
+            VeiculoView veiculo = new VeiculoView();
+            veiculo.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            setVisible(false);
+            LancamentoView lancamentoView = new LancamentoView();
+            lancamentoView.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -510,25 +732,46 @@ public class CategoriaView extends javax.swing.JFrame {
         String tabela;
         if (jComboBoxTipo.getSelectedItem() == "Categoria") {
             tabela = "Categoria";
+            DefaultTableModel model = (DefaultTableModel) jTableCategorias.getModel();
+            model.setNumRows(0);
+            ResultSet resultSet = categoriaController.carregTabela(tabela);
+
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                    resultSet.getString(1),
+                    resultSet.getString(2)
+                });
+            }
         } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
             tabela = "Subcategoria";
-        } else {
-            tabela = "Categoria";
-        }
-        DefaultTableModel model = (DefaultTableModel) jTableCategorias.getModel();
-        model.setNumRows(0);
-        ResultSet resultSet = categoriaController.carregTabela(tabela);
+            DefaultTableModel model = (DefaultTableModel) jTableCategorias.getModel();
+            model.setNumRows(0);
+            ResultSet resultSet = categoriaController.carregTabela(tabela);
+            while (resultSet.next()) {
+                Subcategoria subcategoria = new Subcategoria();
+                Categoria categoria = new Categoria();
+                subcategoria.setIdSubcategoria(resultSet.getInt(1));
+                subcategoria.setDescricao(resultSet.getString(2));
+                ResultSet resultSetAux = categoriaController.carregTabela("Categoria Where id_Categoria = " + resultSet.getInt(3));
+                while (resultSetAux.next()) {
+                    categoria.setidCategoria(resultSetAux.getInt(1));
+                    categoria.setDescricao(resultSetAux.getString(2));
+                }
+                subcategoria.setIdCategoria(categoria);
+                model.addRow(new Object[]{
+                    subcategoria.getIdSubcategoria(),
+                    subcategoria.getIdCategoria(),
+                    subcategoria.getDescricao()
+                });
+            }
 
-        while (resultSet.next()) {
-            model.addRow(new Object[]{
-                resultSet.getString(1),
-                resultSet.getString(2)
-            });
         }
+
     }
 
     private void carregaComboBox() throws SQLException {
         ResultSet resultSet = categoriaController.carregTabela("Categoria");
+        listaCategoria = new ArrayList<>();
         while (resultSet.next()) {
             Categoria categoria = new Categoria();
             categoria.setidCategoria(resultSet.getInt(1));
@@ -552,16 +795,24 @@ public class CategoriaView extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -570,10 +821,14 @@ public class CategoriaView extends javax.swing.JFrame {
             public void run() {
                 try {
                     new CategoriaView().setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CategoriaView.class
+                            .getName()).log(Level.SEVERE, null, ex);
+
                 } catch (IOException ex) {
-                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CategoriaView.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -589,6 +844,7 @@ public class CategoriaView extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonCategoria;
     private javax.swing.JButton jButtonExcluir;
@@ -597,13 +853,13 @@ public class CategoriaView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelCategoriaPai;
+    private javax.swing.JLabel jLabelDescricao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable jTableCategorias;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableCategorias;
     private javax.swing.JTextField jTextFieldDescricaoCategoria;
     // End of variables declaration//GEN-END:variables
 }

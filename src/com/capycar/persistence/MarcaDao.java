@@ -100,5 +100,41 @@ public class MarcaDao implements IMarcaDao {
         }
         return null;
     }
+    public Marca buscarMarcaPorId(int idMarca) {
+        try {
+            String sql = "SELECT * FROM Marca WHERE ID_MARCA = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, idMarca);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            if (resultSet.next()) {
+                Marca marca = new Marca();
+                marca.setIdMarca(resultSet.getInt("ID_MARCA"));
+                marca.setNome(resultSet.getString("Nome"));
+                marca.setUrl(resultSet.getString("Imagem"));
+
+                return marca;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return null;
+    }
+       public boolean verificarModelosAssociados(Marca marca) {
+        try {
+            String sql = "SELECT COUNT(*) FROM Modelo WHERE ID_MARCA = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, marca.getIdMarca());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return false;
+    }
 }
+

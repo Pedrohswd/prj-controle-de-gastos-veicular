@@ -5,12 +5,14 @@
 package com.capycar.view;
 
 import com.capycar.controller.LancamentoController;
+import com.capycar.controller.ReportController;
 import com.capycar.model.Categoria;
 import com.capycar.model.Lancamento;
 import com.capycar.model.Modelo;
 import com.capycar.model.Proprietario;
 import com.capycar.model.Subcategoria;
 import com.capycar.model.Veiculo;
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartPanel;
 
 /**
  *
@@ -41,6 +43,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
             carregaComboBox();
             carregaProprietario();
             jDateFim.setDate(date);
+            jPanelGrafico.setVisible(true);
             setLocationRelativeTo(null);
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,14 +80,13 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jDateFim = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableLancamento = new javax.swing.JTable();
         jButtonPesquisar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
         jTextFieldCPF_CNPJ = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldProprietario = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jPanelGrafico = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,8 +172,18 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -197,8 +209,8 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel8)
-                .addGap(61, 61, 61)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
@@ -245,34 +257,6 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(238, 238, 238));
         jLabel7.setText("Data Fim:");
 
-        jTableLancamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTableLancamento.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "VEICULO", "CATEGORIA", "SUBCATEGORIA", "VALOR", "DATA"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTableLancamento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTableLancamento.setGridColor(new java.awt.Color(0, 0, 0));
-        jTableLancamento.setRowHeight(50);
-        jTableLancamento.setShowGrid(true);
-        jTableLancamento.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableLancamentoMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTableLancamento);
-
         jButtonPesquisar.setBackground(new java.awt.Color(121, 113, 234));
         jButtonPesquisar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonPesquisar.setForeground(new java.awt.Color(34, 40, 49));
@@ -318,6 +302,17 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(238, 238, 238));
         jLabel10.setText("Proprietário:");
 
+        javax.swing.GroupLayout jPanelGraficoLayout = new javax.swing.GroupLayout(jPanelGrafico);
+        jPanelGrafico.setLayout(jPanelGraficoLayout);
+        jPanelGraficoLayout.setHorizontalGroup(
+            jPanelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelGraficoLayout.setVerticalGroup(
+            jPanelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 358, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -326,7 +321,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(414, 414, 414)
+                        .addGap(396, 396, 396)
                         .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -336,7 +331,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(225, 225, 225))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jTextFieldCPF_CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,22 +348,21 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel4)
                                             .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jScrollPane2)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel5)
-                                                .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(26, 26, 26)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel6)
-                                                .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(53, 53, 53)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jDateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel7))
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(26, 26, 26)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(53, 53, 53)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jDateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPanelGrafico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(78, 78, 78))))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -410,9 +404,9 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBoxSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonVoltar)
                 .addGap(59, 59, 59))
         );
@@ -450,7 +444,15 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            MarcaView marca = new MarcaView();
+            marca.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -467,11 +469,25 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            CategoriaView categoria = new CategoriaView();
+            categoria.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonCategoriaActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        try {
+            setVisible(false);
+            VeiculoView veiculo = new VeiculoView();
+            veiculo.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGraficoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jComboBoxCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaMouseClicked
@@ -505,27 +521,28 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
-    private void jTableLancamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLancamentoMouseClicked
-        lancamento = new Lancamento();
-        lancamento.setIdLancamento(Integer.parseInt(jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 0).toString()));
-        lancamento.setVeiculo((Veiculo) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 1));
-        lancamento.setCategoria((Categoria) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 2));
-        lancamento.setSubCategoria((Subcategoria) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 3));
-        lancamento.setValor(Float.parseFloat(jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 4).toString()));
-        lancamento.setDataRegistro((Date) jTableLancamento.getValueAt(jTableLancamento.getSelectedRow(), 5));
-    }//GEN-LAST:event_jTableLancamentoMouseClicked
-
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
         if (jComboBoxSubCategoria.getSelectedItem() == null || jDateInicio.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return;
         }
-        carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
+        jPanelGrafico.removeAll();
+        jPanelGrafico.revalidate();
+        jPanelGrafico.repaint();
+
+        ReportController reportControle = new ReportController();
+        ChartPanel panel = reportControle.gerarRelatorioGrafico((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
+
+        jPanelGrafico.setLayout(new BorderLayout());
+        jPanelGrafico.add(panel, BorderLayout.CENTER);
+        panel.setSize(787, 350);
+
+        //carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
         lancamento = null;
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        setVisible(true);
+        setVisible(false);
         RelatorioView relatorio = new RelatorioView();
         relatorio.setVisible(true);
     }//GEN-LAST:event_jButtonVoltarActionPerformed
@@ -537,6 +554,17 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
     private void jTextFieldProprietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProprietarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldProprietarioActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        setVisible(false);
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
 
     public void carregaComboBox() throws SQLException {
         ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
@@ -578,7 +606,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
         }
     }
 
-    public void carretaTabela(Veiculo veiculo1, Categoria categoria1, Subcategoria subcategoria1, Date dataInicio1, Date dataFim1) {
+    /*public void carretaTabela(Veiculo veiculo1, Categoria categoria1, Subcategoria subcategoria1, Date dataInicio1, Date dataFim1) {
         DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
         model.setNumRows(0);
         ArrayList<Lancamento> listLancamento = null;
@@ -593,8 +621,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
                 lancamento.getDataRegistro()
             });
         }
-    }
-
+    }*/
     public void carregaProprietario() {
         try {
             ResultSet resultSet = lancamentoController.consultarLancamento("proprietario");
@@ -671,8 +698,7 @@ public class RelatorioGraficoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableLancamento;
+    private javax.swing.JPanel jPanelGrafico;
     private javax.swing.JTextField jTextFieldCPF_CNPJ;
     private javax.swing.JTextField jTextFieldProprietario;
     // End of variables declaration//GEN-END:variables

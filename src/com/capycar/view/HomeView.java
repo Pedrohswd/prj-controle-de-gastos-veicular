@@ -4,11 +4,13 @@
  */
 package com.capycar.view;
 
+import com.capycar.connection.GastoRiderAPI;
 import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,8 @@ public class HomeView extends javax.swing.JFrame {
     /**
      * Creates new form HomeView
      */
+    String tabela = "Proprietario";
+
     public HomeView() {
         initComponents();
         setLocationRelativeTo(null);
@@ -221,73 +225,105 @@ public class HomeView extends javax.swing.JFrame {
         proprietario.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            // TODO add your handling code here:
-            setVisible(false);
-            CategoriaView categoria = new CategoriaView();
-            categoria.setVisible(true);
-                    } catch (SQLException ex) {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                CategoriaView categoria = new CategoriaView();
+                categoria.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        setVisible(false);
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+
         MarcaView marca = null;
         try {
-            marca = new MarcaView();
-        } catch (SQLException ex) {
-            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
-        }                                                
-        marca.setVisible(true);
-    }                                        
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        setVisible(false);
-        ModeloView modelo = null;
-        try {
-            modelo = new ModeloView();
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                marca = new MarcaView();
+                marca.setVisible(true);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        modelo.setVisible(true);
+
+    }
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        ModeloView modelo = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                modelo = new ModeloView();
+                modelo.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        setVisible(false);
+
         VeiculoView veiculo = null;
         try {
-            veiculo = new VeiculoView();
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                veiculo = new VeiculoView();
+                veiculo.setVisible(true);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        veiculo.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        setVisible(false);
+
         LancamentoView lancamentoView = null;
         try {
-            lancamentoView = new LancamentoView();
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                lancamentoView = new LancamentoView();
+                lancamentoView.setVisible(true);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lancamentoView.setVisible(true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        setVisible(false);
-        RelatorioView relatorioView = null;
-        relatorioView = new RelatorioView();
-        relatorioView.setVisible(true);
+        if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+            JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+        } else {
+            setVisible(false);
+            RelatorioView relatorioView = null;
+            relatorioView = new RelatorioView();
+            relatorioView.setVisible(true);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
-
 
     /**
      * @param args the command line arguments

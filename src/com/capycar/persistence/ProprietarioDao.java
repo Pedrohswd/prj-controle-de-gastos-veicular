@@ -120,19 +120,19 @@ public class ProprietarioDao implements IProprietarioDao {
             // Verificar se há um proprietário com o ID informado
             if (resultSet.next()) {
                 // Extrair os dados do resultSet CPF_CNPJ, Nome, Email, Telefone, CategoriaCNH, DataNasc_Criacao, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, Estado
-                String id = resultSet.getString("CPF_CNPJ");
-                String nome = resultSet.getString("Nome");
-                String email = resultSet.getString("Email");
-                String telefone = resultSet.getString("Telefone");
-                String categoriaCNH = resultSet.getString("Telefone");
-                Date data = resultSet.getDate("DataNasc_Criacao");
-                String cEP = resultSet.getString("CEP");
-                String logradouro = resultSet.getString("Logradouro");
-                String numero = resultSet.getString("Numero");
-                String complemento = resultSet.getString("Complemento");
-                String bairro = resultSet.getString("Bairro");
-                String cidade = resultSet.getString("Cidade");
-                String estado = resultSet.getString("Estado");
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                String email = resultSet.getString(3);
+                String telefone = resultSet.getString(4);
+                String categoriaCNH = resultSet.getString(5);
+                Date data = resultSet.getDate(6);
+                String cEP = resultSet.getString(7);
+                String logradouro = resultSet.getString(8);
+                String numero = resultSet.getString(9);
+                String complemento = resultSet.getString(10);
+                String bairro = resultSet.getString(11);
+                String cidade = resultSet.getString(12);
+                String estado = resultSet.getString(13);
                 String tipoPessoa = resultSet.getString("Tipo_pessoa");
                 proprietario = new Proprietario(id, nome, email, telefone, categoriaCNH, data, cEP, logradouro, numero, bairro, cidade, estado, complemento, tipoPessoa);
             }

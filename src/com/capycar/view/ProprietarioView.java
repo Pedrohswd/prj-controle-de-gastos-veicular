@@ -7,8 +7,14 @@ package com.capycar.view;
 import com.capycar.connection.GastoRiderAPI;
 import com.capycar.controller.ProprietarioController;
 import com.capycar.model.Proprietario;
+import java.awt.Color;
+import java.io.IOException;
 import javax.swing.border.EmptyBorder;
 import java.lang.String;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +52,7 @@ public class ProprietarioView extends javax.swing.JFrame {
             jTextCidade.setEditable(false);
             jTextComplemento.setEditable(false);
             jTextDDD.setEditable(false);
+            jTextDDI.setEditable(false);
             jTextEmail.setEditable(false);
             jTextLogradouro.setEditable(false);
             jTextNomeRazao.setEditable(false);
@@ -53,6 +60,21 @@ public class ProprietarioView extends javax.swing.JFrame {
             jTextNumeroCasa.setEditable(false);
             jComboBoxCNH.setEditable(false);
             jComboBoxEstado.setEditable(false);
+            jDateDataNasCri.setEnabled(false);;
+            jTextCPFCNPJ.setForeground(Color.GRAY);
+            jTextBairro.setForeground(Color.GRAY);
+            jTextCEP.setForeground(Color.GRAY);
+            jTextCidade.setForeground(Color.GRAY);
+            jTextComplemento.setForeground(Color.GRAY);
+            jTextDDD.setForeground(Color.GRAY);
+            jTextDDI.setForeground(Color.GRAY);
+            jTextEmail.setForeground(Color.GRAY);
+            jTextLogradouro.setForeground(Color.GRAY);
+            jTextNomeRazao.setForeground(Color.GRAY);
+            jTextNumero.setForeground(Color.GRAY);
+            jTextNumeroCasa.setForeground(Color.GRAY);
+            jComboBoxCNH.setForeground(Color.GRAY);
+            jComboBoxEstado.setForeground(Color.GRAY);
             preencherCampos(proprietarioControle.consultarProprietario(tabela));
         }
     }
@@ -112,7 +134,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButtonSalvar = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jLabelCNH = new javax.swing.JLabel();
-        jComboBoxCNH = new javax.swing.JComboBox<>();
+        jComboBoxCNH = new javax.swing.JComboBox();
         jDateDataNasCri = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,6 +169,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton2.setText("Lançamento de gastos");
         jButton2.setBorder(null);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(121, 113, 234));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -154,6 +181,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton3.setText("Cadastro de Marca");
         jButton3.setBorder(null);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(121, 113, 234));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -161,6 +193,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton4.setText("Cadastro de Modelo");
         jButton4.setBorder(null);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(121, 113, 234));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -168,6 +205,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton5.setText("Cadastro de Categorias");
         jButton5.setBorder(null);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(121, 113, 234));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -175,6 +217,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton6.setText("Cadastro de Veiculo");
         jButton6.setBorder(null);
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(121, 113, 234));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -182,6 +229,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -284,14 +336,32 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextDDI.setBackground(new java.awt.Color(217, 217, 217));
         jTextDDI.setForeground(new java.awt.Color(0, 0, 0));
         jTextDDI.setBorder(null);
+        jTextDDI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextDDIKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextDDIKeyReleased(evt);
+            }
+        });
 
         jTextDDD.setBackground(new java.awt.Color(217, 217, 217));
         jTextDDD.setForeground(new java.awt.Color(0, 0, 0));
         jTextDDD.setBorder(null);
+        jTextDDD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextDDDKeyReleased(evt);
+            }
+        });
 
         jTextNumero.setBackground(new java.awt.Color(217, 217, 217));
         jTextNumero.setForeground(new java.awt.Color(0, 0, 0));
         jTextNumero.setBorder(null);
+        jTextNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextNumeroKeyReleased(evt);
+            }
+        });
 
         jLabelData.setForeground(new java.awt.Color(238, 238, 238));
         jLabelData.setText("Data de Nascimento:");
@@ -323,6 +393,11 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextCEP.setBackground(new java.awt.Color(217, 217, 217));
         jTextCEP.setForeground(new java.awt.Color(0, 0, 0));
         jTextCEP.setBorder(null);
+        jTextCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextCEPKeyReleased(evt);
+            }
+        });
 
         jTextNumeroCasa.setBackground(new java.awt.Color(217, 217, 217));
         jTextNumeroCasa.setForeground(new java.awt.Color(0, 0, 0));
@@ -344,7 +419,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextCidade.setForeground(new java.awt.Color(0, 0, 0));
         jTextCidade.setBorder(null);
 
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GO" }));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
 
         jButtonSalvar.setBackground(new java.awt.Color(121, 113, 234));
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -369,7 +444,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabelCNH.setForeground(new java.awt.Color(238, 238, 238));
         jLabelCNH.setText("Categoria CNH:");
 
-        jComboBoxCNH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "C", "D", "E", "AC", "AD", "AE" }));
+        jComboBoxCNH.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "AB", "C", "D", "E", "AC", "AD", "AE" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -601,7 +676,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jLabelCPFCNPJ.setVisible(true);
         jLabelNomeRazao.setText("Razão Social:");
         jLabelCPFCNPJ.setText("CNPJ:");
-        jLabelData.setText("Data de emissão:");
+        jLabelData.setText("Data de criação:");
         jComboBoxCNH.setVisible(false);
         jLabelCNH.setVisible(false);
         tipoPessoa = "PJ";
@@ -614,6 +689,11 @@ public class ProprietarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        if (jTextBairro.getText().isEmpty() == true || jTextCPFCNPJ.getText().isEmpty() == true || jTextCEP.getText().isEmpty() == true || jTextCidade.getText().isEmpty() == true || jTextDDD.getText().isEmpty() == true || jTextDDI.getText().isEmpty() == true
+                || jTextEmail.getText().isEmpty() == true || jTextLogradouro.getText().isEmpty() == true || jTextNomeRazao.getText().isEmpty() == true || jTextNumero.getText().isEmpty() == true || jTextNumeroCasa.getText().isEmpty() == true || jDateDataNasCri.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            return;
+        }
         if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
             String telefone = jTextDDI.getText() + ";" + jTextDDD.getText() + ";" + jTextNumero.getText();
             Proprietario proprietario = new Proprietario(jTextCPFCNPJ.getText(), jTextNomeRazao.getText(), jTextEmail.getText(), telefone, jComboBoxCNH.getSelectedItem().toString(), jDateDataNasCri.getDate(), jTextCEP.getText(), jTextLogradouro.getText(),
@@ -625,22 +705,39 @@ public class ProprietarioView extends javax.swing.JFrame {
                     jTextNumeroCasa.getText(), jTextBairro.getText(), jTextCidade.getText(), jComboBoxEstado.getSelectedItem().toString(), jTextComplemento.getText(), tipoPessoa);
             proprietarioControle.alterarProprietario(proprietario);
         }
-        jRadioCPF.setEnabled(false);
-        jRadioCNPJ.setEnabled(false);
-        jTextCPFCNPJ.setEditable(false);
-        jTextBairro.setEditable(false);
-        jTextCEP.setEditable(false);
-        jTextCidade.setEditable(false);
-        jTextComplemento.setEditable(false);
-        jTextDDD.setEditable(false);
-        jTextEmail.setEditable(false);
-        jTextLogradouro.setEditable(false);
-        jTextNomeRazao.setEditable(false);
-        jTextNumero.setEditable(false);
-        jTextNumeroCasa.setEditable(false);
-        jComboBoxCNH.setEditable(false);
-        jComboBoxEstado.setEditable(false);
-        preencherCampos(proprietarioControle.consultarProprietario(tabela));
+        if (GastoRiderAPI.tabelaPossuiDados(tabela) == true) {
+            jRadioCPF.setEnabled(false);
+            jRadioCNPJ.setEnabled(false);
+            jTextCPFCNPJ.setEditable(false);
+            jTextBairro.setEditable(false);
+            jTextCEP.setEditable(false);
+            jTextCidade.setEditable(false);
+            jTextComplemento.setEditable(false);
+            jTextDDD.setEditable(false);
+            jTextEmail.setEditable(false);
+            jTextLogradouro.setEditable(false);
+            jTextNomeRazao.setEditable(false);
+            jTextNumero.setEditable(false);
+            jTextNumeroCasa.setEditable(false);
+            jComboBoxCNH.setEditable(false);
+            jComboBoxEstado.setEditable(false);
+            jTextCPFCNPJ.setForeground(Color.GRAY);
+            jTextBairro.setForeground(Color.GRAY);
+            jTextCEP.setForeground(Color.GRAY);
+            jTextCidade.setForeground(Color.GRAY);
+            jTextComplemento.setForeground(Color.GRAY);
+            jTextDDD.setForeground(Color.GRAY);
+            jTextDDI.setForeground(Color.GRAY);
+            jTextEmail.setForeground(Color.GRAY);
+            jTextLogradouro.setForeground(Color.GRAY);
+            jTextNomeRazao.setForeground(Color.GRAY);
+            jTextNumero.setForeground(Color.GRAY);
+            jTextNumeroCasa.setForeground(Color.GRAY);
+            jComboBoxCNH.setForeground(Color.GRAY);
+            jComboBoxEstado.setForeground(Color.GRAY);
+            preencherCampos(proprietarioControle.consultarProprietario(tabela));
+
+        }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -650,6 +747,8 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextCidade.setEditable(true);
         jTextComplemento.setEditable(true);
         jTextDDD.setEditable(true);
+        jTextDDI.setEditable(true);
+        jDateDataNasCri.setEnabled(true);
         jTextEmail.setEditable(true);
         jTextLogradouro.setEditable(true);
         jTextNomeRazao.setEditable(true);
@@ -657,7 +756,135 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextNumeroCasa.setEditable(true);
         jComboBoxCNH.setEditable(true);
         jComboBoxEstado.setEditable(true);
+        jTextCPFCNPJ.setForeground(Color.GRAY);
+        jTextBairro.setForeground(Color.BLACK);
+        jTextCEP.setForeground(Color.BLACK);
+        jTextCidade.setForeground(Color.BLACK);
+        jTextComplemento.setForeground(Color.BLACK);
+        jTextDDD.setForeground(Color.BLACK);
+        jTextDDI.setForeground(Color.BLACK);
+        jTextEmail.setForeground(Color.BLACK);
+        jTextLogradouro.setForeground(Color.BLACK);
+        jTextNomeRazao.setForeground(Color.BLACK);
+        jTextNumero.setForeground(Color.BLACK);
+        jTextNumeroCasa.setForeground(Color.BLACK);
+        jComboBoxCNH.setForeground(Color.BLACK);
+        jComboBoxEstado.setForeground(Color.BLACK);
     }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        VeiculoView veiculo = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                veiculo = new VeiculoView();
+                veiculo.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextDDIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDDIKeyPressed
+
+    }//GEN-LAST:event_jTextDDIKeyPressed
+
+    private void jTextDDIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDDIKeyReleased
+        jTextDDI.setText(jTextDDI.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextDDIKeyReleased
+
+    private void jTextDDDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDDDKeyReleased
+        jTextDDD.setText(jTextDDD.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextDDDKeyReleased
+
+    private void jTextNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNumeroKeyReleased
+        jTextNumero.setText(jTextNumero.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextNumeroKeyReleased
+
+    private void jTextCEPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCEPKeyReleased
+        jTextCEP.setText(jTextCEP.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jTextCEPKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        MarcaView marca = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                marca = new MarcaView();
+                marca.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ModeloView modelo = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                modelo = new ModeloView();
+                modelo.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                CategoriaView categoria = new CategoriaView();
+                categoria.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        LancamentoView lancamentoView = null;
+        try {
+            if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+                JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+            } else {
+                setVisible(false);
+                lancamentoView = new LancamentoView();
+                lancamentoView.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        if (GastoRiderAPI.tabelaPossuiDados(tabela) == false) {
+            JOptionPane.showMessageDialog(null, "Cadastre seus dados em Cadastro de proprietário antes de usar esta tela");
+        } else {
+            setVisible(false);
+            RelatorioView relatorioView = null;
+            relatorioView = new RelatorioView();
+            relatorioView.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void preencherCampos(Proprietario proprietario) {
         if (proprietario.getTipoPessoa() == "PF") {
@@ -668,10 +895,6 @@ public class ProprietarioView extends javax.swing.JFrame {
         }
 
         String[] substrings = separarString(proprietario.getTelefone());
-
-        for (String substring : substrings) {
-            System.out.println(substring);
-        }
 
         jTextNomeRazao.setText(proprietario.getNome());
         jTextCPFCNPJ.setText(proprietario.getCPF_CNPJ());
@@ -687,6 +910,7 @@ public class ProprietarioView extends javax.swing.JFrame {
         jTextComplemento.setText(proprietario.getComplemento());
         jTextBairro.setText(proprietario.getBairro());
         jTextCidade.setText(proprietario.getCidade());
+        jComboBoxEstado.setSelectedItem(proprietario.getEstado());
     }
 
     public static String[] separarString(String texto) {
@@ -739,7 +963,7 @@ public class ProprietarioView extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JComboBox<String> jComboBoxCNH;
+    private javax.swing.JComboBox jComboBoxCNH;
     private javax.swing.JComboBox<String> jComboBoxEstado;
     private com.toedter.calendar.JDateChooser jDateDataNasCri;
     private javax.swing.JLabel jLabel1;

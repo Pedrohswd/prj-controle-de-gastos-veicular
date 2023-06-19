@@ -16,6 +16,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 
@@ -145,6 +147,11 @@ public class LancamentoView extends javax.swing.JFrame {
         jButton6.setText("Cadastro de Veiculo");
         jButton6.setBorder(null);
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(121, 113, 234));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -152,8 +159,18 @@ public class LancamentoView extends javax.swing.JFrame {
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Capycar menu.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -367,7 +384,15 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            MarcaView marca = new MarcaView();
+            marca.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LancamentoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -384,17 +409,25 @@ public class LancamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
-        // TODO add your handling code here:
+        try {
+            setVisible(false);
+            CategoriaView categoria = new CategoriaView();
+            categoria.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LancamentoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonCategoriaActionPerformed
 
     private void jTextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldValorActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        if(jComboBoxSubCategoria.getSelectedItem() == null || jDateChooserRegistro.getDate() == null || jTextFieldValor.getText() == "" ||jTextFieldValor.getText().isEmpty() == true){
+        if (jComboBoxSubCategoria.getSelectedItem() == null || jDateChooserRegistro.getDate() == null || jTextFieldValor.getText() == "" || jTextFieldValor.getText().isEmpty() == true) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
-            return; 
+            return;
         }
         if (alterador == false) {
             float valor = Float.parseFloat(jTextFieldValor.getText());
@@ -415,7 +448,7 @@ public class LancamentoView extends javax.swing.JFrame {
             jComboBoxCategoria.setSelectedIndex(0);
             jDateChooserRegistro.setDate(date);
             jButtonCancelarActionPerformed(evt);
-            
+
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -435,6 +468,7 @@ public class LancamentoView extends javax.swing.JFrame {
                     Subcategoria subcategoria = new Subcategoria();
                     subcategoria.setIdSubcategoria(resultSet.getInt(1));
                     subcategoria.setDescricao(resultSet.getString(2));
+                    subcategoria.setIdCategoria(categoriaSelecionada);
 
                     listaSubCategoria.add(subcategoria);
                 }
@@ -467,8 +501,31 @@ public class LancamentoView extends javax.swing.JFrame {
         jDateChooserRegistro.setDate(date);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        setVisible(false);
+        RelatorioView relatorioView = null;
+        relatorioView = new RelatorioView();
+        relatorioView.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        setVisible(false);
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try {
+            setVisible(false);
+            VeiculoView veiculo = new VeiculoView();
+            veiculo.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(LancamentoConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     public void carregaComboBox() throws SQLException {
-        ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo");
+        ResultSet resultSet = lancamentoController.consultarLancamento("Veiculo WHERE Status = 'Ativo'");
         Proprietario proprietario = new Proprietario();
         Modelo modelo = new Modelo();
         while (resultSet.next()) {

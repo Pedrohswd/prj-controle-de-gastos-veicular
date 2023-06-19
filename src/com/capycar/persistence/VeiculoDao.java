@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.capycar.persistence;
+
 import com.capycar.connection.GastoRiderAPI;
 import com.capycar.model.Modelo;
 import com.capycar.model.Proprietario;
@@ -23,7 +24,7 @@ import javax.swing.JOptionPane;
 
 public class VeiculoDao implements IVeiculoDao {
 
-      private java.sql.Connection connection = null;
+    private java.sql.Connection connection = null;
 
     public VeiculoDao() {
         connection = GastoRiderAPI.conectBD();
@@ -52,7 +53,8 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void deletarVeiculo(int idVeiculo) {
         try {
-            String sql = "DELETE FROM Veiculo WHERE IdVeiculo = ?";
+            
+            String sql = "DELETE FROM Veiculo WHERE Id_Veiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idVeiculo);
             preparedStatement.executeUpdate();
@@ -64,17 +66,17 @@ public class VeiculoDao implements IVeiculoDao {
     @Override
     public void alterarVeiculo(Veiculo veiculo) {
         try {
-            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, Ano_Fabricacao = ?, Ano_Modelo = ?, Combustivel = ?, Km_Atual = ?, Categoria = ?, Id_Modelo = ?  Status = ? WHERE IdVeiculo = ?";
+            String sql = "UPDATE Veiculo SET Placa = ?, Renavam = ?, Ano_Fabricacao = ?, Ano_Modelo = ?, Combustivel = ?, Km_Atual = ?, Categoria = ?, Id_Modelo = ?, Status = ? WHERE Id_Veiculo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, veiculo.getPlaca());
             preparedStatement.setString(2, veiculo.getRenavam());
             preparedStatement.setString(3, veiculo.getAnoFabricacao());
             preparedStatement.setString(4, veiculo.getAnoModelo());
-           preparedStatement.setString(5, veiculo.getCombustivel());
+            preparedStatement.setString(5, veiculo.getCombustivel());
             preparedStatement.setFloat(6, veiculo.getKmAtual());
             preparedStatement.setString(7, veiculo.getCategoria());
             preparedStatement.setInt(8, veiculo.getModelo().getIdModelo());
-           preparedStatement.setString(9, veiculo.getStatus());
+            preparedStatement.setString(9, veiculo.getStatus());
             preparedStatement.setInt(10, veiculo.getIdVeiculo());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -116,33 +118,29 @@ public class VeiculoDao implements IVeiculoDao {
         return veiculos;
     }
 
-   private Veiculo construirVeiculo(ResultSet resultSet) throws SQLException {
-    Veiculo veiculo = new Veiculo();
-    veiculo.setIdVeiculo(resultSet.getInt("Id_Veiculo"));
-    veiculo.setPlaca(resultSet.getString("Placa"));
-    veiculo.setRenavam(resultSet.getString("Renavam"));
-    veiculo.setAnoFabricacao(resultSet.getString("Ano_Fabricacao"));
-    veiculo.setAnoModelo(resultSet.getString("Ano_Modelo"));
-    veiculo.setStatus(resultSet.getString("Status"));
-    veiculo.setCombustivel(resultSet.getString("Combustivel"));
-    veiculo.setCategoria(resultSet.getString("Categoria"));
-    veiculo.setKmAtual(resultSet.getFloat("Km_atual"));
-    int idModelo = resultSet.getInt("Id_Modelo");
+    private Veiculo construirVeiculo(ResultSet resultSet) throws SQLException {
+        Veiculo veiculo = new Veiculo();
+        veiculo.setIdVeiculo(resultSet.getInt("Id_Veiculo"));
+        veiculo.setPlaca(resultSet.getString("Placa"));
+        veiculo.setRenavam(resultSet.getString("Renavam"));
+        veiculo.setAnoFabricacao(resultSet.getString("Ano_Fabricacao"));
+        veiculo.setAnoModelo(resultSet.getString("Ano_Modelo"));
+        veiculo.setStatus(resultSet.getString("Status"));
+        veiculo.setCombustivel(resultSet.getString("Combustivel"));
+        veiculo.setCategoria(resultSet.getString("Categoria"));
+        veiculo.setKmAtual(resultSet.getFloat("Km_atual"));
+        int idModelo = resultSet.getInt("Id_Modelo");
 
-    ModeloDao modeloDao = new ModeloDao();
-    Modelo modelo = modeloDao.buscarModeloPorId(idModelo);
+        ModeloDao modeloDao = new ModeloDao();
+        Modelo modelo = modeloDao.buscarModeloPorId(idModelo);
 
-    if (modelo != null) {
-        veiculo.setModelo(modelo);
-    } else {
-        // Tratar o caso em que o modelo não foi encontrado
+        if (modelo != null) {
+            veiculo.setModelo(modelo);
+        } else {
+            // Tratar o caso em que o modelo não foi encontrado
+        }
+
+        return veiculo;
     }
-
-    return veiculo;
-}
-
-
-
-
 
 }
