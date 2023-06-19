@@ -37,7 +37,6 @@ public class ModeloView extends javax.swing.JFrame {
      */
     ModeloController modeloController = new ModeloController();
     int idModelo = 0;
-    int idMarca = 0;
     ArrayList<Marca> listaMarca = new ArrayList<>();
     String url;
     int alterar = 0;
@@ -450,39 +449,29 @@ public class ModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSelecionarImgActionPerformed
 
     private void jTableModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableModeloMouseClicked
-     try {
-        int selectedRow = jTableModelo.getSelectedRow();
-        idModelo = Integer.parseInt(jTableModelo.getValueAt(selectedRow, 0).toString());
-        jTextFieldModelo.setText(jTableModelo.getValueAt(selectedRow, 1).toString());
+        try {
+            Modelo modelo = new Modelo();
+            idModelo = Integer.parseInt(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 0).toString());
+            jTextFieldModelo.setText(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 1).toString());
+             Marca marca =  (Marca) (jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 2));
+            
+            ResultSet resultSet = modeloController.carregTabela("Modelo");
 
-        DefaultTableModel model = (DefaultTableModel) jTableModelo.getModel();
-        Marca marcaSelecionada = (Marca) model.getValueAt(selectedRow, 2);
-        idMarca = marcaSelecionada.getIdMarca();
-
-        ResultSet resultSet = modeloController.carregTabela("Modelo");
-
-        while (resultSet.next()) {
-            if (idModelo == resultSet.getInt(1)) {
-                InputStream inputStream = resultSet.getBinaryStream(3);
-                BufferedImage image = ImageIO.read(inputStream);
-                ImageIcon iconLogo = new ImageIcon(image);
-                iconLogo.setImage(iconLogo.getImage().getScaledInstance(jLabelIMG.getWidth(), jLabelIMG.getHeight(), 1));
-                jLabelIMG.setIcon(iconLogo);
+            while (resultSet.next()) {
+                if (idModelo == resultSet.getInt(1)) {
+                    InputStream inputStream = resultSet.getBinaryStream(3);
+                    BufferedImage image = ImageIO.read(inputStream);
+                    ImageIcon iconLogo = new ImageIcon(image);
+                    iconLogo.setImage(iconLogo.getImage().getScaledInstance(jLabelIMG.getWidth(), jLabelIMG.getHeight(), 1));
+                    jLabelIMG.setIcon(iconLogo);
+                }
             }
+
+            jComboBoxMarca.setSelectedItem(marca);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
         }
-
-        jComboBoxMarca.removeAllItems();
-
-        for (Marca marca : listaMarca) {
-            jComboBoxMarca.addItem(marca);
-            if (idMarca == marca.getIdMarca()) {
-                jComboBoxMarca.setSelectedItem(marca);
-            }
-        }
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, e);
-    }
 
     }//GEN-LAST:event_jTableModeloMouseClicked
 
@@ -491,54 +480,54 @@ public class ModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMarcaActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-   Modelo modelo = new Modelo(idModelo, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
-try {
-    if (modeloController.verificarVeiculosAssociados(modelo)) {
-        JOptionPane.showMessageDialog(null, "Não é possível excluir o modelo. Existem veículos associados a ele.", "Erro", JOptionPane.ERROR_MESSAGE);
-    } else {
-        modeloController.deletarModelo(modelo);
-        carregarTabela();
-        jTextFieldModelo.setText("");
-        jLabelIMG.setIcon(null);
-    }
-} catch (SQLException ex) {
-    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-    JOptionPane.showMessageDialog(null, "Erro ao excluir o modelo. Ocorreu um erro no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
-} catch (IOException ex) {
-    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-    JOptionPane.showMessageDialog(null, "Erro ao excluir o modelo. Ocorreu um erro de E/S.", "Erro", JOptionPane.ERROR_MESSAGE);
-}
+        Modelo modelo = new Modelo(idModelo, jTextFieldModelo.getText(), url, (Marca) jComboBoxMarca.getSelectedItem());
+        try {
+            if (modeloController.verificarVeiculosAssociados(modelo)) {
+                JOptionPane.showMessageDialog(null, "Não é possível excluir o modelo. Existem veículos associados a ele.", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                modeloController.deletarModelo(modelo);
+                carregarTabela();
+                jTextFieldModelo.setText("");
+                jLabelIMG.setIcon(null);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o modelo. Ocorreu um erro no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o modelo. Ocorreu um erro de E/S.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
-try {
-    String modeloTexto = jTextFieldModelo.getText();
-    if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
-        if (alterar == 0) {
-            if (url != null) {
-                Modelo modelo = new Modelo(0, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
-                modeloController.criarModelo(modelo);
-                carregarTabela();
+        try {
+            String modeloTexto = jTextFieldModelo.getText();
+            if (modeloTexto != null && !modeloTexto.isEmpty() && jComboBoxMarca.getSelectedItem() != null) {
+                if (alterar == 0) {
+                    if (url != null) {
+                        Modelo modelo = new Modelo(0, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
+                        modeloController.criarModelo(modelo);
+                        carregarTabela();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione uma imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else if (alterar == 1) {
+                    Modelo modelo = new Modelo(idModelo, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
+                    modeloController.alterarModelo(modelo);
+                    carregarTabela();
+                }
+                jTextFieldModelo.setText("");
+                jLabelIMG.setIcon(null);
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (alterar == 1) {
-            Modelo modelo = new Modelo(idModelo, modeloTexto, url, (Marca) jComboBoxMarca.getSelectedItem());
-            modeloController.alterarModelo(modelo);
-            carregarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jTextFieldModelo.setText("");
-        jLabelIMG.setIcon(null);
-    } else {
-        JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-} catch (SQLException ex) {
-    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-} catch (IOException ex) {
-    Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-}
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -657,17 +646,17 @@ try {
 
     private void carregarTabela() throws SQLException, IOException {
         DefaultTableModel model = (DefaultTableModel) jTableModelo.getModel();
-    
-model.setNumRows(0);
-List<Modelo> listModelos = modeloController.listarModelos();
 
-for (Modelo modelo : listModelos) {
-    model.addRow(new Object[]{
-        modelo.getIdModelo(),
-        modelo.getNome(),
-        modelo.getIdMarca().getNome() // Nome da marca
-    });
-}
+        model.setNumRows(0);
+        List<Modelo> listModelos = modeloController.listarModelos();
+
+        for (Modelo modelo : listModelos) {
+            model.addRow(new Object[]{
+                modelo.getIdModelo(),
+                modelo.getNome(),
+                modelo.getIdMarca()
+            });
+        }
 
     }
 

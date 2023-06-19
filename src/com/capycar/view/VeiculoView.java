@@ -4,6 +4,7 @@
  */
 package com.capycar.view;
 
+import com.capycar.connection.GastoRiderAPI;
 import com.capycar.controller.ModeloController;
 import com.capycar.controller.VeiculoController;
 import com.capycar.model.Categoria;
@@ -536,8 +537,13 @@ public class VeiculoView extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         try {
-            VeiculoController veiculoController = new VeiculoController();
-            veiculoController.deletarVeiculo(idVeiculo);
+            if (GastoRiderAPI.tabelaPossuiDados("lancamento WHERE id_veiculo = " + idVeiculo) == true) {
+                JOptionPane.showMessageDialog(null, "Existem lançamentos para esse veículo!");
+            } else {
+                VeiculoController veiculoController = new VeiculoController();
+                veiculoController.deletarVeiculo(idVeiculo);
+            }
+
             carregarTabela();
         } catch (SQLException ex) {
             Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -548,87 +554,87 @@ public class VeiculoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-try {
-    Veiculo veiculo = new Veiculo();
+        try {
+            Veiculo veiculo = new Veiculo();
 
-    // Verificar se todos os campos estão preenchidos
-    if (jTextFieldPlaca.getText().isEmpty() || jTextFieldRenavam.getText().isEmpty()
-            || jTextFieldAnoFabricacao.getText().isEmpty() || jTextFieldAnoModelo.getText().isEmpty()
-            || jTextFieldKmAtual.getText().isEmpty() || jComboBoxCombustivel.getSelectedItem() == null
-            || jComboBoxCategoria.getSelectedItem() == null || jComboBoxModelo.getSelectedItem() == null) {
-        throw new CamposIncompletosException("Por favor, preencha todos os campos antes de salvar.");
-    }
+            // Verificar se todos os campos estão preenchidos
+            if (jTextFieldPlaca.getText().isEmpty() || jTextFieldRenavam.getText().isEmpty()
+                    || jTextFieldAnoFabricacao.getText().isEmpty() || jTextFieldAnoModelo.getText().isEmpty()
+                    || jTextFieldKmAtual.getText().isEmpty() || jComboBoxCombustivel.getSelectedItem() == null
+                    || jComboBoxCategoria.getSelectedItem() == null || jComboBoxModelo.getSelectedItem() == null) {
+                throw new CamposIncompletosException("Por favor, preencha todos os campos antes de salvar.");
+            }
 
-    // Verificar se "AnoModelo" e "AnoFabricacao" possuem 4 dígitos
-    if (jTextFieldAnoModelo.getText().length() != 4 || jTextFieldAnoFabricacao.getText().length() != 4) {
-        throw new CamposIncompletosException("O Ano de Fabricação e o Ano do Modelo devem ter exatamente 4 dígitos.");
-    }
+            // Verificar se "AnoModelo" e "AnoFabricacao" possuem 4 dígitos
+            if (jTextFieldAnoModelo.getText().length() != 4 || jTextFieldAnoFabricacao.getText().length() != 4) {
+                throw new CamposIncompletosException("O Ano de Fabricação e o Ano do Modelo devem ter exatamente 4 dígitos.");
+            }
 
-    // Verificar se campos numéricos contêm apenas números
-    if (!isCampoNumerico(jTextFieldRenavam.getText()) || !isCampoNumerico(jTextFieldAnoFabricacao.getText())
-            || !isCampoNumerico(jTextFieldAnoModelo.getText())) {
-        throw new CamposIncompletosException("Certos campos aceitam apenas números.");
-    }
-    
-    float kmAtual = 0;
-    try {
-        kmAtual = Float.parseFloat(jTextFieldKmAtual.getText().replace(",", ".").trim());
-    } catch (NumberFormatException ex) {
-        throw new CamposIncompletosException("O campo 'KM Atual' deve conter um valor numérico válido.");
-    }
+            // Verificar se campos numéricos contêm apenas números
+            if (!isCampoNumerico(jTextFieldRenavam.getText()) || !isCampoNumerico(jTextFieldAnoFabricacao.getText())
+                    || !isCampoNumerico(jTextFieldAnoModelo.getText())) {
+                throw new CamposIncompletosException("Certos campos aceitam apenas números.");
+            }
 
-    if (alterar == 0) {
-        veiculo.setPlaca(jTextFieldPlaca.getText());
-        veiculo.setRenavam(jTextFieldRenavam.getText());
-        veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
-        veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
-        veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
-        veiculo.setKmAtual(kmAtual);
-        veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
-        veiculo.setStatus(jCheckBoxStatus.isSelected() ? "Inativo" : "Ativo");
-        veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
+            float kmAtual = 0;
+            try {
+                kmAtual = Float.parseFloat(jTextFieldKmAtual.getText().replace(",", ".").trim());
+            } catch (NumberFormatException ex) {
+                throw new CamposIncompletosException("O campo 'KM Atual' deve conter um valor numérico válido.");
+            }
 
-        // Criar uma instância de VeiculoController
-        veiculoController.cadastrarVeiculo(veiculo);
-    } else if (alterar == 1) {
-        alterar = 0;
-        String status = jCheckBoxStatus.isSelected() ? "Inativo" : "Ativo";
-        veiculo = new Veiculo(idVeiculo, jTextFieldPlaca.getText(), jTextFieldRenavam.getText(), jTextFieldAnoFabricacao.getText(), jTextFieldAnoModelo.getText(), jComboBoxCombustivel.getSelectedItem().toString(), kmAtual, jComboBoxCategoria.getSelectedItem().toString(), (Modelo) jComboBoxModelo.getSelectedItem(), status);
-        // Chame o método de alteração do VeiculoController
-        veiculoController.alterarVeiculo(veiculo);
-    }
+            if (alterar == 0) {
+                veiculo.setPlaca(jTextFieldPlaca.getText());
+                veiculo.setRenavam(jTextFieldRenavam.getText());
+                veiculo.setAnoFabricacao(jTextFieldAnoFabricacao.getText());
+                veiculo.setAnoModelo(jTextFieldAnoModelo.getText());
+                veiculo.setCombustivel(jComboBoxCombustivel.getSelectedItem().toString());
+                veiculo.setKmAtual(kmAtual);
+                veiculo.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
+                veiculo.setStatus(jCheckBoxStatus.isSelected() ? "Inativo" : "Ativo");
+                veiculo.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
 
-    // Preencher os dados do veículo
-    // Limpar os campos após salvar
-    jTextFieldPlaca.setText("");
-    jTextFieldRenavam.setText("");
-    jTextFieldAnoFabricacao.setText("");
-    jTextFieldAnoModelo.setText("");
-    jTextFieldKmAtual.setText("");
-    jCheckBoxStatus.setSelected(false);
+                // Criar uma instância de VeiculoController
+                veiculoController.cadastrarVeiculo(veiculo);
+            } else if (alterar == 1) {
+                alterar = 0;
+                String status = jCheckBoxStatus.isSelected() ? "Inativo" : "Ativo";
+                veiculo = new Veiculo(idVeiculo, jTextFieldPlaca.getText(), jTextFieldRenavam.getText(), jTextFieldAnoFabricacao.getText(), jTextFieldAnoModelo.getText(), jComboBoxCombustivel.getSelectedItem().toString(), kmAtual, jComboBoxCategoria.getSelectedItem().toString(), (Modelo) jComboBoxModelo.getSelectedItem(), status);
+                // Chame o método de alteração do VeiculoController
+                veiculoController.alterarVeiculo(veiculo);
+            }
 
-    try {
-        carregarTabela();
-    } catch (SQLException ex) {
-        Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
-        Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
-    }
-} catch (CamposIncompletosException ex) {
-    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-}
+            // Preencher os dados do veículo
+            // Limpar os campos após salvar
+            jTextFieldPlaca.setText("");
+            jTextFieldRenavam.setText("");
+            jTextFieldAnoFabricacao.setText("");
+            jTextFieldAnoModelo.setText("");
+            jTextFieldKmAtual.setText("");
+            jCheckBoxStatus.setSelected(false);
 
-jButtonAlterar.setEnabled(true);
-jButtonAdicionar.setEnabled(true);
-jButtonExcluir.setEnabled(true);
-jButtonSalvar.setEnabled(false);
-jTextFieldRenavam.setEditable(false);
-jTextFieldAnoModelo.setEditable(false);
-jTextFieldKmAtual.setEditable(false);
-jTextFieldPlaca.setEditable(false);
-jTextFieldAnoFabricacao.setEditable(false);
+            try {
+                carregarTabela();
+            } catch (SQLException ex) {
+                Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(VeiculoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (CamposIncompletosException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 
-jTextFieldAnoFabricacao.setEditable(false);
+        jButtonAlterar.setEnabled(true);
+        jButtonAdicionar.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+        jButtonSalvar.setEnabled(false);
+        jTextFieldRenavam.setEditable(false);
+        jTextFieldAnoModelo.setEditable(false);
+        jTextFieldKmAtual.setEditable(false);
+        jTextFieldPlaca.setEditable(false);
+        jTextFieldAnoFabricacao.setEditable(false);
+
+        jTextFieldAnoFabricacao.setEditable(false);
     }//GEN-LAST:event_jButtonSalvarActionPerformed
     private boolean isCampoNumerico(String campo) {
         try {
@@ -812,7 +818,7 @@ jTextFieldAnoFabricacao.setEditable(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       setVisible(false);
+        setVisible(false);
         RelatorioView relatorio = new RelatorioView();
         relatorio.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
