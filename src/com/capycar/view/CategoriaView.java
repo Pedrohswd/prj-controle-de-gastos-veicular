@@ -599,6 +599,7 @@ public class CategoriaView extends javax.swing.JFrame {
                 jButtonAdicionar.setEnabled(true);
                 jButtonAlterar.setEnabled(true);
                 jTextFieldDescricaoCategoria.setText("");
+                jTextFieldDescricaoCategoria.setEditable(false);
                 carregarTabela();
             } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
                 jLabelCategoriaPai.setVisible(true);
@@ -611,6 +612,7 @@ public class CategoriaView extends javax.swing.JFrame {
                 jButtonAdicionar.setEnabled(true);
                 jButtonAlterar.setEnabled(true);
                 jTextFieldDescricaoCategoria.setText("");
+                jTextFieldDescricaoCategoria.setEditable(false);
                 carregarTabela();
             }
             // TODO add your handling code here:

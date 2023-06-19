@@ -34,6 +34,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
     ArrayList<Subcategoria> listaSubCategoria = new ArrayList<>();
     Date date = new Date();
     Lancamento lancamento = null;
+    ArrayList<Lancamento> listLancamento = null;
 
     public LancamentoConsultaView() {
         try {
@@ -481,8 +482,8 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
 
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
         int selectedIndex = jComboBoxCategoria.getSelectedIndex() - 1;
-        if (selectedIndex >= 0) {
-            Categoria categoriaSelecionada = listaCategoria.get(selectedIndex);
+        if (selectedIndex >= 1) {
+            Categoria categoriaSelecionada = listaCategoria.get(selectedIndex - 1);
             ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria where id_categoria = " + categoriaSelecionada.getidCategoria());
             try {
                 while (resultSet.next()) {
@@ -493,6 +494,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
                     listaSubCategoria.add(subcategoria);
                 }
                 jComboBoxSubCategoria.removeAllItems();
+                jComboBoxSubCategoria.addItem("Todas");
 
                 for (Subcategoria subcategoria : listaSubCategoria) {
                     jComboBoxSubCategoria.addItem(subcategoria);
@@ -501,7 +503,31 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-        } else {
+        }
+        if (selectedIndex == 0) {
+            jComboBoxSubCategoria.removeAllItems();
+            jComboBoxSubCategoria.addItem("Todas");
+            ResultSet resultSet = lancamentoController.consultarLancamento("subcategoria");
+            try {
+                while (resultSet.next()) {
+                    Subcategoria subcategoria = new Subcategoria();
+                    subcategoria.setIdSubcategoria(resultSet.getInt(1));
+                    subcategoria.setDescricao(resultSet.getString(2));
+
+                    listaSubCategoria.add(subcategoria);
+                }
+                jComboBoxSubCategoria.removeAllItems();
+                jComboBoxSubCategoria.addItem("Todas");
+
+                for (Subcategoria subcategoria : listaSubCategoria) {
+                    jComboBoxSubCategoria.addItem(subcategoria);
+                }
+                listaSubCategoria.clear();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(LancamentoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        }
+        if (selectedIndex < 0) {
             jComboBoxSubCategoria.removeAllItems();
         }
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
@@ -545,7 +571,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return;
         }
-        carretaTabela((Veiculo) jComboBoxVeiculo.getSelectedItem(), (Categoria) jComboBoxCategoria.getSelectedItem(), (Subcategoria) jComboBoxSubCategoria.getSelectedItem(), jDateInicio.getDate(), jDateFim.getDate());
+        carretaTabela();
         lancamento = null;
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -593,6 +619,7 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
         jComboBoxVeiculo.removeAllItems();
         jComboBoxCategoria.removeAllItems();
         jComboBoxCategoria.addItem("Selecione uma categoria:");
+        jComboBoxCategoria.addItem("Todas");
 
         for (Veiculo veiculo : listaVeiculo) {
             jComboBoxVeiculo.addItem(veiculo);
@@ -602,11 +629,36 @@ public class LancamentoConsultaView extends javax.swing.JFrame {
         }
     }
 
-    public void carretaTabela(Veiculo veiculo1, Categoria categoria1, Subcategoria subcategoria1, Date dataInicio1, Date dataFim1) {
+    public void carretaTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableLancamento.getModel();
         model.setNumRows(0);
-        ArrayList<Lancamento> listLancamento = null;
-        listLancamento = lancamentoController.consultarLancamento(veiculo1, categoria1, subcategoria1, dataInicio1, dataFim1);
+        Veiculo veiculo;
+        Categoria categoria;
+        Subcategoria subcategoria;
+        listLancamento = null;
+        veiculo = (Veiculo) jComboBoxVeiculo.getSelectedItem();
+        if (jComboBoxCategoria.getSelectedItem() == "Todas") {
+            categoria = null;
+        } else {
+            categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
+        }
+        if (jComboBoxSubCategoria.getSelectedItem() == "Todas") {
+            subcategoria = null;
+        } else {
+            subcategoria = (Subcategoria) jComboBoxSubCategoria.getSelectedItem();
+        }
+        Date dataInicio = jDateInicio.getDate();
+        Date dataFim = jDateFim.getDate();
+        if (categoria == null && subcategoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, dataInicio, dataFim);
+        } else if (categoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, subcategoria, dataInicio, dataFim);
+        }else if (subcategoria == null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, categoria, dataInicio, dataFim);
+        }else if (categoria != null && veiculo != null && subcategoria != null) {
+            listLancamento = lancamentoController.consultarLancamento(veiculo, categoria, subcategoria, dataInicio, dataFim);
+        }
+        ResultSet resultSetAuxiliar = null;
         for (Lancamento lancamento : listLancamento) {
             model.addRow(new Object[]{
                 lancamento.getIdLancamento(),

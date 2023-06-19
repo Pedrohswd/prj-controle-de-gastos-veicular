@@ -143,6 +143,11 @@ public class MarcaView extends javax.swing.JFrame {
         jButton5.setText("Cadastro de Categorias");
         jButton5.setBorder(null);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(121, 113, 234));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -547,6 +552,18 @@ try {
             Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
         }
         veiculo.setVisible(true);    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            CategoriaView categoria = new CategoriaView();
+            categoria.setVisible(true);
+            setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MarcaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void carregarTabela() throws SQLException, IOException {
         DefaultTableModel model = (DefaultTableModel) jTableMarcas.getModel();
