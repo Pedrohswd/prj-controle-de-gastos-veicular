@@ -7,6 +7,8 @@ package com.capycar.controller;
 import com.capycar.model.Modelo;
 import com.capycar.persistence.ModeloDao;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -35,5 +37,14 @@ public class ModeloController implements IModeloController {
     public ResultSet carregTabela(String table) {
         return modeloDao.carregTabela(table);
     }
+     public boolean verificarVeiculosAssociados(Modelo modelo) throws SQLException  {
+        return modeloDao.verificarVeiculosAssociados(modelo);
+    }
+     
+     public List<Modelo> listarModelos() {
+    ModeloDao modeloDao = new ModeloDao();
+    return modeloDao.listarModelos();
+}
+
 
 }
