@@ -453,8 +453,8 @@ public class ModeloView extends javax.swing.JFrame {
             Modelo modelo = new Modelo();
             idModelo = Integer.parseInt(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 0).toString());
             jTextFieldModelo.setText(jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 1).toString());
-             Marca marca =  (Marca) (jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 2));
-            
+            Marca marca = (Marca) (jTableModelo.getValueAt(jTableModelo.getSelectedRow(), 2));
+
             ResultSet resultSet = modeloController.carregTabela("Modelo");
 
             while (resultSet.next()) {
@@ -520,6 +520,13 @@ public class ModeloView extends javax.swing.JFrame {
                 }
                 jTextFieldModelo.setText("");
                 jLabelIMG.setIcon(null);
+                jButtonSalvar.setEnabled(false);
+                jButtonSelecionarImg.setEnabled(false);
+                jButtonExcluir.setEnabled(true);
+                jButtonAdicionar.setEnabled(true);
+                jButtonAlterar.setEnabled(true);
+                jTextFieldModelo.setEditable(false);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
