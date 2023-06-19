@@ -4,6 +4,7 @@
  */
 package com.capycar.view;
 
+import com.capycar.connection.GastoRiderAPI;
 import com.capycar.controller.CategoriaController;
 import com.capycar.controller.SubcategoriaController;
 import com.capycar.model.Categoria;
@@ -517,18 +518,35 @@ public class CategoriaView extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jComboBoxTipo.getSelectedItem() == "Categoria") {
             Categoria categoria = new Categoria(idCategoria, jTextFieldDescricaoCategoria.getText());
-            categoriaController.excluirCategoria(categoria);
-            try {
-                carregarTabela();
-                carregaComboBox();
-            } catch (SQLException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
+            boolean confirmCat = GastoRiderAPI.tabelaPossuiDados("Subcategoria WHERE id_categoria = " + categoria.getidCategoria());
+            if (confirmCat == true) {
+                JOptionPane.showMessageDialog(this, "Essa categoria não pode ser excluída, pois há subcategorias vinculadas a ela.");
+                jTextFieldDescricaoCategoria.setText("");
+
+            } else {
+                try {
+                    categoriaController.excluirCategoria(categoria);
+                    jTextFieldDescricaoCategoria.setText("");
+                    carregarTabela();
+                    carregaComboBox();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } else if (jComboBoxTipo.getSelectedItem() == "Subcategoria") {
+        } else if (jComboBoxTipo.getSelectedItem()
+                == "Subcategoria") {
             Subcategoria subcategoria = new Subcategoria(idSubcategoria, jTextFieldDescricaoCategoria.getText(), (Categoria) jComboBoxCategorias.getSelectedItem());
-            subcategoriaController.excluirSubcategoria(subcategoria);
+            boolean confirmSub = GastoRiderAPI.tabelaPossuiDados("Lancamento WHERE id_subcategoria = " + subcategoria.getIdSubcategoria());
+            if (confirmSub == true) {
+                JOptionPane.showMessageDialog(this, "Essa Subcategoria não pode ser excluída, pois há lançamentos vinculados a ela.");
+                jTextFieldDescricaoCategoria.setText("");
+            } else {
+                subcategoriaController.excluirSubcategoria(subcategoria);
+                jTextFieldDescricaoCategoria.setText("");
+            }
+
             try {
                 carregarTabela();
                 carregaComboBox();
@@ -538,11 +556,12 @@ public class CategoriaView extends javax.swing.JFrame {
                 Logger.getLogger(ModeloView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        jTextFieldDescricaoCategoria.setText("");
+
+        //jTextFieldDescricaoCategoria.setText("");
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jComboBoxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoItemStateChanged
-        
+
     }//GEN-LAST:event_jComboBoxTipoItemStateChanged
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -596,10 +615,14 @@ public class CategoriaView extends javax.swing.JFrame {
             }
             // TODO add your handling code here:
             carregaComboBox();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (IOException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jComboBoxTipoActionPerformed
 
@@ -651,10 +674,14 @@ public class CategoriaView extends javax.swing.JFrame {
             setVisible(false);
             MarcaView marca = new MarcaView();
             marca.setVisible(true);
+
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (IOException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -663,10 +690,14 @@ public class CategoriaView extends javax.swing.JFrame {
             setVisible(false);
             ModeloView modelo = new ModeloView();
             modelo.setVisible(true);
+
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (IOException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -675,8 +706,10 @@ public class CategoriaView extends javax.swing.JFrame {
             setVisible(false);
             VeiculoView veiculo = new VeiculoView();
             veiculo.setVisible(true);
+
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -685,8 +718,10 @@ public class CategoriaView extends javax.swing.JFrame {
             setVisible(false);
             LancamentoView lancamentoView = new LancamentoView();
             lancamentoView.setVisible(true);
+
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaView.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -760,16 +795,24 @@ public class CategoriaView extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoriaView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -778,10 +821,14 @@ public class CategoriaView extends javax.swing.JFrame {
             public void run() {
                 try {
                     new CategoriaView().setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CategoriaView.class
+                            .getName()).log(Level.SEVERE, null, ex);
+
                 } catch (IOException ex) {
-                    Logger.getLogger(CategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CategoriaView.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
