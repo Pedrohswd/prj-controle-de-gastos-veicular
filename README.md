@@ -44,10 +44,3 @@ O arquivo `CFG_DB.txt` deve conter as informações de configuração do banco d
 - Geração de relatórios de gastos.
 - Geração de gráficos de gastos.
 
-## Aviso Legal
-
-Este projeto é disponibilizado sem garantias. Utilize por sua conta e risco.
-
-## Contato
-
-Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato pelo email pedrohsfwd@gmai.com.
